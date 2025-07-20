@@ -1,0 +1,1361 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录Serverless函数智能化的相关论文阅读研究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Serverless 智能化应用">
+<meta property="og:url" content="http://example.com/2025/07/20/serverless_ai/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录Serverless函数智能化的相关论文阅读研究">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/T6RKbWlZ9o53x3xfiy6chhkXn7g.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/EIpDbh2kooFxcOxq9BMcZ2QUnXV.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/IzQgbNQ7joYN7Hxcc5tcVVCEnNg.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/TRtMbePDxoNIBBxigoEcxkubnxh.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/QU23b2xyEogFT1xauHzcpLb8nyc.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/Y6ijbTeTXoX4WIxCz1PcJR9Ln2c.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/CXudbH1aaoYT49xu6VucvxsunPr.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/HrwgbwXlZoLJ6lxXdf1cNM8zn6b.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/UT2NbJD47ox21wxuGhLcBXrdnSd.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/YxGabeGbUod133xwYIicvqBon79.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/IcO8btF5zol6Bex960XcWQyFnxh.png">
+<meta property="og:image" content="http://example.com/assets/serverless_ai/DtNBbLlA0oOhSKxkIKwcUGIen0c.png">
+<meta property="article:published_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Serverless">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/serverless_ai/T6RKbWlZ9o53x3xfiy6chhkXn7g.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Serverless 智能化应用 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Serverless 智能化应用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-20 14:21" pubdate>
+          2025年7月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Serverless 智能化应用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Serverless-智能化应用"><a href="#Serverless-智能化应用" class="headerlink" title="Serverless 智能化应用"></a>Serverless 智能化应用</h1><h1 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h1><ul>
+<li><p>底层系统资源的配置（GPU，内存大小配置等）智能适应 or 人工设定</p>
+</li>
+<li><p>有状态函数的快速存储机制</p>
+</li>
+<li><p>容错</p>
+<ul>
+<li>执行顺序：多个无状态函数可能会乱序执行，导致结果也是乱序</li>
+<li>执行状态：有状态函数的执行可能会断掉，需要能够恢复</li>
+</ul>
+</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><h2 id="Cirrus-a-Serverless-Framework-for-End-to-end-ML-Workflow"><a href="#Cirrus-a-Serverless-Framework-for-End-to-end-ML-Workflow" class="headerlink" title="Cirrus: a Serverless Framework for End-to-end ML Workflow"></a><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3357223.3362711">Cirrus: a Serverless Framework for End-to-end ML Workflow</a></h2><p>代码仓库：<a target="_blank" rel="noopener" href="https://github.com/ucbrise/cirrus">https://github.com/ucbrise/cirrus</a></p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><ul>
+<li><p>解决 ML 过程资源配置和管理的问题</p>
+<ul>
+<li>传统的 <code>workflow</code> 拥有多个阶段，每一个阶段的计算都是异构的</li>
+<li>计算的异构使得机器学习用户很难正确配置和管理资源，并且在实践中，这会构成重大负担，经常导致过度配置并损害用户生产力。</li>
+</ul>
+</li>
+<li><p>Serverless 可以很好的管理资源</p>
+<ul>
+<li>但是很难适应 Serverless</li>
+</ul>
+</li>
+<li><p><code>Cirrus</code> 通过 Serverless 的框架对 ML 做资源的适配管理</p>
+<ul>
+<li>轻量级的工作运行时，为 ML 人员找到最适合的资源配置</li>
+<li>节省了配置大量内存或存储的成本<ul>
+<li>(a) 来自远程存储的流式训练小批量数据；</li>
+<li>(b) 重新设计分布式训练算法以在无服务器环境中稳健运行</li>
+</ul>
+</li>
+<li>采用无状态的 worker 架构，使系统能够有效地处理频繁的 worker 离开和到达作为预期行为。</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><ul>
+<li><p>ML Workflow 带来两个问题</p>
+<ul>
+<li>过度配置：如果使用虚拟机做资源的配置，配置的复杂性就会导致过度配置</li>
+<li>资源管理：管理的复杂性降低了交互式和迭代用例</li>
+</ul>
+</li>
+<li><p>Serverless 本身的挑战</p>
+<ul>
+<li>内存以及存储过小：利用无服务器计算的主要挑战是与 lambda 函数相关的本地资源限制（内存、CPU、存储、网络）非常小</li>
+<li>低带宽以及缺少 P2P 通信：最新的 Lambda 也只有 60MB 的带宽；缺少通信策略，用于数据中心机器学习的常见通信策略，例如树形结构或环形结构的 AllReduce 通信，在此类环境中受到限制</li>
+<li>启动时间短暂并且不可预测：Lambda 函数的生命周期很短，并且其启动时间变化很大。这意味着在训练期间，lambda 会在不可预测的时间开始，并可能在训练中间结束。这需要 lambda 的 ML 运行时能够容忍工作人员的频繁离开和到达。</li>
+<li>缺少快速共享存储的功能：由于 lambda 函数彼此不能直接通信，因此需要快速的共享存储。但是 ML 训练对数据的性能要求非常高，不能有太大的延时</li>
+</ul>
+</li>
+</ul>
+<h3 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h3><h4 id="系统架构图"><a href="#系统架构图" class="headerlink" title="系统架构图"></a>系统架构图</h4><p><img src="/../assets/serverless_ai/T6RKbWlZ9o53x3xfiy6chhkXn7g.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><ul>
+<li><p>Python 前端：提供了一个底层抽象系统资源的高级接口</p>
+<ul>
+<li>预处理模块：该子模块允许不同类型的数据集转换：最小-最大缩放、标准化和特征哈希。</li>
+<li>训练模块：可以使用随机梯度下降来训练的 ML 模型。</li>
+<li>超参数优化：允许用户对给定的参数集运行网格搜索。</li>
+</ul>
+</li>
+<li><p>客户端后端：解析训练数据并将其加载到 S3，在 lambda 上启动 Cirrus 工作程序，管理分布式数据存储，跟踪计算进度，并在计算完成后将结果返回到 Python 前端。</p>
+</li>
+<li><p>工作运行时：Cirrus 提供了一个运行时，它封装了系统支持的不同计算之间共享的所有函数</p>
+</li>
+<li><p>分布式数据存储：</p>
+<ul>
+<li>低延迟：将数据存储部署在云虚拟机中</li>
+<li>可扩展：Cirrus 包括以下机制：(1) 分片存储、(2) 高度多线程、(3) 数据压缩、(4) 梯度过滤器和 (5) 异步通信。</li>
+<li>强接口</li>
+</ul>
+</li>
+</ul>
+<h4 id="端到端的-ML-阶段"><a href="#端到端的-ML-阶段" class="headerlink" title="端到端的 ML 阶段"></a>端到端的 ML 阶段</h4><ul>
+<li><p>数据加载与预处理</p>
+<ul>
+<li>假设数据已经被全局存储（例如 S3）Cirrus 将其转为二进制数据</li>
+<li>使用 Map-Reduce 模式。</li>
+</ul>
+</li>
+<li><p>模型训练</p>
+<ul>
+<li>分布式 SGD 算法</li>
+<li>每个 <code>worker</code> 运行 Lambda 函数并负责迭代计算梯度步骤。每个梯度计算都需要两个输入：一个小批量和最新的模型</li>
+<li>对于每次迭代，每个工作人员都会计算一个新的梯度。然后将该梯度异步发送到数据存储 (send_gradient_X ) 以更新模型。</li>
+</ul>
+</li>
+<li><p>超参数优化</p>
+<ul>
+<li>典型的做法是在多维参数空间上执行网格搜索。通常让网格搜索完全运行完成并对结果进行后处理以找到最佳配置（过度配置）</li>
+<li>随着时间的推移，Cirrus 通过提供超参数搜索仪表板来消除这种过度配置的情况</li>
+<li>因此，Cirrus 提供 (a) 用于启动超参数搜索的 API 和执行后端，(b) 用于监控模型精度收敛的仪表板，(c) 终止单独调整实验并节省超额配置成本的能力。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="Python-前端"><a href="#Python-前端" class="headerlink" title="Python 前端"></a>Python 前端</h4><ul>
+<li>抽象了有关开发者的细节</li>
+<li>通过 API 参数覆盖内部配置参数</li>
+</ul>
+<h4 id="Client-后端"><a href="#Client-后端" class="headerlink" title="Client 后端"></a>Client 后端</h4><ul>
+<li><p>将前端的算法部署到 Lambda 上并抽象了管理</p>
+<ul>
+<li>内部保存了与 Lambda 函数的连接列表</li>
+</ul>
+</li>
+<li><p>使用线程池响应请求</p>
+<ul>
+<li>Lambda API 的特殊性</li>
+</ul>
+</li>
+</ul>
+<h4 id="分布式数据存储"><a href="#分布式数据存储" class="headerlink" title="分布式数据存储"></a>分布式数据存储</h4><ul>
+<li><p>多线程服务器，将任务分配给多个核心</p>
+<ul>
+<li>目的：高效地更新模型</li>
+</ul>
+</li>
+<li><p>对传入&#x2F;传出存储的梯度和模型实施数据压缩</p>
+<ul>
+<li>目的：减少网络带来的瓶颈</li>
+</ul>
+</li>
+<li><p>通过发送和接收稀疏梯度和模型数据结构来优化通信</p>
+</li>
+</ul>
+<h4 id="Worker-运行时"><a href="#Worker-运行时" class="headerlink" title="Worker 运行时"></a>Worker 运行时</h4><p><img src="/../assets/serverless_ai/EIpDbh2kooFxcOxq9BMcZ2QUnXV.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>ML 计算的通用抽象</li>
+<li>用于访问训练数据、参数模型和中间结果的数据原语。</li>
+</ul>
+<h2 id="Ray-A-Distributed-Framework-for-Emerging-AI-Applications"><a href="#Ray-A-Distributed-Framework-for-Emerging-AI-Applications" class="headerlink" title="Ray: A Distributed Framework for Emerging AI Applications"></a><a target="_blank" rel="noopener" href="https://www.usenix.org/conference/osdi18/presentation/moritz">Ray: A Distributed Framework for Emerging AI Applications</a></h2><h3 id="解决问题-1"><a href="#解决问题-1" class="headerlink" title="解决问题"></a>解决问题</h3><ul>
+<li><p>需求：下一代的 AI 需要持续与环境交互，对性能和复杂性有要求</p>
+<ul>
+<li>必须支持细粒度计算</li>
+<li>支持时间和资源的合理使用的异构性</li>
+<li>必须支持动态执行，因为模拟或与环境交互的结果可能会改变未来的计算</li>
+</ul>
+</li>
+<li><p>贡献：Ray，一个通用集群计算框架，支持 RL 应用程序的模拟、训练和服务</p>
+<ul>
+<li>该框架统一了新兴 RL 应用程序的训练、模拟和服务必要组件</li>
+<li>抽象任务并行以及 Actor 计算</li>
+<li>控制状态存储在分片元数据存储中，所有其他系统组件都是无状态的。</li>
+<li>自下而上的分布式调度策略</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><ul>
+<li><p>针对需求</p>
+<ul>
+<li>细粒度、异构计算<ul>
+<li>计算时间可能几秒钟到几小时</li>
+<li>硬件资源可能也不一样</li>
+</ul>
+</li>
+<li>灵活的计算模型<ul>
+<li>无状态：无状态计算可以在系统中的任何节点上执行，这使得在需要时可以轻松实现负载平衡和计算到数据的移动<ul>
+<li>适合细粒度模拟和数据处理</li>
+</ul>
+</li>
+<li>有状态：状态计算非常适合实现参数服务器、对 GPU 支持的数据执行重复计算或运行不公开其状态的第三方模拟器</li>
+</ul>
+</li>
+<li>动态执行<ul>
+<li>计算完成的顺序并不总是事先知道（例如，模拟完成的顺序），并且计算的结果可以决定未来的计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>对要实现的目标</p>
+<ul>
+<li>要每秒处理数百万个任务</li>
+<li>集成现有的模拟器以及机器学习框架</li>
+</ul>
+</li>
+</ul>
+<h3 id="编程与计算模型"><a href="#编程与计算模型" class="headerlink" title="编程与计算模型"></a>编程与计算模型</h3><h4 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h4><ul>
+<li><p><code>Tasks</code>：表示在无状态工作线程上执行远程函数</p>
+<ul>
+<li>并行：当调用远程函数时，会立即返回表示任务结果的 future</li>
+<li>协作：可以使用 ray.get() 检索 Future，并将其作为参数传递给其他远程函数</li>
+<li>无状态：对不可变对象进行操作，具有幂等性，具备容错能力</li>
+</ul>
+</li>
+<li><p><code>Actor</code>：表示有状态的计算</p>
+<ul>
+<li><code>handle</code>：可以被传递给其他的 <code>Actor</code>，便于远程调用</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/serverless_ai/IzQgbNQ7joYN7Hxcc5tcVVCEnNg.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>为了处理具有异构持续时间的并发任务，引入了 ray.wait()，它等待前 k 个可用结果，而不是像 ray.get() 那样等待所有结果。</li>
+<li>为了处理资源异构任务，使开发人员能够指定资源需求，以便 Ray 调度器能够有效地管理资源。</li>
+<li>为了提高灵活性，启用<strong>嵌套远程函数</strong>，这意味着远程函数可以调用其他远程函数。这对于实现高可扩展性也至关重要，因为它允许多个进程以分布式方式调用远程函数。</li>
+</ul>
+<h4 id="计算模型"><a href="#计算模型" class="headerlink" title="计算模型"></a>计算模型</h4><ul>
+<li><p>任务图计算：输入满足条件时自动触发</p>
+<ul>
+<li>两种节点类型<ul>
+<li>数据节点</li>
+<li>任务节点</li>
+</ul>
+</li>
+<li>两种边<ul>
+<li>数据边：捕捉数据节点和任务节点之间的依赖关系<ul>
+<li>若 D 是 T 的输出，那么从 T 到 D 就有一条连边</li>
+</ul>
+</li>
+<li>控制边：捕捉两个有调用关系的任务节点之间的计算依赖关系<ul>
+<li>若 T1 调用 T2，那么 T1 到 T2 有一条边</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Actor</p>
+<ul>
+<li>新增状态边<ul>
+<li>若 Mj 方法在 Mi 方法之后，那么 Mi 到 Mj 有一条边</li>
+<li>所有对一个 Actor 的方法的调用顺序通过状态边连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>有状态边帮助我们将参与者嵌入到无状态任务图中，因为它们捕获共享参与者内部状态的连续方法调用之间的隐式数据依赖关系</p>
+</li>
+</ul>
+<h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><ul>
+<li>应用层：实现 API</li>
+<li>系统层：提供高拓展性以及容错性</li>
+</ul>
+<h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><ul>
+<li><p><code>Driver</code>：运行用户程序的进程</p>
+</li>
+<li><p><code>Worker</code>：一个调用远程函数或 Task 的无状态进程</p>
+<ul>
+<li>由系统层分配任务</li>
+<li>当远程函数被声明时，函数被分配到所有的 <code>Worker</code></li>
+</ul>
+</li>
+<li><p><code>Actor</code>：有状态进程，在调用时仅执行他所公开的方法</p>
+<ul>
+<li><code>Actor</code> 必须被显式实例化</li>
+<li>通过之前方法的执行结果序列化地执行方法</li>
+</ul>
+</li>
+</ul>
+<h4 id="系统层"><a href="#系统层" class="headerlink" title="系统层"></a>系统层</h4><p><img src="/../assets/serverless_ai/TRtMbePDxoNIBBxigoEcxkubnxh.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="全局控制存储（GCS）：维护系统的控制状态"><a href="#全局控制存储（GCS）：维护系统的控制状态" class="headerlink" title="全局控制存储（GCS）：维护系统的控制状态"></a>全局控制存储（GCS）：维护系统的控制状态</h5><ul>
+<li><p>具有发布-订阅的键值存储</p>
+<ul>
+<li>使用分片来实现扩展</li>
+<li>使用每个分片链复制来提供容错能力</li>
+</ul>
+</li>
+<li><p>容错能力</p>
+<ul>
+<li>需要维护沿袭信息：持久沿袭信息组件与其他组件分离，每个组件独立扩展</li>
+</ul>
+</li>
+<li><p>保持低延迟</p>
+<ul>
+<li>最大限度的减少任务调度的开销</li>
+<li>任务分配与任务调度分离：对象元数据存储在 GCS 中而不是调度程序中</li>
+</ul>
+</li>
+<li><p>使系统中的每个其他组件都是无状态的</p>
+</li>
+</ul>
+<h5 id="自下而上的分部署调度器：两级分层调度器"><a href="#自下而上的分部署调度器：两级分层调度器" class="headerlink" title="自下而上的分部署调度器：两级分层调度器"></a>自下而上的分部署调度器：两级分层调度器</h5><ul>
+<li><p>全局调度器</p>
+<ul>
+<li>考虑每个节点的负载和任务的约束来做出调度决策</li>
+<li>选择提供最短估计等待时间的节点</li>
+<li>通过心跳获取每个节点的队列大小和节点资源可用性，以及来自 GCS 的任务输入的位置及其大小。</li>
+<li>如果全局调度程序成为瓶颈，可以通过 GCS 实例化更多共享相同信息的副本</li>
+</ul>
+</li>
+<li><p>每个节点本地调度器</p>
+<ul>
+<li>每个节点创建的任务首先通过本地调度器</li>
+<li>本地调度器在本地调度程序，直到节点过载</li>
+<li>当本地调度器不想管了，就交给全局调度器</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/serverless_ai/QU23b2xyEogFT1xauHzcpLb8nyc.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="内存中分布式对象存储"><a href="#内存中分布式对象存储" class="headerlink" title="内存中分布式对象存储"></a>内存中分布式对象存储</h5><p>在每个节点上，通过共享内存实现对象存储。这允许在同一节点上运行的任务之间进行零拷贝数据共享。作为数据格式，使用 Apache Arrow</p>
+<ul>
+<li><p>对象存储：</p>
+<ul>
+<li>如果任务的输入不是本地的，则输入会在执行之前复制到本地对象存储。</li>
+<li>此外，任务将其输出写入本地对象存储</li>
+</ul>
+</li>
+<li><p>低延迟</p>
+<ul>
+<li>将整个对象保持在内存中，通过 LRU 机制写入磁盘</li>
+</ul>
+</li>
+<li><p>容错</p>
+<ul>
+<li>通过沿袭重新执行来恢复任何所需的对象。</li>
+<li>在初始执行时，GCS 存储的沿袭信息追踪着有状态的 Actor 以及无状态的 Tasks</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="ServerlessLLM-Locality-Enhanced-Serverless-Inference-for-Large-Language-Models"><a href="#ServerlessLLM-Locality-Enhanced-Serverless-Inference-for-Large-Language-Models" class="headerlink" title="ServerlessLLM: Locality-Enhanced Serverless Inference for Large Language Models"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.14351">ServerlessLLM: Locality-Enhanced Serverless Inference for Large Language Models</a></h2><h3 id="解决问题-2"><a href="#解决问题-2" class="headerlink" title="解决问题"></a>解决问题</h3><ul>
+<li><p>一个局部性增强的用于大模型推理的 Serverless 系统</p>
+<ul>
+<li>利用 GPU 服务器上可用的存储和内存设备的大量容量和带宽，从而减少昂贵的远程检查点下载并实现高效的检查点加载</li>
+</ul>
+</li>
+<li><p>主要贡献</p>
+<ul>
+<li>LLM 检查点快速加载系统：利用<strong>加载优化检查点格式设计</strong>以及<strong>高效的多层检查点加载系统</strong><ul>
+<li>一个新的加载优化检查点，支持顺序、基于块的读取和高效的张量寻址</li>
+<li>多层次检查点加载系统，通过内存中<strong>数据块池</strong>，具有<strong>高效内存复制的数据路径，</strong>多阶段数据加载流水线</li>
+</ul>
+</li>
+<li>本地驱动的 LLM 推理实时迁移：允许 ServerlessLLM 有效地实现局部驱动的服务器分配，同时保持正在进行的 LLM 推理的低延迟<ul>
+<li>基于 token 的迁移决定了迁移到另一个服务器的最小 token 集</li>
+<li>二阶段迁移保证了 LLM 推理迁移时避免影响在线推理服务</li>
+</ul>
+</li>
+<li>位置感知服务器分配：使 ServerlessLLM 能够评估集群中每个服务器的状态，并有效地安排模型启动时间以利用本地检查点放置<ul>
+<li>集成了用于估计<strong>从不同层次加载检查点的时间</strong>以及<strong>迁移到另一个服务器的时间</strong>的模型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h3><p><img src="/../assets/serverless_ai/Y6ijbTeTXoX4WIxCz1PcJR9Ln2c.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>Serverless LLM 推理系统</p>
+<ul>
+<li>接收一个用户的输入请求</li>
+<li>基于之前生成的 token 迭代式生成 token</li>
+<li>每轮迭代使用一个 KV 存储来加速下一代的 token 生成</li>
+</ul>
+</li>
+<li><p>传统的 Serverless LLM 推理系统</p>
+<ul>
+<li><strong>请求路由器</strong>将请求转发到已经在运行 LLM 推理服务的实例上（称为热节点）或者让<strong>模型加载器</strong>创建更多的实例节点</li>
+<li><strong>模型加载器</strong>从未分配节点池以及冷节点池分配节点来启动一个新的 LLM 推理服务</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><h4 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h4><ul>
+<li><p>大模型推理服务</p>
+<ul>
+<li>需要大量的 GPU 资源</li>
+<li>延迟时间很难估计：取决于他们的输出长度</li>
+<li>大量的 GPU 资源被消耗：LLM 提供商需要托管大量的 LLM</li>
+</ul>
+</li>
+<li><p>为了减少 GPU 消耗</p>
+<ul>
+<li>开发者上传他们的 checkpoint -&gt; 包括模型执行文件以及模型参数</li>
+<li>接收请求后将其<strong>转发到已经加载好模型的 GPU</strong> 中</li>
+<li>使用无服务器的方法可以充分利用共享 GPU 资源，并且开发者不需要为 GPU 长时间运行付费</li>
+</ul>
+</li>
+<li><p>Serverless 保持 LLM 的 promise 时有显著的延迟</p>
+<ul>
+<li>数据可大可小</li>
+<li>数据异构</li>
+<li>利用<strong>多层的存储架构</strong>进行检查点的本地存储，并充分利用存储带宽</li>
+</ul>
+</li>
+<li><p>上述设计带来的现实问题</p>
+<ul>
+<li>如何优化检查点加载来充分利用存储带宽</li>
+<li>选择已经加载好的服务器可能会带来 GPU 服务器的争用，这部分争用不知道何时结束</li>
+<li>当接收到请求需要加载一个模型的时候，应该如何保证模型启动的最短时间</li>
+</ul>
+</li>
+</ul>
+<h4 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h4><ul>
+<li><p>从模型存储库中下载模型检查点的代价大</p>
+<ul>
+<li>从 S3 下载一个 130GB 的模型大概需要 26 秒的时间</li>
+</ul>
+</li>
+<li><p>从存储设备加载模型检查点的代价大</p>
+<ul>
+<li>使用 PyTorch 加载 OPT-30B 到 4 块 GPU 花费 34s</li>
+<li>加载 LLaMA-2-70b 到 8 块 GPU 花费 84s</li>
+</ul>
+</li>
+</ul>
+<h4 id="当前解决方案"><a href="#当前解决方案" class="headerlink" title="当前解决方案"></a>当前解决方案</h4><ul>
+<li>超额订阅模型实例：搞多点 GPU，太贵了</li>
+<li>在本地内存中缓存模型：小模型可以这么干，大模型经常 cache miss</li>
+<li>部署额外的存储服务器：部署额外存储服务器和高带宽网络的成本通常会产生巨额费用</li>
+</ul>
+<h3 id="快速-LLM-检查点加载"><a href="#快速-LLM-检查点加载" class="headerlink" title="快速 LLM 检查点加载"></a>快速 LLM 检查点加载</h3><h4 id="加载优化的检查点"><a href="#加载优化的检查点" class="headerlink" title="加载优化的检查点"></a>加载优化的检查点</h4><ul>
+<li><p>检查点通常包含</p>
+<ul>
+<li>定义模型架构的模型执行文件</li>
+<li>模型参数文件，将参数的二进制数据存储在 LLM 中</li>
+</ul>
+</li>
+<li><p>ServerlessLLM 将检查点转化一下</p>
+<ul>
+<li>支持基于块的读取：仅包含模型的二进制数据，不包含张量形状等元数据</li>
+<li>支持高效的张量寻址：创建一个索引文件，将张量名称映射到 GPU id、偏移量和大小的元组，以便于高效恢复张量</li>
+</ul>
+</li>
+<li><p>ServerlessLLM 有一个内服务模型管理器来加载优化后的检查点</p>
+<ul>
+<li>从 GPU 上分配内存并预加载检查点的二进制数据</li>
+<li>模型需要时可以有效地获取 GPU 的内存地址<ul>
+<li>通过一个<strong>加载函数</strong>，通过每个 GPU 的基地址以及偏移量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="高效的多层次检查点加载"><a href="#高效的多层次检查点加载" class="headerlink" title="高效的多层次检查点加载"></a>高效的多层次检查点加载</h4><ul>
+<li><p>内存数据块池</p>
+<ul>
+<li>使用并行化 PCI 链路</li>
+<li>支持应用级别的控制：提供 API 对内存的分配以及释放的控制</li>
+<li>减少内存碎片</li>
+</ul>
+</li>
+<li><p>高效数据路径（data path）</p>
+<ul>
+<li>利用直接文件访问？</li>
+<li>利用固定内存：使用固定内存消除 DRAM 和 GPU 之间的冗余数据复制</li>
+</ul>
+</li>
+</ul>
+<h3 id="实时迁移的本地驱动-LLM-推理"><a href="#实时迁移的本地驱动-LLM-推理" class="headerlink" title="实时迁移的本地驱动 LLM 推理"></a>实时迁移的本地驱动 LLM 推理</h3><h4 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h4><p><img src="/../assets/serverless_ai/CXudbH1aaoYT49xu6VucvxsunPr.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><strong>可用性驱动策略</strong>选择 GPU 可用的服务器 1，这使得没有被加载进来的 B 受到影响，而 A 不受影响</li>
+<li><strong>本地驱动策略</strong>选择了已经加载好模型的服务器 2，这也让 B 的加载受到影响，并且服务器 1 浪费了</li>
+<li><strong>抢先驱动策略</strong>让 B 打断 A 的推理过程，并且让 A 在服务器 1 上跑，这样让 A 被打断了</li>
+<li><strong>实时迁移的本地驱动策略</strong>让服务器 1 预加载 A 的模型，A 加载好了就把 A 迁移过去，这样对 AB 都好</li>
+</ul>
+<h4 id="实时迁移过程"><a href="#实时迁移过程" class="headerlink" title="实时迁移过程"></a>实时迁移过程</h4><ul>
+<li><p>简单的想法是创建快照并迁移</p>
+<ul>
+<li>但是这样太慢了</li>
+</ul>
+</li>
+<li><p>使用<strong>基于 Token 的迁移</strong></p>
+<ul>
+<li>前提：在推理过程中，模型检查点是只读的，并且可以低延迟地从令牌重新计算 KV 缓存</li>
+<li>所以当模型检查点的副本在另一台服务器上，就可以在那里启动模型并传输令牌</li>
+<li>传输的过程就变成了传输整数数组（小且快）</li>
+</ul>
+</li>
+<li><p>避免令牌传输时中断推理，使用<strong>二阶段传输</strong></p>
+<ul>
+<li>阶段 1：目标服务器使用中间令牌重新计算 KV 缓存</li>
+<li>阶段 2：目标服务器接收发送中间令牌后生成的剩余令牌</li>
+<li>具体过程<ul>
+<li><strong>模型加载管理器</strong>让<strong>目标服务器</strong>加载模型 A，如果目标服务器上有空闲实例 A 则跳过此步骤</li>
+<li>加载后该<strong>管理器</strong>向源服务器发送关于目标服务器的<strong>模型迁移请求</strong></li>
+<li>如果源服务器推理未完成，就将推理过程的令牌的<strong>恢复请求</strong>发送到目标服务器</li>
+<li>目标服务器根据接收的<strong>恢复请求</strong>中的令牌重新计算 KV 缓存</li>
+<li>当恢复请求结束后，源服务器停止推理，使用所有令牌和“已迁移”标志回复请求路由器。</li>
+<li>管理器完成迁移，将源服务器的模型 A 卸载并开始推理模型 B</li>
+<li><strong>请求路由器</strong>检查推理响应中的标志。如果是“迁移”，则请求路由器将其路由表中的 src 服务器替换为 dest 服务器，并将所有令牌发送到 dest 服务器以继续推理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="本地感知的服务器分配"><a href="#本地感知的服务器分配" class="headerlink" title="本地感知的服务器分配"></a>本地感知的服务器分配</h3><h4 id="模型调度器设计"><a href="#模型调度器设计" class="headerlink" title="模型调度器设计"></a>模型调度器设计</h4><ul>
+<li>模型加载时间估计器</li>
+</ul>
+<h4 id="估计模型加载时间"><a href="#估计模型加载时间" class="headerlink" title="估计模型加载时间"></a>估计模型加载时间</h4><ul>
+<li>三个要素<ul>
+<li>排队时间（q），即模型在服务器加载任务队列中的等待时间。</li>
+<li>模型大小 (n)、模型大小（以字节为单位）或其在多 GPU 推理场景中的模型分区</li>
+<li>带宽 (b)，将模型从存储传输到 GPU 的可用速度</li>
+</ul>
+</li>
+</ul>
+<h4 id="估计模型迁移时间"><a href="#估计模型迁移时间" class="headerlink" title="估计模型迁移时间"></a>估计模型迁移时间</h4><h2 id="FuncPipe-A-Pipelined-Serverless-Framework-for-Fast-and-Cost-Efficient-Training-of-Deep-Learning-Mod"><a href="#FuncPipe-A-Pipelined-Serverless-Framework-for-Fast-and-Cost-Efficient-Training-of-Deep-Learning-Mod" class="headerlink" title="FuncPipe: A Pipelined Serverless Framework for Fast and Cost-Efficient Training of Deep Learning Mod"></a><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3570607">FuncPipe: A Pipelined Serverless Framework for Fast and Cost-Efficient Training of Deep Learning Mod</a></h2><h3 id="解决问题-3"><a href="#解决问题-3" class="headerlink" title="解决问题"></a>解决问题</h3><ul>
+<li><p>深度学习在 Serverless 平台上的训练有障碍</p>
+<ul>
+<li>Serverless 基础设施的资源限制</li>
+<li>深度学习模型对内存和带宽的爆炸性需求</li>
+</ul>
+</li>
+<li><p>FuncPipe 贡献</p>
+<ul>
+<li>Serverless 训练的流水线框架：利用模型分区来弥合上述的差距</li>
+<li>流水线的 scatter-reduce 算法：提高通信效率</li>
+<li>使用混合整数二次规划（MIQP）：制定模型划分和资源分配的协同优化问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="背景知识-1"><a href="#背景知识-1" class="headerlink" title="背景知识"></a>背景知识</h3><ul>
+<li><p>Serverless 训练的好处</p>
+<ul>
+<li>不用配置虚拟机，不用管理集群</li>
+<li>按需付费</li>
+<li>资源弹性扩充</li>
+</ul>
+</li>
+<li><p>DL 训练的通信方式</p>
+<ul>
+<li>集中式：参数服务器。Worker 给参数，服务器返还参数。例如 Cirrus</li>
+<li>去中心化：基于某种协议（例如 all-reduce 或者 scatter-reduce）</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><ul>
+<li><p>Serverless 通信能力不能满足 DL 训练的通信需求</p>
+<ul>
+<li>传输的数据量少（带宽低）</li>
+<li>延迟高（不具备直接通信能力，依赖于中间件）</li>
+</ul>
+</li>
+<li><p>Serverless 内存占用小</p>
+</li>
+<li><p>问题定义：</p>
+<ul>
+<li>如何划分深度学习模型<ul>
+<li>之前的工作都是基于静态的资源，只追求最大的吞吐量</li>
+</ul>
+</li>
+<li>如何为每个 Serverless 函数分配资源</li>
+</ul>
+</li>
+</ul>
+<h3 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h3><p><img src="/../assets/serverless_ai/HrwgbwXlZoLJ6lxXdf1cNM8zn6b.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="系统架构-1"><a href="#系统架构-1" class="headerlink" title="系统架构"></a>系统架构</h4><ul>
+<li><p>启动组件</p>
+</li>
+<li><p>运行时组件</p>
+</li>
+<li><p>客户端 API</p>
+<ul>
+<li>设置、部署、监控训练</li>
+</ul>
+</li>
+</ul>
+<h4 id="训练流水线"><a href="#训练流水线" class="headerlink" title="训练流水线"></a>训练流水线</h4><p><img src="/../assets/serverless_ai/UT2NbJD47ox21wxuGhLcBXrdnSd.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>执行同步训练，避免潜在的收敛和准确性问题</p>
+<ul>
+<li>数据被分为微批次<ul>
+<li>所有的微批次都会经过每个分区进行前向计算</li>
+<li>所有前向计算完成后，微批次以相反的顺序进行反向计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>每个 Worker 有两种任务</p>
+<ul>
+<li>通信任务<ul>
+<li>分为上行、下行以及同步</li>
+<li>上行下行通过云存储完成，同步在处于同一个配置的 Worker 在一轮迭代后执行</li>
+</ul>
+</li>
+<li>计算任务</li>
+</ul>
+</li>
+<li><p>类似工作：GPipe。不同点：将通信任务视为管道阶段并将其与计算任务重叠</p>
+</li>
+</ul>
+<h4 id="分散减少流水线-scatter-reduce"><a href="#分散减少流水线-scatter-reduce" class="headerlink" title="分散减少流水线(scatter-reduce)"></a>分散减少流水线(scatter-reduce)</h4><p><img src="/../assets/serverless_ai/YxGabeGbUod133xwYIicvqBon79.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>流水线存储的分散减少算法</p>
+<ul>
+<li>将梯度划分为 n 个分割，利用所有 worker 的计算资源进行梯度聚合，那么每个 worker 符合合并一个 split</li>
+<li>三个阶段<ul>
+<li>每个 worker 将其他 worker 负责的 n-1 个梯度分割上传到存储</li>
+<li>第 i 个 worker 将其他 worker 上传的第 i 个 Worker 聚合并计算聚合后的梯度</li>
+<li>每个 worker 上传合并后的分割并计算所有其他合并的分割</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>改进后的分散减少算法</p>
+<ul>
+<li>n 个步骤<ul>
+<li>第 1 步，第 i 个 worker 上传 i+1 分割</li>
+<li>第 k 步，第 i 个 worker 上传 i+k 分割，并下载 i-(k-1)</li>
+<li>第 n 步，第 i 个 worker 已经上传了所有分割，并且从下一个 worker 获得梯度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型划分与资源分配的协同优化"><a href="#模型划分与资源分配的协同优化" class="headerlink" title="模型划分与资源分配的协同优化"></a>模型划分与资源分配的协同优化</h4><p>（没看懂）</p>
+<h3 id="系统实现"><a href="#系统实现" class="headerlink" title="系统实现"></a>系统实现</h3><ul>
+<li><p>管道任务堆叠：通过 DAG 图保证数据并行</p>
+<ul>
+<li>不同类型的任务用不同的资源需求</li>
+<li>将他们组合成一个 DAG 并通过任务执行器进行管理</li>
+<li>每个节点都有一个 ID 并且有一堆依赖的节点 ID，当依赖资源满足时可以保证恰好一次进行</li>
+</ul>
+</li>
+<li><p>基于存储的通信</p>
+<ul>
+<li>不同分区的发送和接受</li>
+<li>分区副本之间的分散减少</li>
+<li>通信使用 Python pickle 序列化并上传到存储桶</li>
+</ul>
+</li>
+<li><p>局限性</p>
+<ul>
+<li>单个层次内存过大会把 Serverless 函数弄爆</li>
+<li>可能得解决方案是张量并行</li>
+<li>使用张量并行性增加了所提出的协同优化方法的复杂性，因为额外的决策维度极大地扩展了搜索空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="部分代码实现"><a href="#部分代码实现" class="headerlink" title="部分代码实现"></a>部分代码实现</h3><p><img src="/../assets/serverless_ai/IcO8btF5zol6Bex960XcWQyFnxh.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/serverless_ai/DtNBbLlA0oOhSKxkIKwcUGIen0c.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="ElasticFlow-An-Elastic-Serverless-Training-Platform-for-Distributed-Deep-Learning"><a href="#ElasticFlow-An-Elastic-Serverless-Training-Platform-for-Distributed-Deep-Learning" class="headerlink" title="ElasticFlow: An Elastic Serverless Training Platform for Distributed Deep Learning"></a><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3575693.3575721">ElasticFlow: An Elastic Serverless Training Platform for Distributed Deep Learning</a></h2><h3 id="解决问题-4"><a href="#解决问题-4" class="headerlink" title="解决问题"></a>解决问题</h3><ul>
+<li><p>一个用于深度学习的弹性的 Serverless 训练平台</p>
+<ul>
+<li>用户只需要指定作业的深度神经网络模型和超参数，无需指定 GPU 的数量</li>
+<li>用户指定作业的 ddl，但不指定占用 GPU 的时间量</li>
+</ul>
+</li>
+<li></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Serverless/" class="print-no-link">#Serverless</a>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Serverless 智能化应用</div>
+      <div>http://example.com/2025/07/20/serverless_ai/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/20/ray/" title="Ray 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Ray 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/20/serverless_orchestration/" title="Serverless 函数编排">
+                        <span class="hidden-mobile">Serverless 函数编排</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

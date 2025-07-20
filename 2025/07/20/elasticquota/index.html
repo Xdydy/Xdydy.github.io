@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ElasticQuota 解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticQuota">
+<meta property="og:url" content="http://example.com/2025/07/20/elasticquota/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ElasticQuota 解析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/elasticquota/ElasticQuota%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://example.com/assets/elasticquota/pending-pods.png">
+<meta property="og:image" content="http://example.com/assets/elasticquota/delete-pods.png">
+<meta property="og:image" content="http://example.com/assets/elasticquota/low-deployment.png">
+<meta property="og:image" content="http://example.com/assets/elasticquota/high-deployment.png">
+<meta property="article:published_time" content="2025-07-20T06:23:58.000Z">
+<meta property="article:modified_time" content="2025-07-20T13:31:57.649Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="elasticquota">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/elasticquota/ElasticQuota%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ElasticQuota - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ElasticQuota"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-20 14:23" pubdate>
+          2025年7月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ElasticQuota</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="Koordinator-简单介绍"><a href="#Koordinator-简单介绍" class="headerlink" title="Koordinator 简单介绍"></a>Koordinator 简单介绍</h2><blockquote>
+<p>​​QoS（Quality of Service，服务质量）​​是网络和系统中用于<strong>资源分配优先级</strong>​​和​<strong>性能保障</strong>的技术机制，旨在确保关键服务在资源受限时仍能满足特定要求（如延迟、带宽、可靠性）<br>在 <code>Koordinator</code> 中，QoS用于表达Pod在该节点上的运行质量，比如获取资源的方式、获取资源的比例、QoS保障策略等</p>
+</blockquote>
+<p><code>Koordinator</code> 是一个为微服务基于<code>Qos</code>的编排工具，用于编排基于<code>k8s</code>部署的AI，大数据等应用。<br>他的诞生旨在在原有的<code>k8s</code>调度能力上做一定的增强，主要包括一下几个方面.</p>
+<ul>
+<li>在集群中协调不同类型的工作负载以及在单点上能跑不同类型的<code>pods</code></li>
+<li>允许资源过度申请来提高资源的利用率，但是仍然能满足<code>QoS</code>的保证</li>
+<li>资源编排与资源隔离来提高各种批处理任务的效率</li>
+</ul>
+<p>与k8s类似，<code>Koordinator</code>主要包括以下几个组件</p>
+<ul>
+<li><code>Koord-Scheduler</code>: 基于<code>QoS</code>敏感的任务调度器，用于任务管理。</li>
+<li><code>Koord-Descheduler</code>: 负载感知调度，一个支持节点负载<strong>重新平衡</strong>的调度插件，支持用户定义节点的CPU负载级别，以避免热点节点</li>
+<li><code>Koord-Manager</code>: 由多个控制器和 webhook 组成，用于协调共置工作负载并支持资源超额承诺调度和 SLO 管理。</li>
+<li><code>Koordlet</code>: 作为DaemonSet部署在kubernetes集群中，用于支持colocation资源过量使用、干扰检测、QoS保证等。</li>
+</ul>
+<h2 id="K8S-本身的调度能力"><a href="#K8S-本身的调度能力" class="headerlink" title="K8S 本身的调度能力"></a>K8S 本身的调度能力</h2><h3 id="K8S-下发任务的过程"><a href="#K8S-下发任务的过程" class="headerlink" title="K8S 下发任务的过程"></a>K8S 下发任务的过程</h3><ol>
+<li>用户提交<code>Pods</code>定义</li>
+</ol>
+<p>用户会通过<code>kubectl</code>将请求提交到了<code>kube-apiserver</code>组件中。</p>
+<ol start="2">
+<li>Kube-ApiServer 层</li>
+</ol>
+<ul>
+<li>认证：判断请求客户端的证书等信息（密钥管理），通过用户得到角色</li>
+<li>鉴权：检查用户是否有权限创建<code>pods</code></li>
+<li>准入控制：<ul>
+<li>ResourceQuota是否满足</li>
+<li>DefaultStorageClass</li>
+<li>PodSecurity安全策略</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>写入etcd</li>
+</ol>
+<p>API-Server会将pods的元数据信息写入到etcd中</p>
+<ol start="4">
+<li>调度器(Kube-Scheduler)</li>
+</ol>
+<ul>
+<li>监控未调度的<code>pods</code></li>
+<li>过滤：排除一些一定不能调度的节点(例如资源不足、亲和性不满足等)</li>
+<li>打分：根据亲和性规则</li>
+<li>绑定：将<code>pods</code>与<code>nodes</code>节点进行绑定</li>
+</ul>
+<ol start="5">
+<li><code>kubelet</code>接管</li>
+</ol>
+<ul>
+<li>拉取镜像</li>
+<li>创建沙箱</li>
+<li>启动容器</li>
+</ul>
+<h3 id="K8S-下的-Resource-Quota"><a href="#K8S-下的-Resource-Quota" class="headerlink" title="K8S 下的 Resource Quota"></a>K8S 下的 Resource Quota</h3><p>​​Kubernetes的Resource Quota（资源配额）​​是一种集群管理机制，用于限制命名空间（Namespace）​级别的资源使用总量，防止单个命名空间过度消耗 CPU、内存、存储等资源，从而保障集群的公平性和稳定性.</p>
+<ul>
+<li>面向场景：不同的团队在不同的<code>namespaces</code>下工作，<code>ResourceQuota</code>实现在<code>namespace</code>下的资源隔离</li>
+<li>禁止超额：如果用户创建的资源超过了<code>ResourceQuota</code>的限制，那么<code>k8s</code>会直接返回<code>403 Forbidden</code>禁止用户创建<code>pods</code></li>
+</ul>
+<p>但是<code>k8s</code>的<code>Resource Quota</code>是在<code>kube-apiserver</code>层面完成的，不具备资源借用的这种灵活性。</p>
+<h2 id="Koordinator-scheduler"><a href="#Koordinator-scheduler" class="headerlink" title="Koordinator scheduler"></a>Koordinator scheduler</h2><p>Koordinator Scheduler 是用于实现其资源高效利用率的一个调度器，相当于是<code>kube-scheduler</code>的一个升级版。<br><code>Koord-Scheduler</code>包含了许多用于任务调度的组件，例如elasticquota, Gang scheduling</p>
+<h3 id="容量调度"><a href="#容量调度" class="headerlink" title="容量调度"></a>容量调度</h3><p>容量调度是 koord-scheduler 在共享集群中管理不同用户资源使用情况的一种能力。主要通过管理 <code>ElasticQuota</code> 来实现</p>
+<h3 id="绑定调度"><a href="#绑定调度" class="headerlink" title="绑定调度"></a>绑定调度</h3><h1 id="Koordinator-的任务调度"><a href="#Koordinator-的任务调度" class="headerlink" title="Koordinator 的任务调度"></a>Koordinator 的任务调度</h1><ul>
+<li>资源隔离：在同一个节点上，一个或者一组<code>pods</code>需要进行资源隔离，以防止对其他类型的<code>pods</code>的抢占，相当于划分成为了一个个静态的箱子。<br>通常我们会通过资源配额(Quota)进行资源隔离</li>
+<li>资源抢占<ul>
+<li>在同一个配额下的抢占：高优先级的<code>pods</code>会对低优先级的<code>pods</code>进行抢占</li>
+<li>不同配额下的抢占：<code>koordinator scheduler</code>通过<code>ElasticQuota</code>实现跨资源配额下的抢占</li>
+</ul>
+</li>
+</ul>
+<h2 id="ElasticQuota"><a href="#ElasticQuota" class="headerlink" title="ElasticQuota"></a>ElasticQuota</h2><p>正如前文我们所介绍的，<code>ElasticQuota</code>是<code>Koord-Scheduler</code>一个重要的组件，其可以实现</p>
+<ul>
+<li>不同quota组的借用与归还，忙的quota可以跟空闲的quota借用资源，当空闲quota变忙的时候可以还回去</li>
+<li>它考虑了不同配额组之间的资源公平性，当繁忙配额组向空闲配额组借用资源时，可以按照一定的公平规则将资源分配给繁忙配额组。</li>
+</ul>
+<h3 id="Label-级别的隔离"><a href="#Label-级别的隔离" class="headerlink" title="Label 级别的隔离"></a>Label 级别的隔离</h3><ol>
+<li>我们可以通过以下方式创建一个<code>ElasticQuota</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">scheduling.sigs.k8s.io/v1alpha1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ElasticQuota</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">quota-example</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">quota.scheduling.koordinator.sh/parent:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-attr">quota.scheduling.koordinator.sh/is-parent:</span> <span class="hljs-string">&quot;false&quot;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">max:</span><br>    <span class="hljs-attr">cpu:</span> <span class="hljs-string">500m</span><br>    <span class="hljs-attr">memory:</span> <span class="hljs-string">40Mi</span><br>  <span class="hljs-attr">min:</span><br>    <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>    <span class="hljs-attr">memory:</span> <span class="hljs-string">20Mi</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>并且创建一个<code>pods</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">pod-example</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">quota.scheduling.koordinator.sh/name:</span> <span class="hljs-string">&quot;quota-example&quot;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">koord-scheduler</span><br>  <span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">command:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">365d</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span><br>    <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">curlimage</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-attr">limits:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">40m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">30Mi</span><br>      <span class="hljs-attr">requests:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">40m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">30Mi</span><br>  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span><br></code></pre></td></tr></table></figure>
+
+<p>可以通过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl describe elasticquota quota-example<br></code></pre></td></tr></table></figure>
+
+<p>得到当前配额资源的使用情况，得到的结果如下</p>
+<p><img src="/../assets/elasticquota/ElasticQuota%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" srcset="/img/loading.gif" lazyload alt="当前配额使用情况"></p>
+<ol start="3">
+<li>然后我们创建一个跟原来一样的<code>pods</code></li>
+</ol>
+<p>可以看到它正在<code>pending</code></p>
+<p><img src="/../assets/elasticquota/pending-pods.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<p>把原本正在运行的<code>pods</code>删掉</p>
+<p><img src="/../assets/elasticquota/delete-pods.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h3 id="Label-级别的抢占"><a href="#Label-级别的抢占" class="headerlink" title="Label 级别的抢占"></a>Label 级别的抢占</h3><p>前文我们已经演示了通过<code>Label</code>实现资源的隔离，在一个配额内我们某些高优先级的任务能够抢占低优先级的任务</p>
+<ol>
+<li>创建优先级<code>class</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">scheduling.k8s.io/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">PriorityClass</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">high-priority</span>  <span class="hljs-comment"># 优先级名称</span><br><span class="hljs-attr">value:</span> <span class="hljs-number">1000000</span>         <span class="hljs-comment"># 优先级数值（越高越优先）</span><br><span class="hljs-attr">globalDefault:</span> <span class="hljs-literal">false</span>   <span class="hljs-comment"># 是否作为默认优先级（通常设为 false）</span><br><span class="hljs-attr">description:</span> <span class="hljs-string">&quot;High priority for critical workloads&quot;</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">scheduling.k8s.io/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">PriorityClass</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">low-priority</span>  <span class="hljs-comment"># 优先级名称</span><br><span class="hljs-attr">value:</span> <span class="hljs-number">1000</span>         <span class="hljs-comment"># 优先级数值（越高越优先）</span><br><span class="hljs-attr">globalDefault:</span> <span class="hljs-literal">false</span>   <span class="hljs-comment"># 是否作为默认优先级（通常设为 false）</span><br><span class="hljs-attr">description:</span> <span class="hljs-string">&quot;Low priority for critical workloads&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建<code>elasticquota</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">scheduling.sigs.k8s.io/v1alpha1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ElasticQuota</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">quota-example</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">quota.scheduling.koordinator.sh/parent:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-attr">quota.scheduling.koordinator.sh/is-parent:</span> <span class="hljs-string">&quot;false&quot;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">max:</span><br>    <span class="hljs-attr">cpu:</span> <span class="hljs-string">1Gi</span><br>    <span class="hljs-attr">memory:</span> <span class="hljs-string">40Mi</span><br>  <span class="hljs-attr">min:</span><br>    <span class="hljs-attr">cpu:</span> <span class="hljs-string">1Gi</span><br>    <span class="hljs-attr">memory:</span> <span class="hljs-string">20Mi</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建低优先级的<code>deployment</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-low-priority</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">busybox</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">quota.scheduling.koordinator.sh/name:</span> <span class="hljs-string">&quot;quota-example&quot;</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">koord-scheduler</span><br>      <span class="hljs-attr">priorityClassName:</span> <span class="hljs-string">low-priority</span>  <span class="hljs-comment"># 引用已创建的 PriorityClass</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">command:</span> <br>          <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;10d&quot;</span><br>        <span class="hljs-attr">resources:</span><br>          <span class="hljs-attr">requests:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">10Mi</span><br></code></pre></td></tr></table></figure>
+
+<p>由于3个<code>10Mi</code>内存的<code>pods</code>并没有超过配额的限制，因此可以运行</p>
+<p><img src="/../assets/elasticquota/low-deployment.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<ol start="4">
+<li>创建高优先级的<code>pods</code></li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">busy-high-priority</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">busybox</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">quota.scheduling.koordinator.sh/name:</span> <span class="hljs-string">&quot;quota-example&quot;</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">koord-scheduler</span><br>      <span class="hljs-attr">priorityClassName:</span> <span class="hljs-string">high-priority</span>  <span class="hljs-comment"># 引用已创建的 PriorityClass</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">command:</span> <br>          <span class="hljs-bullet">-</span> <span class="hljs-string">sleep</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;10d&quot;</span><br>        <span class="hljs-attr">resources:</span><br>          <span class="hljs-attr">requests:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">10Mi</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到高优先级的<code>pods</code>可以抢占低优先级的<code>pods</code></p>
+<p><img src="/../assets/elasticquota/high-deployment.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h3 id="Namespaces级别的隔离"><a href="#Namespaces级别的隔离" class="headerlink" title="Namespaces级别的隔离"></a>Namespaces级别的隔离</h3><p>其中的<code>namespace</code>隔离与<code>label</code>隔离接口接近，这里不再赘述</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/k8s/" class="print-no-link">#k8s</a>
+      
+        <a href="/tags/elasticquota/" class="print-no-link">#elasticquota</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ElasticQuota</div>
+      <div>http://example.com/2025/07/20/elasticquota/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/20/knative/" title="knative 学习笔记">
+                        <span class="hidden-mobile">knative 学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

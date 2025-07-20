@@ -1,0 +1,1190 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="分布式系统复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统复习提纲">
+<meta property="og:url" content="http://example.com/2024/01/01/dis_sys/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分布式系统复习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/dissys/PbFmbBg6logxpXx6uk2cZPeQn5g.png">
+<meta property="og:image" content="http://example.com/assets/dissys/OaQgbMXlFoTgVgx6s72cYO3vnmb.png">
+<meta property="og:image" content="http://example.com/assets/dissys/TNRob81TyoXRw7xLZMGc8yO0nBd.png">
+<meta property="og:image" content="http://example.com/assets/dissys/XDwKbUnfEoxK9yxz57jc5TrTnKb.png">
+<meta property="og:image" content="http://example.com/assets/dissys/LfSibII6goQqEqxuuGicjN01n1d.png">
+<meta property="og:image" content="http://example.com/assets/dissys/WaBbb45MXonGXhx1ROcc5HhSnob.png">
+<meta property="og:image" content="http://example.com/assets/dissys/UYJqbDvyUoXXBZxnDydcKiwLn7g.png">
+<meta property="og:image" content="http://example.com/assets/dissys/Q4QGbhriBo58b6xgFERcVwOMnkf.png">
+<meta property="og:image" content="http://example.com/assets/dissys/OJfIbPskSo5yuexGMaBcJAz1nYd.png">
+<meta property="og:image" content="http://example.com/assets/dissys/WwRsb4zvcoWtnuxdPqucYiCvnec.png">
+<meta property="og:image" content="http://example.com/assets/dissys/N76ObRwxMokGQAxmdTXcsXrIn2f.png">
+<meta property="og:image" content="http://example.com/assets/dissys/HXtobaw3boKRzJxJ6BfcIwYgnUc.png">
+<meta property="og:image" content="http://example.com/assets/dissys/BEzwbA9bmoqQeLx88yfcE5OEnUe.png">
+<meta property="og:image" content="http://example.com/assets/dissys/KAkEb4KQyow2VuxF9qucLjE4nVb.png">
+<meta property="og:image" content="http://example.com/assets/dissys/QC6SbovcCoKdkuxtCMXcsSOVnSf.png">
+<meta property="og:image" content="http://example.com/assets/dissys/UIihbYByLoh8DKxN1Z4cLcQmnKj.png">
+<meta property="og:image" content="http://example.com/assets/dissys/DYmzbJcSNo9qvqxgykvc9MzrnRc.png">
+<meta property="og:image" content="http://example.com/assets/dissys/XlXqbGFH3oUgVLxCJOwciGs6n6f.png">
+<meta property="og:image" content="http://example.com/assets/dissys/KG5ebuiEXofXSYxdX9ccSjmZnse.png">
+<meta property="article:published_time" content="2024-01-01T01:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/dissys/PbFmbBg6logxpXx6uk2cZPeQn5g.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>分布式系统复习提纲 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分布式系统复习提纲"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-01 09:00" pubdate>
+          2024年1月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">分布式系统复习提纲</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h1><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分布式系统的定义"><a href="#分布式系统的定义" class="headerlink" title="分布式系统的定义"></a>分布式系统的定义</h2><ul>
+<li>分布式系统是若干独立计算机的集合，这些计算机对于用户来说就像是单个相关系统</li>
+<li>为了使各类异构的计算机和网络都呈现为单个的系统，分布式系统常常通过一个软件层组织起来，这样的分布式系统有时又称为中间件</li>
+</ul>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li><p>使资源可访问</p>
+</li>
+<li><p>透明性：如果一个分布式系统能够在用户和应用程序面前呈现为单个计算机系统，这样的分布式系统就称为是透明的</p>
+<ul>
+<li>访问透明性：对不同数据的表示形式以及资源访问的隐藏</li>
+<li>位置透明性：用户无法感知到资源在系统中的物理位置</li>
+<li>迁移透明性：分布式系统的资源迁移不会影响该资源的访问方式</li>
+<li>重定向透明性：资源可以在接收访问的同时进行重新定位而不引起用户和应用程序的注意</li>
+<li>复制透明性：对同一资源存在多个副本这样一个事实的隐藏</li>
+<li>并发透明性：确保对共享资源的并发访问不会破坏资源的一致状态</li>
+<li>故障透明性：用户不会注意到某个资源无法正常工作</li>
+</ul>
+</li>
+<li><p>开放性</p>
+<ul>
+<li>开放的分布式系统：根据一系列准则来提供服务，这些准则描述了服务的语法与语义</li>
+<li>分布式系统中服务通常通过接口指定，接口一般是通过接口定义语言描述</li>
+<li>互操作性：来自不同厂商的系统或组件的两种实现能够在何种程度上共存并且协同工作</li>
+<li>可移植性</li>
+<li>做法：策略与机制分离<ul>
+<li>机制：对应一个接口。例如万维网的缓存机制</li>
+<li>策略：对应具体做法。允许用户修改缓存策略</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>可扩展性</p>
+<ul>
+<li>规模上扩展</li>
+<li>地域上扩展</li>
+<li>管理上扩展</li>
+</ul>
+</li>
+</ul>
+<h2 id="分布式系统的类型"><a href="#分布式系统的类型" class="headerlink" title="分布式系统的类型"></a>分布式系统的类型</h2><h3 id="分布式计算系统"><a href="#分布式计算系统" class="headerlink" title="分布式计算系统"></a>分布式计算系统</h3><h4 id="集群计算系统"><a href="#集群计算系统" class="headerlink" title="集群计算系统"></a>集群计算系统</h4><ul>
+<li>每个群都是由一个计算机节点集组成的，它们可以由单个主节点来控制和访问</li>
+</ul>
+<h4 id="网格计算系统"><a href="#网格计算系统" class="headerlink" title="网格计算系统"></a>网格计算系统</h4><ul>
+<li>网格计算系统具有高度的异构性：其硬件、操作系统、网络、管理域和安全策略等都不尽相同</li>
+</ul>
+<h3 id="分布式信息系统"><a href="#分布式信息系统" class="headerlink" title="分布式信息系统"></a>分布式信息系统</h3><h4 id="事务处理系统"><a href="#事务处理系统" class="headerlink" title="事务处理系统"></a>事务处理系统</h4><p>对事务处理的程序要求有特定的原函数，即必须能被底层的分布式系统或编程语言的运行时系统所支持。</p>
+<ul>
+<li>事务的 4 个特性<ul>
+<li>原子性：对于外部来说，事务处理是不可见的</li>
+<li>一致性：事务处理不会违反系统的不变性</li>
+<li>独立性：并发的事务处理不会互相干扰</li>
+<li>持久性：事务处理一旦提交，所发生的改变是永久性的</li>
+</ul>
+</li>
+</ul>
+<h4 id="企业应用集成"><a href="#企业应用集成" class="headerlink" title="企业应用集成"></a>企业应用集成</h4><ul>
+<li>通信中间件<ul>
+<li>远程过程调用：通过一个本地过程调用，有效地往另一个应用程序组件发送一个请求</li>
+<li>远程方法调用：操作的是对象而不是应用程序</li>
+<li>面向消息的中间件：发布订阅系统</li>
+</ul>
+</li>
+</ul>
+<h3 id="分布式普适系统"><a href="#分布式普适系统" class="headerlink" title="分布式普适系统"></a>分布式普适系统</h3><h1 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h1><h2 id="体系结构的样式"><a href="#体系结构的样式" class="headerlink" title="体系结构的样式"></a>体系结构的样式</h2><ul>
+<li>分层体系结构：计算机网络</li>
+<li>基于对象的体系结构：RPC</li>
+<li>以数据为中心的体系结构：Web</li>
+<li>基于事件的体系结构：发布订阅系统</li>
+</ul>
+<h2 id="系统体系结构"><a href="#系统体系结构" class="headerlink" title="系统体系结构"></a>系统体系结构</h2><h3 id="集中式体系结构"><a href="#集中式体系结构" class="headerlink" title="集中式体系结构"></a>集中式体系结构</h3><ul>
+<li>应用分层</li>
+<li>多层体系结构</li>
+</ul>
+<h3 id="非集中式体系结构"><a href="#非集中式体系结构" class="headerlink" title="非集中式体系结构"></a>非集中式体系结构</h3><ul>
+<li>结构化点对点体系结构</li>
+<li>非结构化的点对点体系结构</li>
+<li>覆盖网络的拓扑管理</li>
+<li>超级对等体</li>
+</ul>
+<h3 id="混合体系结构"><a href="#混合体系结构" class="headerlink" title="混合体系结构"></a>混合体系结构</h3><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><h2 id="代码迁移"><a href="#代码迁移" class="headerlink" title="代码迁移"></a>代码迁移</h2><h3 id="代码迁移方案"><a href="#代码迁移方案" class="headerlink" title="代码迁移方案"></a>代码迁移方案</h3><ul>
+<li><p>理由：把进程由负载较重的机器上转移到负载较轻的机器上去</p>
+</li>
+<li><p>代码迁移模型</p>
+<ul>
+<li>代码段</li>
+<li>资源段</li>
+<li>执行段</li>
+</ul>
+</li>
+<li><p>形式</p>
+<ul>
+<li>弱可移动性：代码段与初始化数据</li>
+<li>强可移动性：传输执行段</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/PbFmbBg6logxpXx6uk2cZPeQn5g.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="迁移与本地资源"><a href="#迁移与本地资源" class="headerlink" title="迁移与本地资源"></a>迁移与本地资源</h3><ul>
+<li>按标识符绑定：进程明确指定的只是要引用哪些资源</li>
+<li>按类型绑定：进程指指明它需要哪一种类型的资源</li>
+</ul>
+<h3 id="异构系统中的代码迁移"><a href="#异构系统中的代码迁移" class="headerlink" title="异构系统中的代码迁移"></a>异构系统中的代码迁移</h3><h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="通信类型"><a href="#通信类型" class="headerlink" title="通信类型"></a>通信类型</h3><ul>
+<li>持久通信：提交传输的消息一直由通信中间件存储，直到该消息被传送给接收方为止</li>
+<li>瞬时通信：通信系统只有在发送和接收应用程序正在运行时才存储消息</li>
+<li>异步通信：发送方在提交要传输的消息立即往下执行</li>
+<li>同步通信：发送方将被阻塞，直到知道其请求被接受以后</li>
+</ul>
+<h2 id="远程过程调用"><a href="#远程过程调用" class="headerlink" title="远程过程调用"></a>远程过程调用</h2><p>机器 A 上的进程调用机器 B 上的进程时，A 上的调用进程被挂起，而 B 上的被调用进程开始执行</p>
+<p>总的来说，远程过程调用包含下列步骤：</p>
+<ol>
+<li>客户过程以正常的方式调用客户存根</li>
+<li>客户存根生成一个消息，然后调用本地操作系统</li>
+<li>客户端操作系统将消息发送给远程操作系统</li>
+<li>远程操作系统将消息发给服务器存根</li>
+<li>服务器存根将参数提取出来，然后调用服务器</li>
+<li>服务器执行要求的操作，操作完成后将结果返回给服务器存根</li>
+<li>服务器存根将结果打包成一个消息，然后调用本地操作系统</li>
+<li>服务器操作系统将含有结果的消息发送回客户端操作系统</li>
+<li>客户端操作系统将消息交给客户存根</li>
+<li>客户存根将结果从消息中提取出来，返回给调用它的客户过程</li>
+</ol>
+<h1 id="命名系统"><a href="#命名系统" class="headerlink" title="命名系统"></a>命名系统</h1><h2 id="名称、标识符和地址"><a href="#名称、标识符和地址" class="headerlink" title="名称、标识符和地址"></a>名称、标识符和地址</h2><ul>
+<li><p>访问点：要对实体进行操作，就需要访问实体，因此需要一个访问点</p>
+</li>
+<li><p>地址：访问点的名称称为地址</p>
+</li>
+<li><p>标识符：具有以下属性的名称</p>
+<ul>
+<li>一个标识符最多引用一个实体</li>
+<li>每个实体最多由一个标识符引用</li>
+<li>一个标识符始终引用同一个实体</li>
+</ul>
+</li>
+</ul>
+<h2 id="无层次命名"><a href="#无层次命名" class="headerlink" title="无层次命名"></a>无层次命名</h2><h3 id="简单方法"><a href="#简单方法" class="headerlink" title="简单方法"></a>简单方法</h3><ul>
+<li><p>广播与多播：随着网络的膨胀广播开始变得低效</p>
+</li>
+<li><p>转发指针：</p>
+<ul>
+<li>链可能会特别长</li>
+<li>只要需要，链中的所有中间位置就必须维护它们的那一部分转发指针链</li>
+<li>所在的链很脆弱，易断开</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于宿主位置的方法"><a href="#基于宿主位置的方法" class="headerlink" title="基于宿主位置的方法"></a>基于宿主位置的方法</h3><ul>
+<li><p>每个移动主机都有一个固定的 IP 地址，所有与该 IP 地址进行的通信一开始都被转发到移动主机的宿主代理中</p>
+</li>
+<li><p>当一台移动主机转移到另一个网络中时，它会请求一个可以用来通信的临时地址，这种转交地址要在宿主代理中注册</p>
+</li>
+<li><p>当宿主代理接收到发给移动主机的数据包时，它会查找主机的当前位置</p>
+<ul>
+<li>如果主机是在当前本地网络中，那么就只需转发数据包</li>
+<li>否则，建立一条通往主机当前位置的通道，也就是说，它会把数据组装成 IP 包，然后发送给转交地址。同时，将把主机的当前位置告诉数据包的发送者</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>必须保证宿主位置始终存在</li>
+</ul>
+</li>
+</ul>
+<h3 id="分层方法"><a href="#分层方法" class="headerlink" title="分层方法"></a>分层方法</h3><ul>
+<li>分层方案中，网络被划分为一组域，有一个覆盖整个网络的顶级域，每个域又可以进一步分成多个更小的子域</li>
+<li>查询操作</li>
+</ul>
+<p><img src="/../assets/dissys/OaQgbMXlFoTgVgx6s72cYO3vnmb.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>更新操作</li>
+</ul>
+<p><img src="/../assets/dissys/TNRob81TyoXRw7xLZMGc8yO0nBd.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="同步化"><a href="#同步化" class="headerlink" title="同步化"></a>同步化</h1><h2 id="时钟同步"><a href="#时钟同步" class="headerlink" title="时钟同步"></a>时钟同步</h2><h3 id="时钟同步算法"><a href="#时钟同步算法" class="headerlink" title="时钟同步算法"></a>时钟同步算法</h3><ul>
+<li><p>网络时间协议：客户与时间服务器联系<br><img src="/../assets/dissys/XDwKbUnfEoxK9yxz57jc5TrTnKb.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>创建了两条连接，B 也可以探查 A 的当前时间，延时的计算如下</li>
+</ul>
+<p>$$<br>igma &#x3D; \frac{(T_2-T_1) + (T_4-T_3)}{2}<br>$$</p>
+</li>
+<li><p>Berkeley 算法</p>
+<ul>
+<li>时间服务器是主动的，定期地询问每台机器的时间</li>
+<li>基于这些回答，计算出一个平均时间，并告诉所有其他机器将它们的时钟拨快到一个新的时间</li>
+<li>基于这些回答，计算出一个平均时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="逻辑时钟"><a href="#逻辑时钟" class="headerlink" title="逻辑时钟"></a>逻辑时钟</h2><h3 id="Lamport-逻辑时钟"><a href="#Lamport-逻辑时钟" class="headerlink" title="Lamport 逻辑时钟"></a>Lamport 逻辑时钟</h3><ul>
+<li>计数器更新<ul>
+<li>在执行一个事件之前（如在网络上发送一个消息，传送一个消息给应用程序，或者其他内部事件），$P_i$执行$C_i \leftarrow C_i+1$</li>
+<li>当进程$P_i$发送一个消息 m 给$P_i$时，在执行前面的步骤后，把 m 的时间戳$ts(m)$设置为等于$C_i$</li>
+<li>在接收消息 m 时，进程$P_i$调整自己的局部计数器为$C_j \leftarrow \max {C_i, ts(m)}$，然后执行第一步，并把消息传送给应用程序</li>
+</ul>
+</li>
+</ul>
+<h3 id="向量时钟"><a href="#向量时钟" class="headerlink" title="向量时钟"></a>向量时钟</h3><ul>
+<li>Lamport 不能捕获因果关系</li>
+</ul>
+<p><img src="/../assets/dissys/LfSibII6goQqEqxuuGicjN01n1d.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>向量时钟的创建是通过让每个进程$P_i$维护一个向量$VC_i$来完成的，该向量具有下面两个性质</p>
+<ul>
+<li>$VC_i[i]$是到目前为止进程$P_i$发生的事件的数量</li>
+<li>如果$VC_i[j]&#x3D;k$,那么进程$P_i$知道进程$P_j$中已经发生了 k 个事件。因此，$P_i$知道$P_j$的逻辑时间</li>
+</ul>
+</li>
+<li><p>步骤</p>
+<ul>
+<li>在执行一个事件之前（如在网络上发送一个消息，传送一个消息给应用程序，或者其他内部事件），$P_i$执行$VC_i[i] \leftarrow VC_i[i] + 1$</li>
+<li>当进程$P_i$发送一个消息 m 给$P_i$时，在执行前面的步骤后，把 m 的时间戳$ts(m)$设置为等于$VC_i$</li>
+<li>当接收消息 m 时，进程$P_j$通过为每个 k 设置$VC_j[k] \leftarrow \max { VC_j[k], ts(m)[k] }$来调整自己的向量。然后，执行第一步，并把自己的消息传送给应用程序</li>
+</ul>
+</li>
+</ul>
+<h2 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h2><h3 id="集中式算法"><a href="#集中式算法" class="headerlink" title="集中式算法"></a>集中式算法</h3><p>选举一个进程作为协作者，无论何时一个进程要访问共享资源，都要向协作者发送一个请求消息，说明它想要访问哪个资源并请求准许</p>
+<h3 id="分布式算法"><a href="#分布式算法" class="headerlink" title="分布式算法"></a>分布式算法</h3><p>该算法的工作过程如下：当一个进程要访间一个共享资源时，它构造一个消息，其中包含它要访问的资源名、它的进程号和当前（逻辑）时间。然后，它将该消息发送给所有其他的进程，理论上讲也包括它自己，假设消息的传送是可靠的，也就是说，没有消息丢失。</p>
+<p>当一个进程接收到来自另一个进程的请求消息时，它根据自己与消息中的资源相关的状态来决定它要采取的动作。可以分为三种情况</p>
+<ul>
+<li>若接收者没有访问资源，而且也不想访问它，就向发送者发送一个 OK 消息。</li>
+<li>若接收者已获得对资源的访问，那么它就不进行应答，而是将该请求放入队列中。</li>
+<li>如果接收者想访问费源但尚未访问时，它收到的消息的时间截与包含在它发送给其他进程的消息中的时间藏进行比较。时间戳最早的那个进程获胜。如果收到的消息的时间截比较早，那么接收者向发送者发回一个 OK 消息，如果它自己的消息的时间截比较队列中，并且不发送任何消息</li>
+</ul>
+<p><img src="/../assets/dissys/WaBbb45MXonGXhx1ROcc5HhSnob.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="令牌环算法"><a href="#令牌环算法" class="headerlink" title="令牌环算法"></a>令牌环算法</h3><ul>
+<li><p>环初始化时，进程 0 得到一个令牌</p>
+</li>
+<li><p>令牌绕着环运行，用点对点发送消息的方式把令牌从进程 k 传到进程 k+1</p>
+</li>
+<li><p>拿到令牌的资源检查自己是否需要访问资源</p>
+<ul>
+<li>要。继续完成要做的工作，然后释放资源</li>
+<li>不要。向下传递</li>
+</ul>
+</li>
+</ul>
+<h2 id="选举算法"><a href="#选举算法" class="headerlink" title="选举算法"></a>选举算法</h2><h3 id="传统的选举算法"><a href="#传统的选举算法" class="headerlink" title="传统的选举算法"></a>传统的选举算法</h3><ul>
+<li><p>欺负算法</p>
+<ul>
+<li>任何一个进程发现协作者不再响应请求的时候，它就发起一次选举，按照如下过程<ul>
+<li>P 向所有编号比它大的进程发送一个 <code>ELECTION</code> 消息</li>
+<li>如果无人响应，P 获胜并成为协作者</li>
+<li>如果有编号比它大的进程的响应，则由响应者接管选举工作，P 的工作完成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>环算法</p>
+<ul>
+<li>当任何一个进程注意到协作者不工作时，它就构造一个带有他自己的进程号的 <code>ELECTION</code> 消息并把消息发送给它的后继者</li>
+<li>如果后继者崩溃了，发送者沿着此环跳过它的后继者发送给下一个进程，直到找到一个正在运行的进程</li>
+<li>最终消息返回到此次选举的进程，当发起者进程接收到一个包含它自己的进程号的消息时，它识别出这个事件。此时该进程再一次绕环运行，向所有进程通知谁是协作者</li>
+</ul>
+</li>
+</ul>
+<h1 id="一致性与复制"><a href="#一致性与复制" class="headerlink" title="一致性与复制"></a>一致性与复制</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><ul>
+<li><p>可靠性</p>
+<ul>
+<li>当一个副本被破坏后，文件系统只需转换到另一个数据副本就可以继续执行下去</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>当分布式系统需要在服务器数量和地理区域上进行扩展时，复制对于提高性能时相当重要的</li>
+</ul>
+</li>
+</ul>
+<h2 id="以数据为中心的一致性模型"><a href="#以数据为中心的一致性模型" class="headerlink" title="以数据为中心的一致性模型"></a>以数据为中心的一致性模型</h2><h3 id="严格一致性"><a href="#严格一致性" class="headerlink" title="严格一致性"></a>严格一致性</h3><p>任何读的结果都是最近的一次写的结果</p>
+<p><img src="/../assets/dissys/UYJqbDvyUoXXBZxnDydcKiwLn7g.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="顺序一致性"><a href="#顺序一致性" class="headerlink" title="顺序一致性"></a>顺序一致性</h3><p>任何执行结果都是相同的，就好像所有进程对数据存储的读写操作是按照某种序列顺序执行的，并且每个进程的操作按照程序所制定的顺序出现在这个序列中</p>
+<p><img src="/../assets/dissys/Q4QGbhriBo58b6xgFERcVwOMnkf.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="线性一致性"><a href="#线性一致性" class="headerlink" title="线性一致性"></a>线性一致性</h3><p>所有进程的读写都以某种串行方式执行，顺序以及各个进程的操作维持的顺序是指定的</p>
+<h3 id="因果一致性"><a href="#因果一致性" class="headerlink" title="因果一致性"></a>因果一致性</h3><p>一种弱化的顺序一致性模型，将具有潜在因果关系的事件和没有因果关系的事件区分开来</p>
+<ul>
+<li>所有进程必须以相同的顺序看到具有潜在因果关系的写操作，不同机器上可以以不同的顺序看到并发的写操作</li>
+</ul>
+<p><img src="/../assets/dissys/OJfIbPskSo5yuexGMaBcJAz1nYd.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FIFO-一致性"><a href="#FIFO-一致性" class="headerlink" title="FIFO 一致性"></a>FIFO 一致性</h3><p>通过单一的进程写在其他的进程看来顺序是一致的，但是不同的进程写在其他的进程看来就未必一致</p>
+<p><img src="/../assets/dissys/WwRsb4zvcoWtnuxdPqucYiCvnec.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="弱一致性"><a href="#弱一致性" class="headerlink" title="弱一致性"></a>弱一致性</h3><p>在所有先前的所有写入都已到处完成之前，不允许对同步变量进行任何操作</p>
+<h3 id="释放一致性"><a href="#释放一致性" class="headerlink" title="释放一致性"></a>释放一致性</h3><p>在对共享变量的读写操作释放之前，之前所有的请求都必须被成功执行</p>
+<p><img src="/../assets/dissys/N76ObRwxMokGQAxmdTXcsXrIn2f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="入口一致性"><a href="#入口一致性" class="headerlink" title="入口一致性"></a>入口一致性</h3><p>不允许执行同步变量的获取访问，直到对受保护的共享数据的所有更新都已完成为止</p>
+<p><img src="/../assets/dissys/HXtobaw3boKRzJxJ6BfcIwYgnUc.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="以客户为中心的一致性模型"><a href="#以客户为中心的一致性模型" class="headerlink" title="以客户为中心的一致性模型"></a>以客户为中心的一致性模型</h2><h3 id="最终一致性"><a href="#最终一致性" class="headerlink" title="最终一致性"></a>最终一致性</h3><ul>
+<li><p>为什么要最终一致性？</p>
+<ul>
+<li>大多数进程几乎从不执行更新操作，而只从数据库读取数据</li>
+<li>只有部分进程被允许更新名称空间中它所负责的部分，基本不会出现写-写操作冲突，唯一需要处理的情况是读-写操作冲突。这种情况通常允许以懒惰的方式传播更新操作</li>
+</ul>
+</li>
+<li><p>什么是最终一致性？</p>
+<ul>
+<li>如果在一段很长的时间内没有更新操作，那么所有的副本将逐渐地成为一致的，这种形式的一致性称为最终一致性</li>
+</ul>
+</li>
+</ul>
+<h3 id="单调读一致性"><a href="#单调读一致性" class="headerlink" title="单调读一致性"></a>单调读一致性</h3><ul>
+<li>定义<ul>
+<li>如果一个进程读取数据项 x 的值，那么对该 x 执行的任何后续读操作将总是看到第一个读取的那个值或更新的值</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/BEzwbA9bmoqQeLx88yfcE5OEnUe.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="单调写一致性"><a href="#单调写一致性" class="headerlink" title="单调写一致性"></a>单调写一致性</h3><ul>
+<li>定义<ul>
+<li>一个进程对数据项 x 执行的写操作必须在对该进程对 x 执行的任何后续写操作之前完成<br><img src="/../assets/dissys/KAkEb4KQyow2VuxF9qucLjE4nVb.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+</li>
+</ul>
+<h3 id="读写一致性"><a href="#读写一致性" class="headerlink" title="读写一致性"></a>读写一致性</h3><ul>
+<li>定义<ul>
+<li>一个进程对数据项 x 执行一次写操作的结果总是会被该进程对 x 执行的后续读操作看见</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/QC6SbovcCoKdkuxtCMXcsSOVnSf.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="写读一致性"><a href="#写读一致性" class="headerlink" title="写读一致性"></a>写读一致性</h3><ul>
+<li>定义<ul>
+<li>同一个进程对数据项 x 执行的读操作之后的写操作，保证发生在与 x 读取值相同或比之更新的值上</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/UIihbYByLoh8DKxN1Z4cLcQmnKj.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="一致性协议"><a href="#一致性协议" class="headerlink" title="一致性协议"></a>一致性协议</h2><h3 id="持续一致性"><a href="#持续一致性" class="headerlink" title="持续一致性"></a>持续一致性</h3><h3 id="基于主备份的协议"><a href="#基于主备份的协议" class="headerlink" title="基于主备份的协议"></a>基于主备份的协议</h3><p>事实证明，在顺序一致性中，基于主备份的协议比较盛行。在这些协议中，数据存储中的每个数据项有一个相关的主备份，该主备份负责协调在 x 上的写操作。根据主备份是否固定在一个远程服务器上，还是将主备份移动到启动写操作的进程那里之后写操作是否可以在本地执行，可以区分各种主备份协议</p>
+<h4 id="远程写协议"><a href="#远程写协议" class="headerlink" title="远程写协议"></a>远程写协议</h4><ul>
+<li>定义<ul>
+<li>所有读操作和写操作都转发给单个固定的远程服务器的协议</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/DYmzbJcSNo9qvqxgykvc9MzrnRc.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>问题<ul>
+<li>阻塞操作：性能问题，启动更新的进程在被允许继续执行前，可鞥需要等待较长的时间</li>
+<li>非阻塞操作：容错能力。</li>
+</ul>
+</li>
+</ul>
+<h4 id="本地写协议"><a href="#本地写协议" class="headerlink" title="本地写协议"></a>本地写协议</h4><ul>
+<li><p>定义</p>
+<ul>
+<li>其主副本在要执行写操作的进程之间迁移。当某个进程要更新数据项 x 时，先定位 x 的主副本，然后把它移到自己的位置上</li>
+</ul>
+</li>
+<li><p>优点</p>
+<ul>
+<li>可以在本地执行多个连续的写操作，而读操作仍可以访问其本地副本</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/XlXqbGFH3oUgVLxCJOwciGs6n6f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="复制的写协议"><a href="#复制的写协议" class="headerlink" title="复制的写协议"></a>复制的写协议</h3><p>写操作可以在多个副本上执行，而不是像主备份的副本那样只在一个副本上执行</p>
+<h4 id="主动复制"><a href="#主动复制" class="headerlink" title="主动复制"></a>主动复制</h4><ul>
+<li>定义<ul>
+<li>每个副本有一个相关联的进程，该进程执行更新操作</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于多数表决的协议"><a href="#基于多数表决的协议" class="headerlink" title="基于多数表决的协议"></a>基于多数表决的协议</h4><ul>
+<li><p>定义（基本思想）</p>
+<ul>
+<li>要求客户在读或写一个复制的数据项之前向多个服务器提出请求，并获得他们的许可<ul>
+<li>更新一个文件，必须先联系至少半数加一个服务器，得到他们的认可</li>
+<li>读取一个复制文件，也必须联系至少半数加一个服务器，请求返回该文件的关联版本号，如果版本号一致，那么必定是最新的版本</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Gifford 方案</p>
+<ul>
+<li>一个客户要读取一个具有 N 个副本的文件，必须组织一个读团体$N_R$</li>
+<li>要修改一个文件，客户必须组织一个至少有$N_W$个服务器的写团体</li>
+<li>限制条件<ul>
+<li>$$<br>N_R + N_W &gt; N<br>$$</li>
+<li>$$<br>N_W &gt; N &#x2F; 2<br>$$</li>
+</ul>
+</li>
+<li>第一个条件是为了防止读写操作冲突，第二个限制条件是为了防止读读操作冲突</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/dissys/KG5ebuiEXofXSYxdX9ccSjmZnse.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="高速缓存相关性协议"><a href="#高速缓存相关性协议" class="headerlink" title="高速缓存相关性协议"></a>高速缓存相关性协议</h3><h1 id="容错性"><a href="#容错性" class="headerlink" title="容错性"></a>容错性</h1><h2 id="容错性概述"><a href="#容错性概述" class="headerlink" title="容错性概述"></a>容错性概述</h2><h3 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>可靠的系统<ul>
+<li>可用性：系统已经准备好，马上就可以使用</li>
+<li>可靠性：系统可以无障碍地持续运行</li>
+<li>安全性：系统在偶然出故障的情况下能正确操作而不会造成任何灾难</li>
+<li>可维护性：发生故障的系统能恢复的难易程度</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用冗余掩盖故障"><a href="#使用冗余掩盖故障" class="headerlink" title="使用冗余掩盖故障"></a>使用冗余掩盖故障</h3><ul>
+<li><p>信息冗余</p>
+<ul>
+<li>添加额外的位可以使错乱的位恢复正常</li>
+</ul>
+</li>
+<li><p>时间冗余</p>
+<ul>
+<li>执行一个动作，如果需要就再次执行</li>
+</ul>
+</li>
+<li><p>物理冗余</p>
+<ul>
+<li>通过添加额外的装备或进程使系统作为一个整体来容忍部分组件的失效或故障成为可能</li>
+</ul>
+</li>
+</ul>
+<h2 id="可靠的客户-服务器通信"><a href="#可靠的客户-服务器通信" class="headerlink" title="可靠的客户-服务器通信"></a>可靠的客户-服务器通信</h2><h3 id="RPC-调用失败"><a href="#RPC-调用失败" class="headerlink" title="RPC 调用失败"></a>RPC 调用失败</h3><ul>
+<li>RPC 调用失败类型以及解决方案<ul>
+<li>客户端无法定位服务器<ul>
+<li>使用特殊的返回码</li>
+<li>抛出异常</li>
+</ul>
+</li>
+<li>客户端发送到服务器的请求消息丢失<ul>
+<li>使用定时器</li>
+</ul>
+</li>
+<li>服务器返回给客户端的响应消息丢失<ul>
+<li>使用定时器</li>
+</ul>
+</li>
+<li>服务器接收到请求后崩溃<ul>
+<li>服务器重启之前不断尝试，这种技术被称为至少一次语义</li>
+<li>立即放弃并回滚，保证 RPC 最多一次执行语义</li>
+<li>客户端什么也不做</li>
+</ul>
+</li>
+<li>客户端发送消息后崩溃<ul>
+<li>孤儿消灭：在客户存根发送 RPC 消息前进行日志记录说明要做什么，重新启动前对日志进行检查然后明确杀死孤儿</li>
+<li>再生：客户端恢复后广播重启新一个轮次的请求，所有与那个客户有关的远程计算都被杀死</li>
+<li>优雅重生：在新时期广播到达时，每台机器都进行检查来查看是否存在远程计算，如果有，就尝试定位它的拥有者，只有当不能找到拥有者时才杀死该计算</li>
+<li>到期：每个 RPC 都有一个标准的时间 T，如果到时间还不能结束，就必须显式地请求另外的时间量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="分布式提交"><a href="#分布式提交" class="headerlink" title="分布式提交"></a>分布式提交</h2><h3 id="两阶段提交"><a href="#两阶段提交" class="headerlink" title="两阶段提交"></a>两阶段提交</h3><p>由两个阶段组成，每个阶段又由两部组成。表决阶段的第一阶段由 12 组成，第二阶段是决定阶段由 34 组成。</p>
+<ol>
+<li>协作者向所有的参与者发送一个 <code>VOTE_REQUEST</code> 消息</li>
+<li>当参与者接收到 <code>VOTE_REQUEST</code> 消息时，就向协作者返回一个 <code>VOTE_COMMIT</code> 消息通知协作者它已经准备好本地提交事务中属于它的部分，否则就返回一个 <code>VOTE_ABORT</code> 消息</li>
+<li>协作者收集来自参与者的所有选票。如果所有的参与者都表决要提交事务，那么协作者就进行提交。在这种情况下它向所有的参与者发送一个 <code>GLOBAL_COMMIT</code> 消息。但是，如果有一个参与者表决要取消事务，那么协作者就决定取消事务并多播一个 <code>GLOBAL_ABORT</code> 消息</li>
+<li>每个提交表决的参与者都等待协作者的最后反应。如果参与者收到一个 <code>GLOBAL_COMMIT</code> 消息，那么它就在本地提交事务，否则当接收到一个 <code>GLOBAL_ABORT</code> 消息时，就在本地取消事务</li>
+</ol>
+<h3 id="三阶段提交"><a href="#三阶段提交" class="headerlink" title="三阶段提交"></a>三阶段提交</h3><p>两阶段的一个问题是当协作者崩溃时，参与者不能做出最后的决定。参与者需要在协作者恢复之前保持阻塞</p>
+<h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><ul>
+<li><p>回退恢复</p>
+<ul>
+<li>将系统从当前的错误状态回到先前的正确状态</li>
+<li>每次记录系统的当前状态时，就成为设置一个检查点</li>
+</ul>
+</li>
+<li><p>前向恢复</p>
+<ul>
+<li>尝试从可以继续执行的某点开始把系统带入一个正确的新状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><ul>
+<li>独立的检查点：进程独立地设置本地检查点</li>
+<li>协调检查点：</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%97%E5%A4%A7/" class="category-chain-item">南大</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式系统复习提纲</div>
+      <div>http://example.com/2024/01/01/dis_sys/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/21/kn_deploy/" title="基于自建 Knative 的 k8s 集群部署">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于自建 Knative 的 k8s 集群部署</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/05/durable_function/" title="Durable Function">
+                        <span class="hidden-mobile">Durable Function</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

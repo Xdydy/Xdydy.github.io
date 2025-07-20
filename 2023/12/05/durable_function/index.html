@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Durable Function环境搭建以及技术原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Durable Function">
+<meta property="og:url" content="http://example.com/2023/12/05/durable_function/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Durable Function环境搭建以及技术原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/durable_function/MicRbJhjio7nALxC2Gtcyvofn5d.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/Qe7jbakHxoDzRHxTyKvc0O6wnFh.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/WtMyb5p9aokhv7xlPcgcpQt6nj2.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/PJ5QbDPmJotWDtxtTrJcn4vVnyb.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/UOMFbfGUioRuCWxc7Etc87CLnib.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/WfwIbz34folArpx86bOcvzjKnie.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/TnKRbw9JxoyA3Jx0lhicaIAWnLf.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/KpzobaVm6oEsCLxbBAuclR2sndc.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/Rk4ybJNjToS0xQxI251cN18wnLh.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/TFeBbFAveoQZsvxT7pJcRYkXnzc.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/taskkeyclass.png">
+<meta property="og:image" content="http://example.com/assets/durable_function/orchkeyclass.png">
+<meta property="article:published_time" content="2023-12-05T04:10:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Serverless">
+<meta property="article:tag" content="Function orchestration">
+<meta property="article:tag" content="Azure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/durable_function/MicRbJhjio7nALxC2Gtcyvofn5d.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Durable Function - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Durable Function"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-05 12:10" pubdate>
+          2023年12月5日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Durable Function</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Azure-Functions-Durable-Functions"><a href="#Azure-Functions-Durable-Functions" class="headerlink" title="Azure Functions &amp; Durable Functions"></a>Azure Functions &amp; Durable Functions</h1><h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><ul>
+<li>前置条件<ul>
+<li>VSCode 安装</li>
+<li>Azure Function 的 VSCode 插件安装</li>
+<li>Azure Function Core Tools 下载</li>
+<li>NodeJS 18 以上</li>
+</ul>
+</li>
+</ul>
+<h3 id="Azure-Function-Code-Tools-下载"><a href="#Azure-Function-Code-Tools-下载" class="headerlink" title="Azure Function Code Tools 下载"></a>Azure Function Code Tools 下载</h3><ol>
+<li>安装微软的包密钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; microsoft.gpg<br>sudo <span class="hljs-built_in">mv</span> microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>设置源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sh -c <span class="hljs-string">&#x27;echo &quot;deb [arch=amd64] https://packages.microsoft.com/debian/$(lsb_release -rs | cut -d&#x27;</span>.<span class="hljs-string">&#x27; -f 1)/prod $(lsb_release -cs) main&quot; &gt; /etc/apt/sources.list.d/dotnetdev.list&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要做一些小小的修改</p>
+<ul>
+<li>将 20 改为 10，因为我是 debian10 系列的主机</li>
+<li>apricot 改为 buster</li>
+</ul>
+</blockquote>
+<ol start="3">
+<li>更新源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install azure-functions-core-tools-4<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../assets/durable_function/MicRbJhjio7nALxC2Gtcyvofn5d.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="创建本地项目"><a href="#创建本地项目" class="headerlink" title="创建本地项目"></a>创建本地项目</h3><ol>
+<li>使用 VSCode 插件创建 New Project</li>
+<li>选择一个空文件夹</li>
+<li>完成以下设置</li>
+</ol>
+<p><img src="/../assets/durable_function/Qe7jbakHxoDzRHxTyKvc0O6wnFh.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>创建结果</li>
+</ol>
+<p><img src="/../assets/durable_function/WtMyb5p9aokhv7xlPcgcpQt6nj2.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="安装-Durable-Functions-包"><a href="#安装-Durable-Functions-包" class="headerlink" title="安装 Durable Functions 包"></a>安装 Durable Functions 包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install durable-functions@preview<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建函数"><a href="#创建函数" class="headerlink" title="创建函数"></a>创建函数</h3><p>最基本的 Durable Functions 应用有三类基本的函数</p>
+<ul>
+<li><code>Orchestrator function</code>：描述一个编排其他 functions 的 workflow</li>
+<li><code>Activity function</code>：由 <code>orchestrator function</code> 调用，执行工作，可能返回结果</li>
+<li><code>Client function</code>：一个常规的 <code>Azure Function</code> 用来启动一个 <code>orchestrator function</code></li>
+</ul>
+<ol>
+<li>用 VSCode 创建一个 <code>function</code></li>
+<li>完成以下设置</li>
+</ol>
+<p><img src="/../assets/durable_function/PJ5QbDPmJotWDtxtTrJcn4vVnyb.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>可以在 <code>src/functions/hello.js</code> 中看到函数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash">const &#123; app &#125; = require(<span class="hljs-string">&#x27;@azure/functions&#x27;</span>);<br>const <span class="hljs-built_in">df</span> = require(<span class="hljs-string">&#x27;durable-functions&#x27;</span>);<br><br>const activityName = <span class="hljs-string">&#x27;hello&#x27;</span>;<br><br>df.app.orchestration(<span class="hljs-string">&#x27;helloOrchestrator&#x27;</span>, <span class="hljs-keyword">function</span>* (context) &#123;<br>    const outputs = [];<br>    outputs.push(yield context.df.callActivity(activityName, <span class="hljs-string">&#x27;Tokyo&#x27;</span>));<br>    outputs.push(yield context.df.callActivity(activityName, <span class="hljs-string">&#x27;Seattle&#x27;</span>));<br>    outputs.push(yield context.df.callActivity(activityName, <span class="hljs-string">&#x27;Cairo&#x27;</span>));<br><br>    <span class="hljs-built_in">return</span> outputs;<br>&#125;);<br><br>df.app.activity(activityName, &#123;<br>    handler: (input) =&gt; &#123;<br>        <span class="hljs-built_in">return</span> `Hello, <span class="hljs-variable">$&#123;input&#125;</span>`;<br>    &#125;,<br>&#125;);<br><br>app.http(<span class="hljs-string">&#x27;helloHttpStart&#x27;</span>, &#123;<br>    route: <span class="hljs-string">&#x27;orchestrators/&#123;orchestratorName&#125;&#x27;</span>,<br>    extraInputs: [df.input.durableClient()],<br>    handler: async (request, context) =&gt; &#123;<br>        const client = df.getClient(context);<br>        const body = await request.text();<br>        const instanceId = await client.startNew(request.params.orchestratorName, &#123; input: body &#125;);<br><br>        context.log(`Started orchestration with ID = <span class="hljs-string">&#x27;$&#123;instanceId&#125;&#x27;</span>.`);<br><br>        <span class="hljs-built_in">return</span> client.createCheckStatusResponse(request, instanceId);<br>    &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中</p>
+<ul>
+<li>创建了一个名字为 <code>helloOrchestrator</code> 的编排函数</li>
+<li>创建了一个叫做 <code>hello</code> 的活动函数</li>
+<li>编排函数编排了多个活动函数</li>
+<li>添加了一个 <code>HTTP trigger</code> 函数来启动编排函数</li>
+</ul>
+<h3 id="测试函数"><a href="#测试函数" class="headerlink" title="测试函数"></a>测试函数</h3><h4 id="本地模拟器"><a href="#本地模拟器" class="headerlink" title="本地模拟器"></a>本地模拟器</h4><ol>
+<li>安装 Azurite 插件</li>
+<li>启动所有 Azurite 服务</li>
+</ol>
+<p><img src="/../assets/durable_function/UOMFbfGUioRuCWxc7Etc87CLnib.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>F5 运行</li>
+</ol>
+<p><img src="/../assets/durable_function/WfwIbz34folArpx86bOcvzjKnie.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/durable_function/TnKRbw9JxoyA3Jx0lhicaIAWnLf.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/durable_function/KpzobaVm6oEsCLxbBAuclR2sndc.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>存储状态文件</li>
+</ol>
+<p><img src="/../assets/durable_function/Rk4ybJNjToS0xQxI251cN18wnLh.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="实体函数"><a href="#实体函数" class="headerlink" title="实体函数"></a>实体函数</h2><p>实体的行为有点类似于通过消息进行通信的微型服务。 每个实体具有唯一的标识和内部状态（如果存在）。 与服务或对象一样，实体会根据提示执行操作。 执行的操作可能会更新实体的内部状态。 它还可能会调用外部服务并等待响应。 实体使用通过可靠队列隐式发送的消息来与其他实体、业务流程和客户端通信。</p>
+<p>其内部存储的有关某个实体示例的信息如下图所示，其中的 <code>input</code> 字段</p>
+<p><img src="/../assets/durable_function/TFeBbFAveoQZsvxT7pJcRYkXnzc.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><h2 id="可靠执行"><a href="#可靠执行" class="headerlink" title="可靠执行"></a>可靠执行</h2><p>DF 能够确保编排的可靠执行，这是通过使用存储队列来驱动函数的触发以及通过存放执行历史记录来实现的。</p>
+<h3 id="任务关键类"><a href="#任务关键类" class="headerlink" title="任务关键类"></a>任务关键类</h3><p><img src="/./../assets/durable_function/taskkeyclass.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="TaskBase"><a href="#TaskBase" class="headerlink" title="TaskBase"></a><code>TaskBase</code></h4><p>所有任务的基类，定义了所有任务的基本状态转移</p>
+<ul>
+<li>在 <code>orchestrator</code> 调用 <code>callActicity</code> 函数的时候，其内部会创建 <code>AtomicTask</code> 类，该类是 <code>TaskBase</code> 的一个子类</li>
+<li>该类的内部存储了 <code>task</code> 的状态 <code>state</code>，表明该任务是 <code>Running</code>、<code>Failed</code> 或者 <code>Completed</code></li>
+<li>当任务（通常是 <code>CompoundTask</code>）调用这个函数时，会判断这个函数是否已经被执行过</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@hidden</span></span><br><span class="hljs-comment"> * Notifies this task&#x27;s parents about its state change.</span><br><span class="hljs-comment"> */</span><br>private <span class="hljs-title function_">propagate</span>(executor?: <span class="hljs-title class_">TaskOrchestrationExecutor</span>): <span class="hljs-keyword">void</span> &#123;<br>    <span class="hljs-keyword">const</span> hasCompleted = <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> !== <span class="hljs-title class_">TaskState</span>.<span class="hljs-property">Running</span>;<br>    <span class="hljs-keyword">if</span> (hasCompleted &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">parent</span> !== <span class="hljs-literal">undefined</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">parent</span>.<span class="hljs-title function_">handleCompletion</span>(<span class="hljs-variable language_">this</span>, executor);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="DFTask"><a href="#DFTask" class="headerlink" title="DFTask"></a><code>DFTask</code></h4><p>该类简单继承了一下 <code>TaskBase</code>，增加了函数的回调操作</p>
+<h4 id="CompoundTask"><a href="#CompoundTask" class="headerlink" title="CompoundTask"></a><code>CompoundTask</code></h4><p>该类继承 <code>DFTask</code>，包含了多个 <code>TaskBase</code>，也就是维护了多个子任务</p>
+<h3 id="编排关键类"><a href="#编排关键类" class="headerlink" title="编排关键类"></a>编排关键类</h3><p><img src="/../assets/durable_function/orchkeyclass.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Orchestrator"><a href="#Orchestrator" class="headerlink" title="Orchestrator"></a><code>Orchestrator</code></h4><ul>
+<li>负责监听一个编排触发器 <code>DurableOrchestrationBindingInfo</code> 以及处理维护一个上下文 <code>OrchestrationContext</code>，将结果返回给 <code>OrchestratorState</code></li>
+<li>处理的最后将上下文等信息交托给 <code>TaskOrchestrationExecutor</code> 继续执行</li>
+</ul>
+<h4 id="TaskOrchestrationExecutor"><a href="#TaskOrchestrationExecutor" class="headerlink" title="TaskOrchestrationExecutor"></a><code>TaskOrchestrationExecutor</code></h4><p><code>execute</code> 函数负责管理一个编排函数的执行，并且通过历史记录进行重播</p>
+<ol>
+<li>通过历史记录执行编排函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Execute the orchestration, using the history for replay</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> historyEvent <span class="hljs-keyword">of</span> history) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">processEvent</span>(historyEvent);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isDoneExecuting</span>()) &#123;<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>processEvent</code> 函数的主要功能</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript">private <span class="hljs-title function_">processEvent</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">HistoryEvent</span>): <span class="hljs-keyword">void</span> &#123;<br>    <span class="hljs-keyword">const</span> eventType = event.<span class="hljs-property">EventType</span>;<br>    <span class="hljs-keyword">switch</span> (eventType) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-title class_">HistoryEventType</span>.<span class="hljs-property">OrchestratorStarted</span>: &#123;<br>            ...<br>        &#125;<br>        <span class="hljs-keyword">case</span> <span class="hljs-title class_">HistoryEventType</span>.<span class="hljs-property">ContinueAsNew</span>: &#123;<br>           <span class="hljs-comment">// 清除所有编排的状态</span><br>        &#125;<br>        <span class="hljs-keyword">case</span> <span class="hljs-title class_">HistoryEventType</span>.<span class="hljs-property">ExecutionStarted</span>: &#123;<br>           <span class="hljs-comment">// 继续执行编排函数</span><br>        &#125;<br>        <span class="hljs-keyword">case</span> <span class="hljs-title class_">HistoryEventType</span>.<span class="hljs-property">EventSent</span>: &#123;<br>           <span class="hljs-comment">// 更新事件ID</span><br>        &#125;<br>        <span class="hljs-attr">default</span>:<br>            <span class="hljs-comment">// 如果当前事件包含了已完成任务的数据，则将该任务封装成一个值</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><code>tryResumingUserCode</code> 函数</p>
+<ol>
+<li>如果当前执行的任务还在 <code>running</code> 则不能直接执行</li>
+<li>如果整个编排函数执行完成了，则获取其返回值</li>
+<li>如果结果生成器返回了一个 <code>DFTask</code>，那么就表示接下来要执行新的函数</li>
+<li>然后编排函数再以递归的方式执行该函数</li>
+</ol>
+</li>
+<li><p>构建当前的编排状态</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Construct current orchestration state</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">actions</span>: <span class="hljs-title class_">IAction</span>[][] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">actions</span>.<span class="hljs-property">length</span> == <span class="hljs-number">0</span> ? [[]] : [<span class="hljs-variable language_">this</span>.<span class="hljs-property">actions</span>];<br><span class="hljs-keyword">const</span> orchestratorState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OrchestratorState</span>(&#123;<br>    <span class="hljs-attr">isDone</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">hasCompletedSuccessfully</span>(),<br>    <span class="hljs-attr">actions</span>: actions,<br>    <span class="hljs-attr">output</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span>,<br>    <span class="hljs-attr">error</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">exception</span>?.<span class="hljs-property">message</span>,<br>    <span class="hljs-attr">customStatus</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span>.<span class="hljs-property">customStatus</span>,<br>    <span class="hljs-attr">schemaVersion</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">schemaVersion</span>,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="DurableOrchestrationContext"><a href="#DurableOrchestrationContext" class="headerlink" title="DurableOrchestrationContext"></a><code>DurableOrchestrationContext</code></h4><p>维护函数流的上下文</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Serverless/" class="print-no-link">#Serverless</a>
+      
+        <a href="/tags/Function-orchestration/" class="print-no-link">#Function orchestration</a>
+      
+        <a href="/tags/Azure/" class="print-no-link">#Azure</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Durable Function</div>
+      <div>http://example.com/2023/12/05/durable_function/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/01/dis_sys/" title="分布式系统复习提纲">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">分布式系统复习提纲</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1530 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="AML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级机器学习">
+<meta property="og:url" content="http://example.com/2024/06/09/aml/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="AML">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/aml/KuRGbu51AoQocpxqrjgcTxdunAS.png">
+<meta property="og:image" content="http://example.com/assets/aml/QKNBbMsAEoAfYcxYQVKcARdon9h.png">
+<meta property="og:image" content="http://example.com/assets/aml/QX0yb8X6OoiZfIxW7xMcIqE9nAb.png">
+<meta property="og:image" content="http://example.com/assets/aml/VwaQb5atMo9imJx1e7YcodCinLg.png">
+<meta property="og:image" content="http://example.com/assets/aml/DmbPbsMf5o6D1BxOco9cTkJKnoc.png">
+<meta property="article:published_time" content="2024-06-09T01:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/aml/KuRGbu51AoQocpxqrjgcTxdunAS.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>高级机器学习 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="高级机器学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-09 09:00" pubdate>
+          2024年6月9日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">高级机器学习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="高级机器学习"><a href="#高级机器学习" class="headerlink" title="高级机器学习"></a>高级机器学习</h1><h1 id="第一讲-机器学习概述"><a href="#第一讲-机器学习概述" class="headerlink" title="第一讲 机器学习概述"></a>第一讲 机器学习概述</h1><h2 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h2><ul>
+<li>定义：机器利用数据学习人类经验，不断提高性能的过程</li>
+<li>目标：模型具有泛化能力</li>
+</ul>
+<h2 id="人工智能发展阶段"><a href="#人工智能发展阶段" class="headerlink" title="人工智能发展阶段"></a>人工智能发展阶段</h2><ul>
+<li>60-70 年代：推理期</li>
+<li>80 年代：知识期</li>
+<li>90 年代：学习期</li>
+</ul>
+<h1 id="第二讲-模型评估和选择"><a href="#第二讲-模型评估和选择" class="headerlink" title="第二讲 模型评估和选择"></a>第二讲 模型评估和选择</h1><h2 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h2><h3 id="泛化误差-vs-经验误差"><a href="#泛化误差-vs-经验误差" class="headerlink" title="泛化误差 vs 经验误差"></a>泛化误差 vs 经验误差</h3><ul>
+<li>泛化误差：在测试样本上的误差</li>
+<li>经验误差：在训练集上的误差，也叫做训练误差</li>
+</ul>
+<h3 id="过拟合-vs-欠拟合"><a href="#过拟合-vs-欠拟合" class="headerlink" title="过拟合 vs 欠拟合"></a>过拟合 vs 欠拟合</h3><ul>
+<li>在不存在严重过拟合或欠拟合现象时，经验误差和泛化误差可以进行相互界定</li>
+</ul>
+<h2 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h2><h3 id="经验误差"><a href="#经验误差" class="headerlink" title="经验误差"></a>经验误差</h3><ul>
+<li>三个关键问题<ul>
+<li>如何获得测试结果：评估方法</li>
+<li>如何评估性能优劣：性能度量</li>
+<li>如何判断实质差别：比较检验</li>
+</ul>
+</li>
+</ul>
+<h4 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h4><ul>
+<li><p>留出法</p>
+<ul>
+<li>将数据集分为两个互斥集合——训练和测试集</li>
+<li>训练和测试集分得尽可能保持数据分布的一致性</li>
+<li>分层采样：保持类别比例一致</li>
+<li>通常比例控制在 2:1~4:1</li>
+</ul>
+</li>
+<li><p>交叉验证法</p>
+<ul>
+<li>先分为 k 个子集，每次用 k-1 个做训练集，剩下的做测试集</li>
+</ul>
+</li>
+<li><p>留一法</p>
+</li>
+</ul>
+<h4 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h4><p>性能度量是衡量模型泛化能力的评价标准，反映了任务需求</p>
+<ul>
+<li><p>回归任务：均方误差</p>
+<ul>
+<li>$$<br>E(f;D) &#x3D; \frac{1}{m}\sum_{i&#x3D;1}^{m}(f(x_i)-y_i)^2<br>$$</li>
+</ul>
+</li>
+<li><p>分类任务：错误率和精度</p>
+<ul>
+<li>分类错误率：$E(f;D) &#x3D; \frac{1}{m}\sum_{i&#x3D;1}^{m}(f(x_i)\neq y_i)$</li>
+<li>精度：$acc(f;D) &#x3D; 1-E(f;D)$</li>
+</ul>
+</li>
+<li><p>信息搜索：查准率与查全率</p>
+<ul>
+<li>查准率：$P &#x3D; \frac{TP}{TP+FP}$（预测为正例的正确率）</li>
+<li>查全率：$R &#x3D; \frac{TP}{TP+FN}$（所有正例能否预测出来）</li>
+<li>F1 度量：$F1 &#x3D; \frac{2\times P\times R}{P+R} &#x3D; \frac{2\times TP}{样例总数+TP-TN}$<ul>
+<li>更一般的形式：$F_\beta &#x3D; \frac{1+\beta^2\times P \times R}{(\beta^2\times P)+R}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="比较检验"><a href="#比较检验" class="headerlink" title="比较检验"></a>比较检验</h4><ul>
+<li>测试性能不等于泛化性能</li>
+<li>测试性能随着测试集的变化而变化</li>
+<li>评估方法：T-检验</li>
+</ul>
+<h1 id="第三讲-线性模型"><a href="#第三讲-线性模型" class="headerlink" title="第三讲 线性模型"></a>第三讲 线性模型</h1><ul>
+<li>线性模型一般形式<ul>
+<li>$$<br>f(x) &#x3D; \omega_1x_1 + \omega_2x_2 + \dots + \omega_dx_d + b<br>$$</li>
+<li>如何确定$\omega$和$b$的值，使得线性模型具有优良性能</li>
+</ul>
+</li>
+</ul>
+<h2 id="回归任务模型：最小二乘法"><a href="#回归任务模型：最小二乘法" class="headerlink" title="回归任务模型：最小二乘法"></a>回归任务模型：最小二乘法</h2><h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><ul>
+<li>最小化均方误差：$E_{(\omega,b)} &#x3D; \sum_{i&#x3D;1}^m(y_i-\omega x_i-b)^2$<ul>
+<li>分别对$\omega$和$b$求导：<ul>
+<li>$$<br>\frac{\partial E_{(\omega,b)}}{\partial \omega} &#x3D; 2(\omega\sum_{i&#x3D;1}^mx_i^2-\sum_{i&#x3D;1}^m(y_i-b)x_i)<br>$$</li>
+<li>$$<br>\frac{\partial E_{(\omega,b)}}{\partial b} &#x3D; 2(mb-\sum_{i&#x3D;1}^m(y_i-\omega x_i))<br>$$</li>
+</ul>
+</li>
+<li>得到闭式解<ul>
+<li>$$<br>\omega &#x3D; \frac{\sum_{i&#x3D;1}^my_i(x_i-\bar x)}{\sum_{i&#x3D;1}^mx_i^2-\frac{1}{m}(\sum_{i&#x3D;1}^mx_i)^2}<br>$$</li>
+<li>$$<br>b &#x3D; \frac{1}{m}\sum_{i&#x3D;1}^{m}(y_i-\omega x_i)<br>$$</li>
+<li>$$<br>\bar x &#x3D; \frac{1}{m}\sum_{i&#x3D;1}^mx_i<br>$$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h3><p>$$<br>f(\boldsymbol{x_i}) &#x3D; \boldsymbol{\omega^Tx_i} +b<br>$$</p>
+<ul>
+<li><p>齐次表达<br>$$<br>  X &#x3D; \begin{pmatrix}<br>  x_{11} &amp; x_{12} &amp; \dots &amp; x_{1d} &amp; 1 \<br>  x_{21} &amp; x_{22} &amp; \dots &amp; x_{2d} &amp; 1 \<br>  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \<br>  x_{m1} &amp; x_{m2} &amp; \dots &amp; x_{md} &amp; 1 \<br>  \end{pmatrix} &#x3D; \begin{pmatrix}<br>  \boldsymbol{x_1^T} &amp; 1 \<br>  \boldsymbol{x_2^T} &amp; 1 \<br>  \vdots &amp; \vdots \<br>  \boldsymbol{x_m^T} &amp; 1 \<br>  \end{pmatrix}<br>$$</p>
+</li>
+<li><p>最小二乘法：$\hat w^* &#x3D; \argmin_{\hat w}(y-X\hat w)^T(y-X\hat w)$</p>
+<ul>
+<li>求导得到：$\frac{\partial E_{\hat \omega}}{\partial \hat\omega} &#x3D; 2X^T(X\hat\omega - y)$</li>
+</ul>
+</li>
+<li><p>满秩讨论</p>
+<ul>
+<li>$X^TX$是满秩矩阵或正定矩阵，则<ul>
+<li>$$<br>\hat\omega^* &#x3D; (X^TX)^{-1}X^Ty<br>$$</li>
+<li>$$<br>f(\hat x_i) &#x3D; \hat x_i^T(X^TX)^{-1}X^Ty<br>$$</li>
+</ul>
+</li>
+<li>如果不是满秩矩阵，则引入正则化</li>
+</ul>
+</li>
+</ul>
+<h3 id="广义线性回归模型"><a href="#广义线性回归模型" class="headerlink" title="广义线性回归模型"></a>广义线性回归模型</h3><ul>
+<li>$$<br>y &#x3D; g^{-1}(\boldsymbol{\omega^Tx} +b)<br>$$</li>
+</ul>
+<h2 id="二分类任务模型：对数几率回归"><a href="#二分类任务模型：对数几率回归" class="headerlink" title="二分类任务模型：对数几率回归"></a>二分类任务模型：对数几率回归</h2><ul>
+<li><p>线性分类函数缺点：单位阶跃函数不连续，不可导</p>
+</li>
+<li><p>对数几率函数：$\ln \frac{y}{1-y} &#x3D; \boldsymbol{\omega^Tx} +b$</p>
+<ul>
+<li>对数几率：$\ln \frac{p(y&#x3D;1|x)}{p(y&#x3D;0|x)} &#x3D; \boldsymbol{\omega^Tx} +b$</li>
+</ul>
+</li>
+<li><p>对数几率回归：极大似然法</p>
+<ul>
+<li>对数似然函数：$\ell(\omega,b) &#x3D; \sum_{i&#x3D;1}^{m}\ln p(y_i|x_i; \omega_i,b)$</li>
+<li>可重写为：$\ell(\beta) &#x3D; \sum_{i&#x3D;1}^{m}(-y_i\beta^T\hat x_i + \ln(1+e^{\beta^T\hat x_i}))$</li>
+</ul>
+</li>
+</ul>
+<h2 id="多分类任务模型"><a href="#多分类任务模型" class="headerlink" title="多分类任务模型"></a>多分类任务模型</h2><h3 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h3><ul>
+<li><p>拆分阶段</p>
+<ul>
+<li>N 个类别两两配对</li>
+<li>各个二类任务学习分类器</li>
+</ul>
+</li>
+<li><p>测试阶段</p>
+<ul>
+<li>新样本提交给所有分类器预测</li>
+<li>投票产生最终分类结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="一对其余"><a href="#一对其余" class="headerlink" title="一对其余"></a>一对其余</h3><ul>
+<li><p>任务拆分</p>
+<ul>
+<li>某一类作为正例，其他反例<ul>
+<li>N 个分类任务</li>
+</ul>
+</li>
+<li>各个二类任务学习分类器<ul>
+<li>N 个二类分类器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>测试阶段</p>
+<ul>
+<li>新样本提交给所有分类器预测<ul>
+<li>N 个分类结果</li>
+</ul>
+</li>
+<li>比较各分类器预测置信度<ul>
+<li>置信度最大类别作为最终类别</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="两种策略比较"><a href="#两种策略比较" class="headerlink" title="两种策略比较"></a>两种策略比较</h3><ul>
+<li><p>一对一</p>
+<ul>
+<li>需要$\frac{N(N-1)}{2}$个分类器，存储开销和测试时间大</li>
+<li>训练只用两个类的样例，训练时间短</li>
+</ul>
+</li>
+<li><p>一对其余</p>
+<ul>
+<li>训练 N 个分类器，存储开销和测试时间小</li>
+<li>训练用到全部训练样例，训练时间长</li>
+</ul>
+</li>
+</ul>
+<h3 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h3><ul>
+<li>纠错输出码<ul>
+<li>ECOC 编码对分类器错误的容忍和修正能力：编码越长、纠错能力越强</li>
+<li>同等长度的编码，理论上，两个类别的编码距离越远，纠错能力越强</li>
+</ul>
+</li>
+</ul>
+<h1 id="第四讲-支持向量机"><a href="#第四讲-支持向量机" class="headerlink" title="第四讲 支持向量机"></a>第四讲 支持向量机</h1><h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><ul>
+<li>将训练样本分开的超平面可能有很多个，但是哪个最好？<ul>
+<li>泛化能力最强的</li>
+</ul>
+</li>
+</ul>
+<h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><ul>
+<li>支持向量机：大间隔分类器</li>
+<li>超平面方程: $\omega^T x + b &#x3D; 0$</li>
+<li>间隔：$\gamma &#x3D; \frac{2}{\begin{Vmatrix}\omega\end{Vmatrix}}$</li>
+</ul>
+<h3 id="支持向量机-基本型"><a href="#支持向量机-基本型" class="headerlink" title="支持向量机-基本型"></a>支持向量机-基本型</h3><ul>
+<li><p>最大间隔：寻找参数$\omega$跟$b$，使得$\gamma$最大</p>
+</li>
+<li><p>优化问题：$\argmax_{\omega, b}\frac{2}{\begin{Vmatrix}\omega\end{Vmatrix}} s.t. y_i(\omega^T x_i +b) \ge 1, i&#x3D;1,2,…,m$</p>
+<ul>
+<li>等价转化：$\argmin_{\omega, b}\frac{1}{2}\begin{Vmatrix}\omega\end{Vmatrix}^2\space<br>s.t.\space<br>y_i(\omega^T x_i +b) \ge 1, i&#x3D;1,2,…,m$</li>
+<li>凸二次规划问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="支持向量机-对偶型"><a href="#支持向量机-对偶型" class="headerlink" title="支持向量机-对偶型"></a>支持向量机-对偶型</h3><ul>
+<li><p>引入拉格朗日乘子$\alpha_i \ge 0$得到拉格朗日函数</p>
+<ul>
+<li>$$<br>L(\omega,b,\alpha) &#x3D; \frac{1}{2}\begin{Vmatrix}\omega\end{Vmatrix}^2 + \sum_{i&#x3D;1}^m\alpha_i(1-y_i(\omega^Tx_i+b))<br>$$</li>
+</ul>
+</li>
+<li><p>求偏导：</p>
+<ul>
+<li>$$<br>\omega &#x3D; \sum_{i&#x3D;1}^{m}\alpha_iy_ix_i, \quad 0 &#x3D; \sum_{i&#x3D;1}^{m}\alpha_iy_i<br>$$</li>
+</ul>
+</li>
+<li><p>回代解得$\max_\alpha \sum_{i&#x3D;1}^m\alpha_i-\frac{1}{2}\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^m\alpha_i\alpha_jy_iy_jx_i^Tx_y, \quad s.t. \sum_{i&#x3D;1}^m\alpha_iy_i &#x3D; 0, \alpha_i \ge 0, \quad i&#x3D;1,2,\dots,m$</p>
+</li>
+</ul>
+<h3 id="基本型跟对偶型比较"><a href="#基本型跟对偶型比较" class="headerlink" title="基本型跟对偶型比较"></a>基本型跟对偶型比较</h3><ul>
+<li><p>基本型比较善于处理</p>
+<ul>
+<li>低维数据</li>
+<li>高维稀疏数据</li>
+</ul>
+</li>
+<li><p>对偶型善于处理高维稠密数据，容易吸收核函数处理非线性分类</p>
+</li>
+</ul>
+<h2 id="特征空间映射"><a href="#特征空间映射" class="headerlink" title="特征空间映射"></a>特征空间映射</h2><ul>
+<li>若不存在一个能正确划分两类样本的超平面，怎么办<ul>
+<li>将样本从原始空间映射到一个更高维的特征空间，使样本在这个特征空间内线性可分</li>
+</ul>
+</li>
+</ul>
+<h3 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h3><p>基本思路：设计核函数</p>
+<p>$$<br>\kappa(x_i,x_j) &#x3D; \phi(x_i)^T\phi(x_j)<br>$$</p>
+<h2 id="软间隔支持向量机"><a href="#软间隔支持向量机" class="headerlink" title="软间隔支持向量机"></a>软间隔支持向量机</h2><ul>
+<li><p>不再假设所有样本都可分，而是引入损失函数，计算每个样本的损失</p>
+<ul>
+<li>$$<br>\min_{\omega,b}\frac{1}{2}||\omega||^2 + C\sum_{i&#x3D;1}^ml_{0&#x2F;1}(y_i(\omega^T\phi(x_i)+b)-1)<br>$$</li>
+</ul>
+</li>
+<li><p>存在问题</p>
+<ul>
+<li>0&#x2F;1 损失函数非凸非连续，不好优化</li>
+</ul>
+</li>
+<li><p>替换方法</p>
+<ul>
+<li>采用 hinge 损失函数</li>
+</ul>
+</li>
+<li><p>基本型和对偶型</p>
+<ul>
+<li>原始问题：$\min_{\omega,b}\frac{1}{2}||\omega||^2 + C\sum_{i&#x3D;1}^m\max(0,1-y_i(w_ix+b))$</li>
+<li>对偶问题：$\min_\alpha\frac{1}{2}\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^m\alpha_i\alpha_jy_iy_j\phi(x_i)^T\phi(x_j)-\sum_{i&#x3D;1}^m\alpha_i, \quad s.t. \sum_{i&#x3D;1}^m\alpha_iy_i &#x3D; 0, 0\le \alpha_i\le C, i&#x3D;1,2,\dots,m$</li>
+</ul>
+</li>
+<li><p>SVM 拓展-正则化</p>
+</li>
+</ul>
+<h1 id="第五讲-神经网络"><a href="#第五讲-神经网络" class="headerlink" title="第五讲 神经网络"></a>第五讲 神经网络</h1><h2 id="神经网络发展史"><a href="#神经网络发展史" class="headerlink" title="神经网络发展史"></a>神经网络发展史</h2><ul>
+<li>第一阶段：感知机为代表</li>
+<li>第二阶段：反向传播为代表</li>
+<li>第三阶段：深度网络为代表</li>
+</ul>
+<h2 id="神经元模型"><a href="#神经元模型" class="headerlink" title="神经元模型"></a>神经元模型</h2><h3 id="M-P-神经元模型"><a href="#M-P-神经元模型" class="headerlink" title="M-P 神经元模型"></a>M-P 神经元模型</h3><ul>
+<li>输入：来自其他 n 个神经元传递过来的信号</li>
+<li>处理：通过带权重连接进行传递，总值与神经元的阈值比较</li>
+<li>输出：通过激活函数得到输出</li>
+</ul>
+<h3 id="神经元模型-激活函数"><a href="#神经元模型-激活函数" class="headerlink" title="神经元模型-激活函数"></a>神经元模型-激活函数</h3><ul>
+<li>理想激活函数时阶跃函数，0 表示抑制神经元而 1 表示激活神经元</li>
+<li>阶跃函数不连续不光滑，常用 Sigmoid 函数</li>
+</ul>
+<h2 id="感知机与多层网络"><a href="#感知机与多层网络" class="headerlink" title="感知机与多层网络"></a>感知机与多层网络</h2><ul>
+<li>感知机由两层神经元组成，输入层接受外界输入信号传递给输出层，输出层是 M-P 神经元</li>
+</ul>
+<h3 id="感知机学习能力"><a href="#感知机学习能力" class="headerlink" title="感知机学习能力"></a>感知机学习能力</h3><ul>
+<li><p>当两类模式线性可分时，感知机的学习过程一定会收敛；否则感知机的学习过程将会发生震荡</p>
+</li>
+<li><p>单层感知机的学习能力有限，只能解决线性可分问题</p>
+<ul>
+<li>对于异或等不能线性可分的问题，感知机不能求得合适解</li>
+</ul>
+</li>
+</ul>
+<h3 id="多层感知机"><a href="#多层感知机" class="headerlink" title="多层感知机"></a>多层感知机</h3><ul>
+<li>输出层和输入层之间的一层神经元，称为隐层或隐含层</li>
+<li>隐含层和输出层神经元都是具有激活函数的功能神经元</li>
+</ul>
+<h3 id="多层前馈神经网络"><a href="#多层前馈神经网络" class="headerlink" title="多层前馈神经网络"></a>多层前馈神经网络</h3><ul>
+<li>定义：每两层神经元全互联，不存在同层连接和跨层连接</li>
+<li>前馈：接受外界输入信号，隐含层与输出层神经元对信号进行加工输出</li>
+<li>学习：根据训练数据调整神经元的“连接权”以及功能神经元的“阈值”</li>
+<li>多层网络：包含隐层的网络</li>
+</ul>
+<h2 id="误差逆传播算法"><a href="#误差逆传播算法" class="headerlink" title="误差逆传播算法"></a>误差逆传播算法</h2><ul>
+<li>误差逆传播算法是最成功训练多层前馈神经网络的学习算法<ul>
+<li>给定训练集：$D &#x3D; {(x_i,y_i)}, x_i\in R^d, y_i\in R^l$，输入示例有$d$个属性描述，输出$l$维实值向量</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../assets/aml/KuRGbu51AoQocpxqrjgcTxdunAS.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>前向计算</p>
+<ul>
+<li>$$<br>b_h&#x3D;f(\alpha_h-\gamma_h),\alpha_h &#x3D; \sum_{i&#x3D;1}^dv_{ih}x_i<br>$$</li>
+<li>$$<br>\hat{y}<em>j^k &#x3D; f(\beta_j-\theta_j), \beta_j &#x3D; \sum</em>{i&#x3D;q}^d\omega_{hj}b_h<br>$$</li>
+<li>$$<br>E_k &#x3D; \frac{1}{2}\sum_{j&#x3D;1}^l(\hat{y}_j^k-y_j^k)^2<br>$$</li>
+</ul>
+</li>
+<li><p>基于梯度下降策略，以误差率为目标，计算负梯度方向对参数进行调整</p>
+<ul>
+<li>$$<br>\Delta\omega_{hj} &#x3D; -\eta\frac{\partial E_k}{\partial \omega_{hj}}<br>$$</li>
+<li>$$<br>\frac{\partial E_k}{\partial \omega_{hj}} &#x3D; \frac{\partial E_k}{\partial\hat y_j^k}. \frac{\partial\hat y_j^k}{\partial\beta_j}.\frac{\partial\beta_j}{\partial\omega_{hj}}<br>$$</li>
+<li>$$<br>g_j &#x3D; -\frac{\partial E_k}{\partial\hat y_j^k}.\frac{\partial\hat y_j^k}{\partial\beta_j}<br>$$</li>
+</ul>
+</li>
+<li><p>学习率$\eta \in (0,1)$控制算法每一轮迭代的更新步长，太长容易震荡，太小收敛速度又会过慢</p>
+</li>
+</ul>
+<p><img src="/../assets/aml/QKNBbMsAEoAfYcxYQVKcARdon9h.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><ul>
+<li><p>标准 BP 算法</p>
+<ul>
+<li>每次对单个训练样例更新权值和阈值；单次计算开销小，但参数更新频繁，不同样例可能会相互冲突，迭代次数较多</li>
+</ul>
+</li>
+<li><p>累计 BP 算法</p>
+<ul>
+<li>最小化整个训练集上的累计误差$E &#x3D; \frac{1}{m}\sum_{k&#x3D;1}^mE_k$</li>
+<li>读取整个训练集后对更新参数，参数更新频率低，但单次计算开销大</li>
+</ul>
+</li>
+</ul>
+<h3 id="多层前馈网络优缺点"><a href="#多层前馈网络优缺点" class="headerlink" title="多层前馈网络优缺点"></a>多层前馈网络优缺点</h3><ul>
+<li><p>强大的学习能力：多行足够多的神经元的隐层，多层前馈神经网络能以任意精度逼近任意复杂度的连续函数</p>
+</li>
+<li><p>局限</p>
+<ul>
+<li>经常过拟合</li>
+<li>如何设置隐层神经元个数是个难题</li>
+</ul>
+</li>
+<li><p>缓解过拟合的策略</p>
+<ul>
+<li>早停：训练过程中，若训练误差降低，但验证误差身高，则停止训练</li>
+<li>正则化：在误差目标函数中增加一项描述网络复杂程度的成分，防止模型过于复杂</li>
+</ul>
+</li>
+</ul>
+<h2 id="全局最小与局部最小"><a href="#全局最小与局部最小" class="headerlink" title="全局最小与局部最小"></a>全局最小与局部最小</h2><ul>
+<li>跳出局部最小的常见策略<ul>
+<li>模拟退火</li>
+<li>不同的初始参数</li>
+<li>随机扰动</li>
+<li>遗传算法</li>
+</ul>
+</li>
+</ul>
+<h2 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h2><ul>
+<li><p>深度学习模型是具有很多个隐层的神经网络</p>
+</li>
+<li><p>增加模型复杂程度的方式</p>
+<ul>
+<li>模型宽度：增加隐层神经元的数目</li>
+<li>模型深度：增加隐层数目</li>
+<li>实际应用中，增加模型深度比增加宽度相对更有效</li>
+</ul>
+</li>
+</ul>
+<h3 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h3><ul>
+<li><p>预训练 + 微调</p>
+<ul>
+<li>预训练：监督逐层，每次训练时间上一层隐层结构的输出作为输入，本层隐节点的输出作为输出，仅训练一层网络</li>
+<li>微调：预训练全部完成后，对整个网络进行微调训练，一般采用 BP 算法</li>
+</ul>
+</li>
+<li><p>权共享</p>
+<ul>
+<li>一组神经元使用相同的连接权值</li>
+</ul>
+</li>
+</ul>
+<h3 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h3><ul>
+<li>卷积层：每个卷积层包含多个特征映射，每个特征映射通过一种卷积滤波器提取一种数据的特征</li>
+<li>采样层：也叫作汇合层，其作用是基于局部相关性原理进行亚采样，从而在减少数据量的同时保留有用信息</li>
+<li>连接层：每个神经元被全连接到上一层每个神经元，本质就是传统的神经网络，其目的是通过连接层和输出层的连接完成识别任务</li>
+</ul>
+<h1 id="第六讲-决策树"><a href="#第六讲-决策树" class="headerlink" title="第六讲 决策树"></a>第六讲 决策树</h1><h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ul>
+<li><p>策略：分而治之</p>
+</li>
+<li><p>递归过程：每个中间节点寻找一个划分属性</p>
+</li>
+<li><p>三种停止条件</p>
+<ul>
+<li>当前节点包含的样本全属于同一类别，无需划分</li>
+<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分</li>
+<li>当前结点包含的样本集合为空，不能划分</li>
+</ul>
+</li>
+</ul>
+<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><h3 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h3><p>$$<br>Gain(D,a) &#x3D; Ent(D)-\sum_{v&#x3D;1}^V\frac{|D^v|}{|D|}Ent(D^v)<br>$$</p>
+<ul>
+<li><p>信息熵</p>
+<ul>
+<li>度量样本集合纯度最常用的一种指标，假定当前样本第 k 类样本所占比例为$p_k(k&#x3D;1,2,…,|\gamma|)$，则 D 的信息熵定义为</li>
+<li>$$<br>Ent(D) &#x3D; -\sum_{k&#x3D;1}^{|\gamma|}p_k\log_2p_k<br>$$</li>
+<li>$Ent(D)$的值越少，$D$的纯度越高</li>
+</ul>
+</li>
+<li><p>ID3</p>
+<ul>
+<li>信息增益越大，意味着使用属性 a 来进行划分所获得的纯度提升最大</li>
+<li>可以用信息增益来进行决策树的划分属性选择</li>
+</ul>
+</li>
+<li><p>信息增益偏好取值数多的属性</p>
+</li>
+</ul>
+<p><img src="/../assets/aml/QX0yb8X6OoiZfIxW7xMcIqE9nAb.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="增益率"><a href="#增益率" class="headerlink" title="增益率"></a>增益率</h3><ul>
+<li><p>C4.5</p>
+<ul>
+<li>信息增益准则对可取值数目较多的属性有偏好，会带来不利影响</li>
+<li>不直接使用信息增益，而是用信息增益率</li>
+<li>$$<br>Gain_ratio(D,a)&#x3D;\frac{Gain(D,a)}{IV(a)}<br>$$</li>
+<li>$$<br>IV(a) &#x3D; -\sum_{v&#x3D;1}^V\frac{|D^v|}{|D|}\log_2\frac{|D^v|}{|D|}<br>$$</li>
+</ul>
+</li>
+<li><p>增益率准则偏好取值数较少的属性</p>
+</li>
+</ul>
+<h2 id="过拟合和剪枝"><a href="#过拟合和剪枝" class="headerlink" title="过拟合和剪枝"></a>过拟合和剪枝</h2><ul>
+<li><p>决策树的不足：过拟合</p>
+<ul>
+<li>决策树的 决策分支较多，以至于把训练集自身的一些特点当作所有数据都具有一般性质而导致的过拟合</li>
+</ul>
+</li>
+<li><p>剪枝的基本策略</p>
+<ul>
+<li>预剪枝：边建树，边剪枝</li>
+<li>后剪枝：先建树，后剪枝</li>
+</ul>
+</li>
+</ul>
+<h3 id="预剪枝"><a href="#预剪枝" class="headerlink" title="预剪枝"></a>预剪枝</h3><ul>
+<li><p>决策树生成过程中，对每个节点在划分前先进行估计，若当前节点的划分不能带来决策树泛化性能提升，则停止划分并将当前节点标记为叶节点，其类别标记为训练样例数最多的类别</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>降低过拟合的风险</li>
+<li>显著减少训练时间和测试时间的开销</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>欠拟合。单看一步划分虽然不能提升泛化性能，但多看几步有可能提高性能</li>
+<li>基于贪心本质禁止分支展开，带来欠拟合风险</li>
+</ul>
+</li>
+</ul>
+<h3 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h3><ul>
+<li><p>优点</p>
+<ul>
+<li>保留了更多的分支，欠拟合风险小，泛化性能往往优于预剪枝决策树</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>训练时间开销大</li>
+</ul>
+</li>
+</ul>
+<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><ul>
+<li>单变量决策树分类边界：轴平行</li>
+<li>多变量决策树</li>
+</ul>
+<h1 id="第七讲-贝叶斯分类器"><a href="#第七讲-贝叶斯分类器" class="headerlink" title="第七讲 贝叶斯分类器"></a>第七讲 贝叶斯分类器</h1><h2 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h2><p>给定$N$个类别，令$\lambda_{ij}$代表将第$j$类样本误分为第$i$类所产生的损失，则基于后验概率将样本$x$分到第$j$类的风险为</p>
+<p>$$<br>R(c_i|x) &#x3D; \sum_{j&#x3D;1}^N\lambda_{ij}P(c_j|x)<br>$$</p>
+<ul>
+<li><p>贝叶斯判定法则</p>
+<ul>
+<li><p>$$<br>h^*(x) &#x3D; \argmin_{c\in \gamma}R(c|x)<br>$$</p>
+<ul>
+<li>$h^*$称为贝叶斯最优分类器，其总体风险称为贝叶斯风险</li>
+<li>反映了学习性能的理论上限</li>
+</ul>
+</li>
+<li><p>贝叶斯的核心工作:$P(c|x)$，但是很不好求</p>
+</li>
+</ul>
+</li>
+<li><p>转化</p>
+<ul>
+<li><p>$$<br>P(c|x) &#x3D; \frac{P(c)P(x|c)}{P(x)}<br>$$</p>
+<ul>
+<li>可以假定每个样本出现概率一样</li>
+<li>每个样本的频率可以算</li>
+<li>所以只需要基于分类，判断一个样本的概率即可</li>
+<li>还是不好算<ul>
+<li>在于$x$的维度可能会很大，会存在组合爆炸</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>主要障碍，所有属性上的联合概率难以从有限训练样本估计获得</p>
+<ul>
+<li><p>$$<br>P(c|x) &#x3D; \frac{P(c)P(x|c)}{P(x)} &#x3D; \frac{P(c)}{P(x)}\prod_{i&#x3D;1}^dP(x_i|c)<br>$$</p>
+<ul>
+<li>$d$为属性数，$x_i$为$x$在第$i$个属性上的取值</li>
+<li>$P(x)$对所有类别相同，于是$h_{nb}(x) &#x3D; \argmax_{c\in \gamma}P(c)\prod_{i&#x3D;1}^dP(x_i|c)$</li>
+</ul>
+</li>
+<li><p>估计$P(c) &#x3D; \frac{|D_c|}{|D|}$</p>
+</li>
+<li><p>估计$P(x|c)$</p>
+<ul>
+<li>对离散属性，令$D_{c,x_i}$表示$D_c$中在第$i$个属性上取值为$x_i$的样本组成的集合，则$P(x_i|c) &#x3D; \frac{|D_{c,x_i}|}{|D_c|}$</li>
+<li>对连续属性，考虑概率密度函数，假定$p(x_i|c) \sim N(\mu_{c,i},\sigma^2_{c,i})$</li>
+</ul>
+</li>
+<li><p>拉普拉斯修正</p>
+<ul>
+<li>若某个属性值在训练集中没有与某个类同时出现过，则直接计算会出现问题，因为概率连乘会抹去其他属性提供的信息</li>
+<li>令$N$表示训练集$D$中可能得类别数，$N_i$表示第$i$个属性可能得取值数<ul>
+<li>$$<br>\hat P(c) &#x3D; \frac{|D_c|+1}{|D|+N}<br>$$</li>
+<li>$$<br>\hat P(x_i|c) &#x3D; \frac{|D_{c,x_i}|+1}{|D_c|+N_i}<br>$$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用</p>
+<ul>
+<li>若对预测速度要求高<ul>
+<li>预计算所有概率估值，使用的时候查表</li>
+</ul>
+</li>
+<li>若数据更替频繁<ul>
+<li>不进行任何训练，收到预测请求时再估值（懒惰学习）</li>
+</ul>
+</li>
+<li>若数据不断增加<ul>
+<li>基于现有估值，对新样本涉及的概率估值进行修正（增量学习）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="半朴素贝叶斯"><a href="#半朴素贝叶斯" class="headerlink" title="半朴素贝叶斯"></a>半朴素贝叶斯</h2><ul>
+<li><p>基本思路：适当考虑一部分属性间的相互依赖信息</p>
+</li>
+<li><p>最常用策略：ODE</p>
+<ul>
+<li>$$<br>P(c|x) \propto P(c)\prod_{i&#x3D;1}^dP(x_i|c,pa_i)<br>$$</li>
+</ul>
+</li>
+<li><p>两种常见方法</p>
+<ul>
+<li>SPODE<ul>
+<li>假设所有属性都依赖于同一属性，称为超父，然后通过交叉验证登模型选择方法来确定超父属性</li>
+</ul>
+</li>
+<li>TAN<ul>
+<li>以属性间的条件互信息为边的权重，构建完全图，再利用最大带权生成树算法，仅保留强相关属性间的依赖性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="贝叶斯网络"><a href="#贝叶斯网络" class="headerlink" title="贝叶斯网络"></a>贝叶斯网络</h2><ul>
+<li><p>贝叶斯网：$B &#x3D; &lt;G,\Theta&gt;$</p>
+</li>
+<li><p>概率图模型</p>
+<ul>
+<li>有向图模型-&gt; 贝叶斯网</li>
+<li>无向图模型-&gt; 马尔科夫网</li>
+</ul>
+</li>
+</ul>
+<h1 id="第八讲-集成学习"><a href="#第八讲-集成学习" class="headerlink" title="第八讲 集成学习"></a>第八讲 集成学习</h1><h2 id="个体与集成"><a href="#个体与集成" class="headerlink" title="个体与集成"></a>个体与集成</h2><ul>
+<li><p>定义：集成学习通过多学习器来提升性能</p>
+</li>
+<li><p>理想情况</p>
+<ul>
+<li>假设基分类器的错误率为$P(h_i(x)\neq f(x)) &#x3D; \epsilon$</li>
+<li>投票法结合$T$个分类器，超过半数的基分类器正确则分类就正确$H(x) &#x3D; sign(\sum_{i&#x3D;1}^{T}h_i(x))$</li>
+<li>假设基分类器的错误率相互独立，则由 Hoeffding 不等式可得$P(H(x)\neq f(x)) \le exp(-\frac{1}{2}T(1-2\epsilon)^2)$</li>
+<li>在一定条件下，随着集成分类器的数目增加，集成的错误率将指数级下降</li>
+</ul>
+</li>
+<li><p>现实</p>
+<ul>
+<li>关键假设：基分类器的误差相互独立</li>
+<li>现实任务重，个体学习器来自同一个问题，不可能完全独立</li>
+<li>事实上，个体学习器的准确性和多样性本身就存在冲突</li>
+<li>如何产生好而不同的个体学习器是集成学习研究的核心</li>
+<li>集成学习大致可以分为两大类：串行和并行</li>
+</ul>
+</li>
+</ul>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><ul>
+<li>每次调整训练数据的样本分布</li>
+<li>串行生成</li>
+<li>个体学习器存在强依赖关系</li>
+</ul>
+<p><img src="/../assets/aml/VwaQb5atMo9imJx1e7YcodCinLg.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="AdaBoost-推导"><a href="#AdaBoost-推导" class="headerlink" title="AdaBoost 推导"></a>AdaBoost 推导</h3><ul>
+<li>基学习器的线性组合$H(x) &#x3D; \sum_{t&#x3D;1}^{T}\alpha_th_t(x)$</li>
+<li>最小化指数损失函数$\ell_{exp}(H|D) &#x3D; E_{x\sim D}[e^{-f(x)H(x)}]$</li>
+<li>令上式对的 H 的偏导值为 0，即$\frac{\partial\ell_{exp}(H|D)}{\partial H(x)} &#x3D; -e^{-H(x)}P(f(x) &#x3D; 1|x) + e^{H(x)}P(f(x)&#x3D;-1|x)$</li>
+</ul>
+<h2 id="Bagging-与随机森林"><a href="#Bagging-与随机森林" class="headerlink" title="Bagging 与随机森林"></a>Bagging 与随机森林</h2><ul>
+<li>个体学习不存在强依赖关系</li>
+<li>并行化生成</li>
+<li>自主采样法</li>
+<li>时间复杂度低</li>
+<li>可使用包外估计</li>
+</ul>
+<h3 id="包外估计"><a href="#包外估计" class="headerlink" title="包外估计"></a>包外估计</h3><ul>
+<li>$H^{oob}(x)$表示对样本$x$的包外预测，即仅考虑那些未使用样本$x$训练的基学习器在$x$上的预测$H^{oob}(x) &#x3D; \argmax_{y\in \gamma}\sum_{t&#x3D;1}^T|h_t(x)&#x3D;y|*|x\notin D_t|$</li>
+</ul>
+<h2 id="结合策略"><a href="#结合策略" class="headerlink" title="结合策略"></a>结合策略</h2><h3 id="投票法"><a href="#投票法" class="headerlink" title="投票法"></a>投票法</h3><ul>
+<li>绝对多数投票法</li>
+<li>相对多数投票法</li>
+<li>加权投票法</li>
+</ul>
+<h3 id="学习法"><a href="#学习法" class="headerlink" title="学习法"></a>学习法</h3><ul>
+<li>Stacking</li>
+</ul>
+<h2 id="多样性"><a href="#多样性" class="headerlink" title="多样性"></a>多样性</h2><ul>
+<li>数据样本扰动</li>
+<li>输入属性扰动</li>
+<li>输出表示扰动</li>
+<li>算法参数扰动</li>
+</ul>
+<h1 id="第九讲-聚类"><a href="#第九讲-聚类" class="headerlink" title="第九讲 聚类"></a>第九讲 聚类</h1><h2 id="聚类任务"><a href="#聚类任务" class="headerlink" title="聚类任务"></a>聚类任务</h2><ul>
+<li>目标：将数据样本划分为若干个通常不相交的簇</li>
+</ul>
+<h2 id="性能度量-1"><a href="#性能度量-1" class="headerlink" title="性能度量"></a>性能度量</h2><ul>
+<li><p>外部指标</p>
+<ul>
+<li>将聚类结果与某个参考模型进行比较，Jaccard 系数、FM 指数，Rand 指数</li>
+</ul>
+</li>
+<li><p>内部指标</p>
+<ul>
+<li>直接参考聚类结果，DB 指数，Dunn 指数等</li>
+</ul>
+</li>
+<li><p>基本想法：</p>
+<ul>
+<li>簇内相似度高且簇间相似度低</li>
+</ul>
+</li>
+</ul>
+<h2 id="距离计算"><a href="#距离计算" class="headerlink" title="距离计算"></a>距离计算</h2><ul>
+<li><p>距离度量需要满足的基本性质</p>
+<ul>
+<li>非负性：$dist(x_i,x_j) \ge 0$</li>
+<li>同一性：$dist(x_i,x_j) &#x3D; 0$当且仅当$x_i&#x3D;x_j$</li>
+<li>对称性：$dist(x_i,x_j) &#x3D; dist(x_j,x_i)·$</li>
+<li>直递性：$dist(x_i,x_j) \le dist(x_i,x_k)+dist(x_k,x_j)$</li>
+</ul>
+</li>
+<li><p>常用距离公式</p>
+<ul>
+<li>闵可夫斯基距离$dist_{mk}(x_i,x_j) &#x3D; (\sum_{u&#x3D;1}^n|x_{iu}-x_{ju}|^p)^{\frac{1}{p}}$</li>
+<li>$p&#x3D;2$欧氏距离</li>
+<li>$p&#x3D;1$曼哈顿距离</li>
+</ul>
+</li>
+<li><p>对无序属性，可使用 VDM</p>
+<ul>
+<li>令$m_{u，a}$表示属性$u$上取值为$a$的样本数，$m_{u,a,i}$表示在第$i$个样本簇中在属性$u$上取值为$a$的样本数，$k$为样本簇数，则属性$u$上两个离散值$a$与$b$之间的 VDM 距离为$VDM_p(a,b) &#x3D; \sum_{i&#x3D;1}^k|\frac{m_{u,a,i}}{m_{u,a}} - \frac{m_{u,b,i}}{m_{u,b}}|^p$</li>
+</ul>
+</li>
+<li><p>对混合属性，可使用 MinkovVDM</p>
+<ul>
+<li>$$<br>MinkovDM_p(x_i,x_j) &#x3D; (\sum_{u&#x3D;1}^{n_c}|x_{iu}-x_{j,u}|^p + \sum_{u&#x3D;n_c+1}^n VDM_p(x_{i,u},x_{j,u}))^{\frac{1}{p}}<br>$$</li>
+</ul>
+</li>
+<li><p>聚类的好坏没有绝对标准</p>
+</li>
+</ul>
+<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k-means"><a href="#k-means" class="headerlink" title="k-means"></a>k-means</h3><ul>
+<li>每个簇中心以该簇中所有样本点的均值表示<ul>
+<li>随机选取$k$个样本中心点作为簇中心</li>
+<li>将其他样本点根据其与簇中心的距离，划分给最近的簇</li>
+<li>更新各簇的均值向量，将其作为新的簇中心</li>
+<li>若所有的簇中心未发生改变，则停止；否则执行步骤 2</li>
+</ul>
+</li>
+</ul>
+<h3 id="学习向量量化（LVQ）"><a href="#学习向量量化（LVQ）" class="headerlink" title="学习向量量化（LVQ）"></a>学习向量量化（LVQ）</h3><ul>
+<li>也是试图找到一组原型向量来刻画聚类结构，但数据样本带有类别标记</li>
+</ul>
+<p><img src="/../assets/aml/DmbPbsMf5o6D1BxOco9cTkJKnoc.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="高斯混合聚类（GMM）"><a href="#高斯混合聚类（GMM）" class="headerlink" title="高斯混合聚类（GMM）"></a>高斯混合聚类（GMM）</h3><ul>
+<li>采用高斯概率分布来表达聚类原型，簇中心&#x3D;均值，簇半径&#x3D;方差</li>
+</ul>
+<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><h3 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h3><ul>
+<li>关键概念<ul>
+<li>核心对象：若$x_j$的$\epsilon$-邻域至少包含$MinPts$个样本，即$|N_{\epsilon}(x_j)| \ge MinPts$，则$x_j$是一个核心对象</li>
+<li>密度直达：若$x_j$位于$x_i$的$\epsilon$-领域中，且$x_i$是核心对象，则称$x_j$由$x_i$密度直达</li>
+<li>密度可达：对$x_i$与$x_j$，若存在样本序列$p_1,p_2,\dots,p_n$其中$p_1&#x3D;x_i$，$p_n&#x3D;x_j$且$p_{i+1}$由$p_i$密度直达，则称$x_j$由$x_i$密度可达</li>
+<li>密度相连</li>
+</ul>
+</li>
+</ul>
+<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3><ul>
+<li>从最细的粒度开始（一个样本一个簇），逐渐合并相似的簇，知道最粗的粒度（所有样本一个簇）<ul>
+<li>将每个样本点作为一个簇</li>
+<li>合并最近的两个簇</li>
+<li>若所有样本点都存在于一个簇中，则停止；否则继续步骤 2</li>
+</ul>
+</li>
+</ul>
+<h1 id="第十章-降维与度量学习"><a href="#第十章-降维与度量学习" class="headerlink" title="第十章 降维与度量学习"></a>第十章 降维与度量学习</h1><h2 id="k-近邻学习"><a href="#k-近邻学习" class="headerlink" title="k-近邻学习"></a>k-近邻学习</h2><ul>
+<li><p>k 近邻学习室懒惰学习的代表</p>
+<ul>
+<li>懒惰学习：事先没有分类器，见到测试样本才开始准备分类器</li>
+</ul>
+</li>
+<li><p>基本思路</p>
+<ul>
+<li>近朱者赤，近墨者黑</li>
+<li>关键：k 值选取，距离计算</li>
+</ul>
+</li>
+<li><p>重要性质</p>
+<ul>
+<li>给定测试样本 x，若其最近样本为 z，则最近邻分类器出错的概率就是 x 和 z 类别标记不同的概率<ul>
+<li>$$<br>\begin{aligned}<br>P(err) &amp;&#x3D; 1-\sum_{c\in \gamma}P(c|x)P(c|z) \<br>&amp;\simeq 1-\sum_{c\in \gamma}P^2(c|x) \<br>&amp;\le 1-P^2(c^*|x) \<br>&amp;&#x3D; (1+P(c^*|x))(1-P(c^*|x)) \<br>&amp;\le 2\times (1-P(c^*|x)<br>\end{aligned}<br>$$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>维数灾难</p>
+<ul>
+<li>高维空间给距离计算带来很大的麻烦</li>
+<li>样本变得稀疏，近邻容易不准</li>
+</ul>
+</li>
+</ul>
+<h2 id="低维嵌入"><a href="#低维嵌入" class="headerlink" title="低维嵌入"></a>低维嵌入</h2><h3 id="多维缩放方法（MDS）"><a href="#多维缩放方法（MDS）" class="headerlink" title="多维缩放方法（MDS）"></a>多维缩放方法（MDS）</h3><ul>
+<li><p>MDS 旨在寻找一个低维子空间，使得距离和样本原有距离近似不变</p>
+</li>
+<li><p>寻找低维子空间尽量保持样本内积不变</p>
+<ul>
+<li>思路：特征值分解</li>
+<li>设样本之间的内积矩阵均为 B，对 B 进行特征值分解：$B &#x3D; V\Lambda V^T$</li>
+</ul>
+</li>
+</ul>
+<h2 id="流形学习"><a href="#流形学习" class="headerlink" title="流形学习"></a>流形学习</h2><h3 id="ISOMAP"><a href="#ISOMAP" class="headerlink" title="ISOMAP"></a>ISOMAP</h3><ul>
+<li>基本步骤<ul>
+<li>构造近邻图</li>
+<li>基于最短路径算法近似任意两点之间的测地线距离</li>
+<li>基于距离矩阵通过 MDS 获得低维嵌入</li>
+</ul>
+</li>
+</ul>
+<h3 id="LLE"><a href="#LLE" class="headerlink" title="LLE"></a>LLE</h3><ul>
+<li>基本步骤<ul>
+<li>为每个样本构造近邻集合$Q_i$</li>
+<li>为每个样本计算基于$Q_i$的线性重构系数：$\min_{w_1,w_2,\dots,w_m} \sum_{i&#x3D;1}^m\lVert x_i-\sum_{j\in Q_i}w_{ij}x_j \rVert^2_2 \quad s.t. \sum_{j\in Q_i}w_{ij} &#x3D; 1$</li>
+<li>在低维空间中保持$w_{ij}$不变，求解下式$\min_{z_1,z_2,\dots,z_m} \sum_{i&#x3D;1}^m\lVert z_i-\sum_{j\in Q_i}w_{ij}z_j \rVert^2_2$</li>
+</ul>
+</li>
+</ul>
+<h2 id="度量学习"><a href="#度量学习" class="headerlink" title="度量学习"></a>度量学习</h2><p>降维希望找到一个合适低维空间下的距离度量</p>
+<ul>
+<li><p>能够通过参数化来学习距离度量</p>
+<ul>
+<li>马氏距离$dist^2_{mah}(x_i,x_j) &#x3D; (x_i-x_j)^TM(x_i-x_j) &#x3D; \lVert x_i-x_j\rVert^2_M$</li>
+</ul>
+</li>
+<li><p>欧氏距离</p>
+<ul>
+<li>缺陷：各个方向同等重要</li>
+</ul>
+</li>
+</ul>
+<h2 id="主成分分析-PCA"><a href="#主成分分析-PCA" class="headerlink" title="主成分分析 PCA"></a>主成分分析 PCA</h2><ul>
+<li><p>正交属性空间中的样本点，如何使用一个超平面对所有样本进行恰当的表达</p>
+</li>
+<li><p>若存在这样的超平面，那么它大概具有这样的性质</p>
+<ul>
+<li>最近重构性：样本点到这个超平面的距离都足够近</li>
+<li>最大可分性：样本点在这个超平面上的投影能尽可能分开</li>
+</ul>
+</li>
+</ul>
+<h3 id="最近重构性"><a href="#最近重构性" class="headerlink" title="最近重构性"></a>最近重构性</h3><ul>
+<li>对样本进行中心化：$\sum_ix_i &#x3D; 0$</li>
+<li>假定投影变换后得到的新坐标系为${\omega_1,\omega_2,\dots,\omega_d}$，其中$\omega_i$是标准正交基向量：$\lVert \omega_i\rVert_2 &#x3D; 1, \omega_i^T\omega_j &#x3D; 0(i\neq j)$</li>
+<li>若丢弃新坐标系中的部分坐标，即将维度降低到$d^{\prime}\lt d$则样本点在低维坐标系中的投影是$z_i &#x3D; (z_{i1};z_{i2};\dots;z_{id^{\prime}}) \quad z_{ij} &#x3D; \omega_j^Tx_i$</li>
+<li>若基于$z_i$来重构$x_i$，则会得到$\hat x_i &#x3D; \sum_{j&#x3D;1}^{d^{\prime}}z_{ij}\omega_j$</li>
+<li>原样本点$x_i$与基于投影重构的样本点$\hat x_i$之间的距离为:$\sum_{i&#x3D;1}^m\lVert\sum_{j&#x3D;1}^{d^{\prime}}z_{ij}w_j - x_i\rVert^2_2 &#x3D; \sum_{i&#x3D;1}^mz_i^Tz_i - 2\sum_{i&#x3D;1}^mz_i^TW^Tx_i+const \propto -tr(W^T(\sum_{i&#x3D;1}^mx_ix_i^T)W)$</li>
+</ul>
+<h3 id="最大可分性"><a href="#最大可分性" class="headerlink" title="最大可分性"></a>最大可分性</h3><ul>
+<li>样本点$x_i$在新空间中超平面上的投影是$W^Tx$，若所有样本点的投影尽可能分开，则应该是的投影后的样本方差最大化</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%97%E5%A4%A7/" class="category-chain-item">南大</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>高级机器学习</div>
+      <div>http://example.com/2024/06/09/aml/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/20/serverless_orchestration/" title="Serverless 函数编排">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Serverless 函数编排</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/28/interview/" title="面试常问问题">
+                        <span class="hidden-mobile">面试常问问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

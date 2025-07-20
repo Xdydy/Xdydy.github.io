@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录Ray">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ray 学习笔记">
+<meta property="og:url" content="http://example.com/2025/07/20/ray/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录Ray">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/ray/Xu3vbaalIo7AlixmWnvc0sRgnRg.png">
+<meta property="og:image" content="http://example.com/assets/ray/XEoOb1oxEoMobuxs84JcT6bPn3b.png">
+<meta property="og:image" content="http://example.com/assets/ray/FbZTbh6NXorjG1xQBmtc1RmnnRg.png">
+<meta property="og:image" content="http://example.com/assets/ray/HQDHboqcyo6aVKxssuEcrJ5Ynjb.png">
+<meta property="og:image" content="http://example.com/assets/ray/Q9GWbgQDvodZdBxPq5DcVGGpnOd.png">
+<meta property="og:image" content="http://example.com/assets/ray/ZjPtb7jL4oCsrPxx695cgbIhn7c.png">
+<meta property="og:image" content="http://example.com/assets/ray/S1O8bVWCvoXX9CxK0d3c2gJdnib.png">
+<meta property="og:image" content="http://example.com/assets/ray/Npwhb1ZWOoAxwPxrCzgcXlOcnvc.png">
+<meta property="og:image" content="http://example.com/assets/ray/WXQkbtT3WoxiyOxMh9FcYENnnJe.png">
+<meta property="og:image" content="http://example.com/assets/ray/HRY8bsoNdo686txUKytcvOuTngf.png">
+<meta property="og:image" content="http://example.com/assets/ray/Kc3cbm5VpoaZ8HxWeMwcFHkOn5c.png">
+<meta property="og:image" content="http://example.com/assets/ray/HkAOb5DcAowy0uxM2lkcWFl8nfe.png">
+<meta property="og:image" content="http://example.com/assets/ray/P0zWbSg5woe47Dx4wugcQTGJnwh.png">
+<meta property="article:published_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Serverless">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/ray/Xu3vbaalIo7AlixmWnvc0sRgnRg.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Ray 学习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Ray 学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-20 14:21" pubdate>
+          2025年7月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          95 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Ray 学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Ray-学习笔记"><a href="#Ray-学习笔记" class="headerlink" title="Ray 学习笔记"></a>Ray 学习笔记</h1><h1 id="Ray-概述"><a href="#Ray-概述" class="headerlink" title="Ray 概述"></a>Ray 概述</h1><p>Ray 是一个用于扩展 AI 和 Python 应用程序（如机器学习）的开源统一框架。它提供了并行处理的计算层，因此您无需成为分布式系统专家。Ray 通过以下组件，最小化了运行分布式个体和端到端机器学习工作流的复杂性：</p>
+<ul>
+<li>为常见的机器学习任务（如数据预处理、分布式训练、超参数调整、强化学习和模型服务）提供可扩展的库。</li>
+<li>用于并行化和扩展 Python 应用程序的 Pythonic 分布式计算基元。</li>
+<li>用于与现有工具和基础设施（如 Kubernetes、AWS、GCP 和 Azure）集成和部署 Ray 集群的集成工具和实用程序。</li>
+</ul>
+<p>对于数据科学家和机器学习从业者来说，Ray 让您无需基础设施专业知识就能扩展作业：</p>
+<ul>
+<li>轻松地在多个节点和 GPU 上并行化和分布 ML 工作负载。</li>
+<li>利用 ML 生态系统，具有原生和可扩展的集成。</li>
+</ul>
+<p>对于 ML 平台构建者和 ML 工程师，Ray：</p>
+<ul>
+<li>提供了创建可扩展且健壮的 ML 平台的计算抽象。</li>
+<li>提供了简化上手和与更广泛的 ML 生态系统集成的统一 ML API。</li>
+<li>通过使相同的 Python 代码能够从笔记本电脑无缝扩展到大型集群，减少了开发与生产之间的摩擦。</li>
+</ul>
+<p>对于分布式系统工程师，Ray 自动处理关键过程：</p>
+<ul>
+<li>编排——管理分布式系统的各种组件。</li>
+<li>调度——协调任务执行的时间和地点。</li>
+<li>容错——确保任务完成，不管不可避免的故障点。</li>
+<li>自动扩展——根据动态需求调整分配的资源数量。</li>
+</ul>
+<h1 id="Ray-安装"><a href="#Ray-安装" class="headerlink" title="Ray 安装"></a>Ray 安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -U <span class="hljs-string">&quot;ray[data,train,tune,serve]&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="Ray-核心组件"><a href="#Ray-核心组件" class="headerlink" title="Ray 核心组件"></a>Ray 核心组件</h1><ul>
+<li><p>Ray Core：提供了一些核心组件构造可扩展的分布式应用</p>
+</li>
+<li><p>Ray Data：一个可扩展的用户 ML 训练的数据处理库</p>
+</li>
+<li><p>Ray Train：一个可扩展的 ML 训练库，用于支撑分布式训练以及参数微调</p>
+<ul>
+<li>可扩展：将模型从单一机器扩展到集群</li>
+<li>抽象性：忽略了分布式计算的复杂性</li>
+<li>适用方面：大模型以及大型数据集</li>
+</ul>
+</li>
+<li><p>Ray Tune：用于参数微调</p>
+</li>
+<li><p>Ray Serve：一个可扩展的模型服务库，用于构建在线推理 API</p>
+</li>
+<li><p>Ray RLlib：一个用于强化学习（RL）的库</p>
+</li>
+<li><p>Ray Clusters：一系列连接着 Ray head node 的 worker 节点，集群可扩展</p>
+</li>
+</ul>
+<h2 id="Ray-Core"><a href="#Ray-Core" class="headerlink" title="Ray Core"></a>Ray Core</h2><h3 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h3><ul>
+<li><p>Task：无状态的 Worker</p>
+<ul>
+<li>Ray 允许任意的函数在分离的 python worker 上执行</li>
+<li>可以明确资源需求（CPUs, GPUs）</li>
+</ul>
+</li>
+<li><p>Actor：有状态的 Worker</p>
+<ul>
+<li>可以让函数访问其对应的 worker 的变量</li>
+<li>也可以明确资源需求</li>
+</ul>
+</li>
+<li><p>Object：Task 以及 Worker 都是在 Object 上计算的</p>
+<ul>
+<li>可以在任意的 Ray 集群中存储</li>
+<li>可以被引用</li>
+<li>远程 Object 被缓存在 Ray 的分布式共享内存存储中</li>
+</ul>
+</li>
+<li><p>Placement Groups：允许用户管原子性地管理组资源</p>
+<ul>
+<li>可以计划 Ray 的 Task 以及 Actor</li>
+</ul>
+</li>
+</ul>
+<h3 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h3><h4 id="remote-函数"><a href="#remote-函数" class="headerlink" title="remote 函数"></a><code>remote</code> 函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@ray.remote</span><br></code></pre></td></tr></table></figure>
+
+<p><code>./_private/worker.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@PublicAPI</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">remote</span>(<span class="hljs-params"></span><br><span class="hljs-params">    *args, **kwargs</span><br><span class="hljs-params"></span>) -&gt; <span class="hljs-type">Union</span>[ray.remote_function.RemoteFunction, ray.actor.ActorClass]:<br>    <span class="hljs-comment"># &quot;callable&quot; returns true for both function and class.</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(args) == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(kwargs) == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">callable</span>(args[<span class="hljs-number">0</span>]):<br>        <span class="hljs-comment"># This is the case where the decorator is just @ray.remote.</span><br>        <span class="hljs-comment"># &quot;args[0]&quot; is the class or function under the decorator.</span><br>        <span class="hljs-keyword">return</span> _make_remote(args[<span class="hljs-number">0</span>], &#123;&#125;)<br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(args) == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(kwargs) &gt; <span class="hljs-number">0</span>, ray_option_utils.remote_args_error_string<br>    <span class="hljs-keyword">return</span> functools.partial(_make_remote, options=kwargs)<br></code></pre></td></tr></table></figure>
+
+<p><code>./_private/worker.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_make_remote</span>(<span class="hljs-params">function_or_class, options</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> function_or_class.__module__:<br>        function_or_class.__module__ = <span class="hljs-string">&quot;global&quot;</span><br><br>    <span class="hljs-keyword">if</span> inspect.isfunction(function_or_class) <span class="hljs-keyword">or</span> is_cython(function_or_class):<br>        ray_option_utils.validate_task_options(options, in_options=<span class="hljs-literal">False</span>)<br>        <span class="hljs-keyword">return</span> ray.remote_function.RemoteFunction(<br>            Language.PYTHON,<br>            function_or_class,<br>            <span class="hljs-literal">None</span>,<br>            options,<br>        )<br><br>    <span class="hljs-keyword">if</span> inspect.isclass(function_or_class):<br>        ray_option_utils.validate_actor_options(options, in_options=<span class="hljs-literal">False</span>)<br>        <span class="hljs-keyword">return</span> ray.actor._make_actor(function_or_class, options)<br><br>    <span class="hljs-keyword">raise</span> TypeError(<br>        <span class="hljs-string">&quot;The @ray.remote decorator must be applied to either a function or a class.&quot;</span><br>    )<br></code></pre></td></tr></table></figure>
+
+<p><code>./remote_function.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">RemoteFunction</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params"></span><br><span class="hljs-params">        self,</span><br><span class="hljs-params">        language,</span><br><span class="hljs-params">        function,</span><br><span class="hljs-params">        function_descriptor,</span><br><span class="hljs-params">        task_options,</span><br><span class="hljs-params">    </span>):<br>        ...<br>        <span class="hljs-comment"># Override task.remote&#x27;s signature and docstring</span><br><span class="hljs-meta">        @wraps(<span class="hljs-params">function</span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">_remote_proxy</span>(<span class="hljs-params">*args, **kwargs</span>):<br>            <span class="hljs-keyword">return</span> self._remote(args=args, kwargs=kwargs, **self._default_options)<br><br>        self.remote = _remote_proxy<br></code></pre></td></tr></table></figure>
+
+<p>因此对于 <code>remote</code> 装饰器的请求，其内部流程大体如下</p>
+<ul>
+<li><code>remote</code> 函数接收类或者函数作为参数</li>
+<li><code>_make_remote</code> 函数将其封装为类 <code>RemoteFunction</code></li>
+<li><code>RemoteFunction</code> 里头有 <code>self.remote</code> 属性，存放传入的函数 <code>f</code></li>
+<li><code>f.remote</code> 调用原来的方法</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="基于-Task-的批量预测"><a href="#基于-Task-的批量预测" class="headerlink" title="基于 Task 的批量预测"></a>基于 Task 的批量预测</h4><p>通过 Ray 的 Task，可以构建一个批处理预测程序，大概分为三个步骤</p>
+<ul>
+<li>加载模型</li>
+<li>部署 Ray Task，每一个 Task 包含了模型以及共享的输入数据集</li>
+<li>每一个 worker 都在被分配的分片上执行预测，并输出结果</li>
+</ul>
+<p>假设我们有这样一个简单的模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_model</span>():<br>    <span class="hljs-comment"># A dummy model.</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">model</span>(<span class="hljs-params">batch: pd.DataFrame</span>) -&gt; pd.DataFrame:<br>        <span class="hljs-comment"># Dummy payload so copying the model will actually copy some data</span><br>        <span class="hljs-comment"># across nodes.</span><br>        model.payload = np.zeros(<span class="hljs-number">100_000_000</span>)<br>        <span class="hljs-keyword">return</span> pd.DataFrame(&#123;<span class="hljs-string">&quot;score&quot;</span>: batch[<span class="hljs-string">&quot;passenger_count&quot;</span>] % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>&#125;)<br>    <br>    <span class="hljs-keyword">return</span> model<br></code></pre></td></tr></table></figure>
+
+<p>为每个 worker 分配 Task</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pyarrow.parquet <span class="hljs-keyword">as</span> pq<br><span class="hljs-keyword">import</span> ray<br><br><span class="hljs-meta">@ray.remote</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">make_prediction</span>(<span class="hljs-params">model, shard_path</span>):<br>    df = pq.read_table(shard_path).to_pandas()<br>    result = model(df)<br><br>    <span class="hljs-comment"># Write out the prediction result.</span><br>    <span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> unless the driver will have to further process the</span><br>    <span class="hljs-comment"># result (other than simply writing out to storage system),</span><br>    <span class="hljs-comment"># writing out at remote task is recommended, as it can avoid</span><br>    <span class="hljs-comment"># congesting or overloading the driver.</span><br>    <span class="hljs-comment"># ...</span><br><br>    <span class="hljs-comment"># Here we just return the size about the result in this example.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(result)<br></code></pre></td></tr></table></figure>
+
+<p>驱动程序负责管理所有的 Tasks</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 12 files, one for each remote task.</span><br>input_files = [<br>        <span class="hljs-string">f&quot;s3://anonymous@air-example-data/ursa-labs-taxi-data/downsampled_2009_full_year_data.parquet&quot;</span><br>        <span class="hljs-string">f&quot;/fe41422b01c04169af2a65a83b753e0f_<span class="hljs-subst">&#123;i:06d&#125;</span>.parquet&quot;</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>)<br>]<br><br><span class="hljs-comment"># ray.put() the model just once to local object store, and then pass the</span><br><span class="hljs-comment"># reference to the remote tasks.</span><br>model = load_model()<br>model_ref = ray.put(model)<br><br>result_refs = []<br><br><span class="hljs-comment"># Launch all prediction tasks.</span><br><span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> input_files:<br>    <span class="hljs-comment"># Launch a prediction task by passing model reference and shard file to it.</span><br>    <span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> it would be highly inefficient if you are passing the model itself</span><br>    <span class="hljs-comment"># like make_prediction.remote(model, file), which in order to pass the model</span><br>    <span class="hljs-comment"># to remote node will ray.put(model) for each task, potentially overwhelming</span><br>    <span class="hljs-comment"># the local object store and causing out-of-disk error.</span><br>    result_refs.append(make_prediction.remote(model_ref, file))<br><br>results = ray.get(result_refs)<br><br><span class="hljs-comment"># Let&#x27;s check prediction output size.</span><br><span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> results:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Prediction output size:&quot;</span>, r)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../assets/ray/Xu3vbaalIo7AlixmWnvc0sRgnRg.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/ray/XEoOb1oxEoMobuxs84JcT6bPn3b.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="基于-Actor-的批量预测"><a href="#基于-Actor-的批量预测" class="headerlink" title="基于 Actor 的批量预测"></a>基于 Actor 的批量预测</h4><p>上述基于 Tasks 的批量预测算法中，每个 Task 必须从驱动节点获取模型才能开启预测，如果模型很大这将是一个很大的开销。我们通过 Ray Actor 的方式，只需要加载一次模型就能够复用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> pyarrow.parquet <span class="hljs-keyword">as</span> pq<br><span class="hljs-keyword">import</span> ray<br><br><span class="hljs-meta">@ray.remote</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BatchPredictor</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model</span>):<br>        self.model = model<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, shard_path</span>):<br>        df = pq.read_table(shard_path).to_pandas()<br>        result =self.model(df)<br><br>        <span class="hljs-comment"># Write out the prediction result.</span><br>        <span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> unless the driver will have to further process the</span><br>        <span class="hljs-comment"># result (other than simply writing out to storage system),</span><br>        <span class="hljs-comment"># writing out at remote task is recommended, as it can avoid</span><br>        <span class="hljs-comment"># congesting or overloading the driver.</span><br>        <span class="hljs-comment"># ...</span><br><br>        <span class="hljs-comment"># Here we just return the size about the result in this example.</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(result)<br></code></pre></td></tr></table></figure>
+
+<p>构造函数只会在每个 Worker 被调用一次，我们使用 <code>ActorPool</code> 库来接收预测请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> ray.util.actor_pool <span class="hljs-keyword">import</span> ActorPool<br><br>model = load_model()<br>model_ref = ray.put(model)<br>num_actors = <span class="hljs-number">4</span><br>actors = [BatchPredictor.remote(model_ref) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_actors)]<br>pool = ActorPool(actors)<br>input_files = [<br>        <span class="hljs-string">f&quot;s3://anonymous@air-example-data/ursa-labs-taxi-data/downsampled_2009_full_year_data.parquet&quot;</span><br>        <span class="hljs-string">f&quot;/fe41422b01c04169af2a65a83b753e0f_<span class="hljs-subst">&#123;i:06d&#125;</span>.parquet&quot;</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>)<br>]<br><span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> input_files:<br>    pool.submit(<span class="hljs-keyword">lambda</span> a, v: a.predict.remote(v), file)<br><span class="hljs-keyword">while</span> pool.has_next():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Prediction output size:&quot;</span>, pool.get_next())<br></code></pre></td></tr></table></figure>
+
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><ul>
+<li>对于大模型的加载，应当传递的是模型引用而不是模型本身，<code>ray</code> 提供了 <code>ray.put(model)</code> 传递模型引用</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GOOD: the model will be stored to driver&#x27;s object store only once</span><br>model = load_model()<br>model_ref = ray.put(model)<br><span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> input_files:<br>    make_prediction.remote(model_ref, file)<br><br><span class="hljs-comment"># BAD: the same model will be stored to driver&#x27;s object store repeatedly for each task</span><br>model = load_model()<br><span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> input_files:<br>    make_prediction.remote(model, file)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Ray-Train"><a href="#Ray-Train" class="headerlink" title="Ray Train"></a>Ray Train</h2><ul>
+<li>训练函数：包含了训练逻辑的 Python 代码</li>
+<li>Worker：一个运行了训练函数的进程</li>
+<li>可扩展配置：对于 Worker 的配置以及计算资源的配置</li>
+<li>训练器：将上述三个概念打包起来构建一个分布式训练任务</li>
+</ul>
+<p><img src="/../assets/ray/FbZTbh6NXorjG1xQBmtc1RmnnRg.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="编程模型-1"><a href="#编程模型-1" class="headerlink" title="编程模型"></a>编程模型</h3><h4 id="Trainer"><a href="#Trainer" class="headerlink" title="Trainer"></a>Trainer</h4><p><code>trainer</code> 会构建一个 <code>TorchTriainer</code>，当调用 <code>trainer.fit</code> 的时候，会构建 <code>Actor</code> 自动部署；其实在 <code>dataset</code> 的时候也部署了一个 <code>Actor</code></p>
+<p><img src="/../assets/ray/HQDHboqcyo6aVKxssuEcrJ5Ynjb.png" srcset="/img/loading.gif" lazyload></p>
+<p>从调用堆栈可以看出，最后会调用到 <code>actor_manager.py</code>。</p>
+<p>经过我花费了 2 个小时的分析，其训练器训练函数的大体流程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># main.py</span><br>trainer.fit()<br><br><span class="hljs-comment"># base_trainer.py</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseTrainer</span>(abc.ABC):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self</span>) -&gt; Result:<br>        ...<br>        <span class="hljs-keyword">try</span>:<br>            **result_grid = tuner.fit()**<br>        <span class="hljs-keyword">except</span>:<br>            ...<br>        result = result_grid[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">return</span> result<br>        <br><span class="hljs-comment"># ray/tune/tuner.py</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Tuner</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self</span>) -&gt; ResultGrid:<br>        ...<br>**        <span class="hljs-keyword">return</span> self._local_tuner.fit()**<br><br><span class="hljs-comment"># ray/tune/impl/tuner_internal.py</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TunerInternal</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self</span>) -&gt; ResultGrid:<br>**        analysis = self._fit_internal(trainable, param_space)**<br>        <span class="hljs-keyword">return</span> ResultGrid(analysis)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_fit_internal</span>(<span class="hljs-params">self, trainable: TrainableType, param_space: <span class="hljs-type">Optional</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>,<span class="hljs-type">Any</span>]] -&gt; ExperimentAnalysis:</span><br><span class="hljs-params">        ...</span><br><span class="hljs-params">        analysis = run(<span class="hljs-params">**args</span>)</span><br><span class="hljs-params">        <span class="hljs-keyword">return</span> analysis</span><br><span class="hljs-params">        </span><br><span class="hljs-params"><span class="hljs-comment"># ray/tune/tune.py</span></span><br><span class="hljs-params"><span class="hljs-keyword">def</span> run(<span class="hljs-params"></span>):</span><br><span class="hljs-params">    ...</span><br><span class="hljs-params">    <span class="hljs-keyword">try</span>:</span><br><span class="hljs-params">        <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> runner.is_finished(<span class="hljs-params"></span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> experiment_interrupted_event.is_set(<span class="hljs-params"></span>):</span><br><span class="hljs-params">            **runner.step(<span class="hljs-params"></span>)**</span><br><span class="hljs-params">            <span class="hljs-keyword">if</span> has_verbosity(<span class="hljs-params">Verbosity.V1_EXPERIMENT</span>):</span><br><span class="hljs-params">                _report_progress(<span class="hljs-params">runner, progress_reporter</span>)</span><br><span class="hljs-params"></span><br><span class="hljs-params">            <span class="hljs-keyword">if</span> air_verbosity <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:</span><br><span class="hljs-params">                _report_air_progress(<span class="hljs-params">runner, air_progress_reporter</span>)</span><br><span class="hljs-params">    <span class="hljs-keyword">except</span> Exception:</span><br><span class="hljs-params">        runner.cleanup(<span class="hljs-params"></span>)</span><br><span class="hljs-params">        <span class="hljs-keyword">raise</span></span><br><span class="hljs-params">    ...</span><br><span class="hljs-params">    </span><br><span class="hljs-params"> <span class="hljs-comment"># ray/tune/execution/tune_controller.py</span></span><br><span class="hljs-params"> <span class="hljs-keyword">class</span> TuneController:</span><br><span class="hljs-params">     <span class="hljs-keyword">def</span> step(<span class="hljs-params">self</span>):</span><br><span class="hljs-params">        ...</span><br><span class="hljs-params">        <span class="hljs-comment"># Start actors for added trials</span></span><br><span class="hljs-params">        self._maybe_add_actors(<span class="hljs-params"></span>)</span><br><span class="hljs-params"></span><br><span class="hljs-params">        <span class="hljs-comment"># Handle one event</span></span><br><span class="hljs-params">        **<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self._actor_manager.<span class="hljs-built_in">next</span>(<span class="hljs-params">timeout=<span class="hljs-number">0.1</span></span>):**</span><br><span class="hljs-params">            <span class="hljs-comment"># If there are no actors running, warn about potentially</span></span><br><span class="hljs-params">            <span class="hljs-comment"># insufficient resources</span></span><br><span class="hljs-params">            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self._actor_manager.num_live_actors:</span><br><span class="hljs-params">                self._insufficient_resources_manager.on_no_available_trials(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-params">                    self.get_trials(<span class="hljs-params"></span>)</span></span><br><span class="hljs-params"><span class="hljs-params">                </span>)</span><br><span class="hljs-params"></span><br><span class="hljs-params">        ...</span><br><span class="hljs-params">        </span><br><span class="hljs-params"><span class="hljs-comment"># ray/air/execution/_internal/actor_manager.py</span></span><br><span class="hljs-params"><span class="hljs-keyword">class</span> RayActorManager:</span><br><span class="hljs-params">    <span class="hljs-keyword">def</span> <span class="hljs-built_in">next</span>(<span class="hljs-params">self, timeout: <span class="hljs-type">Optional</span>[<span class="hljs-type">Union</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">float</span>]] = <span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">bool</span>:</span><br><span class="hljs-params">        ...</span><br><span class="hljs-params"></span><br><span class="hljs-params">        <span class="hljs-comment"># We always try to start actors as this won&#x27;t trigger an event callback</span></span><br><span class="hljs-params">        self._try_start_actors(<span class="hljs-params"></span>)</span><br><span class="hljs-params"></span><br><span class="hljs-params">        ...</span><br><span class="hljs-params">        self._try_start_actors(<span class="hljs-params"></span>)</span><br><span class="hljs-params">        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></span><br><span class="hljs-params">        </span><br><span class="hljs-params">    <span class="hljs-keyword">def</span> _try_start_actors(<span class="hljs-params">self, max_actors: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">int</span>] = <span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">int</span>:</span><br><span class="hljs-params">        ...</span><br><span class="hljs-params">                <span class="hljs-comment"># Start Ray actor</span></span><br><span class="hljs-params">                **actor = remote_actor_cls.remote(<span class="hljs-params">**kwargs</span>)**</span><br><span class="hljs-params"></span><br><span class="hljs-params">                ...</span><br><span class="hljs-params"></span><br><span class="hljs-params">        <span class="hljs-keyword">return</span> started_actors</span><br><span class="hljs-params"></span><br><span class="hljs-params"><span class="hljs-comment"># ray/actor.py</span></span><br><span class="hljs-params"><span class="hljs-keyword">class</span> ActorClass:</span><br><span class="hljs-params">    <span class="hljs-keyword">def</span> options(<span class="hljs-params">self, **actor_options</span>):</span><br><span class="hljs-params">        <span class="hljs-keyword">class</span> ActorOptionWrapper:</span><br><span class="hljs-params">            <span class="hljs-keyword">def</span> remote(<span class="hljs-params">self, *args, **kwargs</span>):</span><br><span class="hljs-params">                <span class="hljs-keyword">return</span> actor_cls._remote(<span class="hljs-params">args=args, kwargs=kwargs, **updated_options</span>)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><h4 id="数据加载与预处理"><a href="#数据加载与预处理" class="headerlink" title="数据加载与预处理"></a>数据加载与预处理</h4><p>Ray Train 集成了用于数据加载与预处理的库。</p>
+<p>数据迁移可以通过以下四个基本步骤执行</p>
+<ul>
+<li>创建一个 Ray 数据集</li>
+<li>预处理 Ray 数据集</li>
+<li>将预处理好的 Ray 数据集输入到 Ray Train 训练器中</li>
+<li>通过 <code>Train Function</code> 消费数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> ray<br><span class="hljs-keyword">from</span> ray <span class="hljs-keyword">import</span> train<br><span class="hljs-keyword">from</span> ray.train <span class="hljs-keyword">import</span> Checkpoint, ScalingConfig<br><span class="hljs-keyword">from</span> ray.train.torch <span class="hljs-keyword">import</span> TorchTrainer<br><br><span class="hljs-comment"># Set this to True to use GPU.</span><br><span class="hljs-comment"># If False, do CPU training instead of GPU training.</span><br>use_gpu = <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># Step 1: Create a Ray Dataset from in-memory Python lists.</span><br><span class="hljs-comment"># You can also create a Ray Dataset from many other sources and file</span><br><span class="hljs-comment"># formats.</span><br>train_dataset = ray.data.from_items([&#123;<span class="hljs-string">&quot;x&quot;</span>: [x], <span class="hljs-string">&quot;y&quot;</span>: [<span class="hljs-number">2</span> * x]&#125; <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">200</span>)])<br><br><span class="hljs-comment"># Step 2: Preprocess your Ray Dataset.</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">increment</span>(<span class="hljs-params">batch</span>):<br>    batch[<span class="hljs-string">&quot;y&quot;</span>] = batch[<span class="hljs-string">&quot;y&quot;</span>] + <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> batch<br><br>train_dataset = train_dataset.map_batches(increment)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_func</span>(<span class="hljs-params">config</span>):<br>    batch_size = <span class="hljs-number">16</span><br><br>    <span class="hljs-comment"># Step 4: Access the dataset shard for the training worker via</span><br>    <span class="hljs-comment"># ``get_dataset_shard``.</span><br>    train_data_shard = train.get_dataset_shard(<span class="hljs-string">&quot;train&quot;</span>)<br>    train_dataloader = train_data_shard.iter_torch_batches(<br>        batch_size=batch_size, dtypes=torch.float32<br>    )<br><br>    <span class="hljs-keyword">for</span> epoch_idx <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>):<br>        <span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> train_dataloader:<br>            inputs, labels = batch[<span class="hljs-string">&quot;x&quot;</span>], batch[<span class="hljs-string">&quot;y&quot;</span>]<br>            <span class="hljs-keyword">assert</span> <span class="hljs-built_in">type</span>(inputs) == torch.Tensor<br>            <span class="hljs-keyword">assert</span> <span class="hljs-built_in">type</span>(labels) == torch.Tensor<br>            <span class="hljs-keyword">assert</span> inputs.shape[<span class="hljs-number">0</span>] == batch_size<br>            <span class="hljs-keyword">assert</span> labels.shape[<span class="hljs-number">0</span>] == batch_size<br>            <span class="hljs-keyword">break</span> <span class="hljs-comment"># Only check one batch. Last batch can be partial.</span><br><br><span class="hljs-comment"># Step 3: Create a TorchTrainer. Specify the number of training workers and</span><br><span class="hljs-comment"># pass in your Ray Dataset.</span><br><span class="hljs-comment"># The Ray Dataset is automatically split across all training workers.</span><br>trainer = TorchTrainer(<br>    train_func,<br>    datasets=&#123;<span class="hljs-string">&quot;train&quot;</span>: train_dataset&#125;,<br>    scaling_config=ScalingConfig(num_workers=<span class="hljs-number">2</span>, use_gpu=use_gpu)<br>)<br>result = trainer.fit()<br></code></pre></td></tr></table></figure>
+
+<h4 id="配置持久化存储"><a href="#配置持久化存储" class="headerlink" title="配置持久化存储"></a>配置持久化存储</h4><p>Ray Train 运行会生成报告指标、检查点和其他工件的历史记录。您可以将它们配置为保存到持久存储位置。</p>
+<p><img src="/../assets/ray/Q9GWbgQDvodZdBxPq5DcVGGpnOd.png" srcset="/img/loading.gif" lazyload></p>
+<p>持久化存储能够</p>
+<ul>
+<li>做标记点以及容错：从持久化存储系统保存标记可以从上一次节点故障的检查点恢复</li>
+<li>实验后分析：存储所有试验数据的统一位置对于实验后分析非常有用，例如在集群终止后访问最佳检查点和超参数配置</li>
+<li>通过下游服务和批量推理任务桥接训练&#x2F;微调：您可以轻松访问模型和工件以与其他人共享或在下游任务中使用它们。</li>
+</ul>
+<h4 id="保存加载检查点"><a href="#保存加载检查点" class="headerlink" title="保存加载检查点"></a>保存加载检查点</h4><p>Ray Train 提供了一个快照训练过程的进程</p>
+<ul>
+<li>储存性能最后的模型比重：将模型保存到持久化存储中</li>
+<li>容错：让长时运行工作从节点错误中恢复</li>
+<li>分布式检查点：当进行模型并行训练时，Ray Train 检查点提供了一个简单的方法用于更新模型分片，而不是将整个模型集中到单节点</li>
+<li>与 Ray Tune 集成</li>
+</ul>
+<h4 id="MNIST"><a href="#MNIST" class="headerlink" title="MNIST"></a>MNIST</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Dict</span><br><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> filelock <span class="hljs-keyword">import</span> FileLock<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets, transforms<br><span class="hljs-keyword">from</span> torchvision.transforms <span class="hljs-keyword">import</span> Normalize, ToTensor<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><br><span class="hljs-keyword">import</span> ray.train<br><span class="hljs-keyword">from</span> ray.train <span class="hljs-keyword">import</span> ScalingConfig<br><span class="hljs-keyword">from</span> ray.train.torch <span class="hljs-keyword">import</span> TorchTrainer<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_dataloaders</span>(<span class="hljs-params">batch_size</span>):<br>    <span class="hljs-comment"># Transform to normalize the input images</span><br>    transform = transforms.Compose([ToTensor(), Normalize((<span class="hljs-number">0.5</span>,), (<span class="hljs-number">0.5</span>,))])<br><br>    <span class="hljs-keyword">with</span> FileLock(os.path.expanduser(<span class="hljs-string">&quot;~/data.lock&quot;</span>)):<br>        <span class="hljs-comment"># Download training data from open datasets</span><br>        training_data = datasets.FashionMNIST(<br>            root=<span class="hljs-string">&quot;~/data&quot;</span>,<br>            train=<span class="hljs-literal">True</span>,<br>            download=<span class="hljs-literal">True</span>,<br>            transform=transform,<br>        )<br><br>        <span class="hljs-comment"># Download test data from open datasets</span><br>        test_data = datasets.FashionMNIST(<br>            root=<span class="hljs-string">&quot;~/data&quot;</span>,<br>            train=<span class="hljs-literal">False</span>,<br>            download=<span class="hljs-literal">True</span>,<br>            transform=transform,<br>        )<br><br>    <span class="hljs-comment"># Create data loaders</span><br>    train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)<br>    test_dataloader = DataLoader(test_data, batch_size=batch_size)<br><br>    <span class="hljs-keyword">return</span> train_dataloader, test_dataloader<br><br><br><span class="hljs-comment"># Model Definition</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">NeuralNetwork</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(NeuralNetwork, self).__init__()<br>        self.flatten = nn.Flatten()<br>        self.linear_relu_stack = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">28</span> * <span class="hljs-number">28</span>, <span class="hljs-number">512</span>),<br>            nn.ReLU(),<br>            nn.Dropout(<span class="hljs-number">0.25</span>),<br>            nn.Linear(<span class="hljs-number">512</span>, <span class="hljs-number">512</span>),<br>            nn.ReLU(),<br>            nn.Dropout(<span class="hljs-number">0.25</span>),<br>            nn.Linear(<span class="hljs-number">512</span>, <span class="hljs-number">10</span>),<br>            nn.ReLU(),<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        x = self.flatten(x)<br>        logits = self.linear_relu_stack(x)<br>        <span class="hljs-keyword">return</span> logits<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_func_per_worker</span>(<span class="hljs-params">config: <span class="hljs-type">Dict</span></span>):<br>    lr = config[<span class="hljs-string">&quot;lr&quot;</span>]<br>    epochs = config[<span class="hljs-string">&quot;epochs&quot;</span>]<br>    batch_size = config[<span class="hljs-string">&quot;batch_size_per_worker&quot;</span>]<br><br>    <span class="hljs-comment"># Get dataloaders inside the worker training function</span><br>    train_dataloader, test_dataloader = get_dataloaders(batch_size=batch_size)<br><br>    <span class="hljs-comment"># [1] Prepare Dataloader for distributed training</span><br>    <span class="hljs-comment"># Shard the datasets among workers and move batches to the correct device</span><br>    <span class="hljs-comment"># =======================================================================</span><br>    train_dataloader = ray.train.torch.prepare_data_loader(train_dataloader)<br>    test_dataloader = ray.train.torch.prepare_data_loader(test_dataloader)<br><br>    model = NeuralNetwork()<br><br>    <span class="hljs-comment"># [2] Prepare and wrap your model with DistributedDataParallel</span><br>    <span class="hljs-comment"># Move the model to the correct GPU/CPU device</span><br>    <span class="hljs-comment"># ============================================================</span><br>    model = ray.train.torch.prepare_model(model)<br><br>    loss_fn = nn.CrossEntropyLoss()<br>    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=<span class="hljs-number">0.9</span>)<br><br>    <span class="hljs-comment"># Model training loop</span><br>    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>        <span class="hljs-keyword">if</span> ray.train.get_context().get_world_size() &gt; <span class="hljs-number">1</span>:<br>            <span class="hljs-comment"># Required for the distributed sampler to shuffle properly across epochs.</span><br>            train_dataloader.sampler.set_epoch(epoch)<br><br>        model.train()<br>        <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> tqdm(train_dataloader, desc=<span class="hljs-string">f&quot;Train Epoch <span class="hljs-subst">&#123;epoch&#125;</span>&quot;</span>):<br>            pred = model(X)<br>            loss = loss_fn(pred, y)<br><br>            optimizer.zero_grad()<br>            loss.backward()<br>            optimizer.step()<br><br>        model.<span class="hljs-built_in">eval</span>()<br>        test_loss, num_correct, num_total = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> tqdm(test_dataloader, desc=<span class="hljs-string">f&quot;Test Epoch <span class="hljs-subst">&#123;epoch&#125;</span>&quot;</span>):<br>                pred = model(X)<br>                loss = loss_fn(pred, y)<br><br>                test_loss += loss.item()<br>                num_total += y.shape[<span class="hljs-number">0</span>]<br>                num_correct += (pred.argmax(<span class="hljs-number">1</span>) == y).<span class="hljs-built_in">sum</span>().item()<br><br>        test_loss /= <span class="hljs-built_in">len</span>(test_dataloader)<br>        accuracy = num_correct / num_total<br><br>        <span class="hljs-comment"># [3] Report metrics to Ray Train</span><br>        <span class="hljs-comment"># ===============================</span><br>        ray.train.report(metrics=&#123;<span class="hljs-string">&quot;loss&quot;</span>: test_loss, <span class="hljs-string">&quot;accuracy&quot;</span>: accuracy&#125;)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_fashion_mnist</span>(<span class="hljs-params">num_workers=<span class="hljs-number">2</span>, use_gpu=<span class="hljs-literal">False</span></span>):<br>    global_batch_size = <span class="hljs-number">32</span><br><br>    train_config = &#123;<br>        <span class="hljs-string">&quot;lr&quot;</span>: <span class="hljs-number">1e-3</span>,<br>        <span class="hljs-string">&quot;epochs&quot;</span>: <span class="hljs-number">10</span>,<br>        <span class="hljs-string">&quot;batch_size_per_worker&quot;</span>: global_batch_size // num_workers,<br>    &#125;<br><br>    <span class="hljs-comment"># Configure computation resources</span><br>    scaling_config = ScalingConfig(num_workers=num_workers, use_gpu=use_gpu)<br><br>    <span class="hljs-comment"># Initialize a Ray TorchTrainer</span><br>    trainer = TorchTrainer(<br>        train_loop_per_worker=train_func_per_worker,<br>        train_loop_config=train_config,<br>        scaling_config=scaling_config,<br>    )<br><br>    <span class="hljs-comment"># [4] Start distributed training</span><br>    <span class="hljs-comment"># Run `train_func_per_worker` on all workers</span><br>    <span class="hljs-comment"># =============================================</span><br>    result = trainer.fit()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Training result: <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    train_fashion_mnist(num_workers=<span class="hljs-number">4</span>, use_gpu=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>机器没有 GPU</li>
+</ul>
+<p><img src="/../assets/ray/ZjPtb7jL4oCsrPxx695cgbIhn7c.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>使用 CPU</li>
+</ul>
+<p><img src="/../assets/ray/S1O8bVWCvoXX9CxK0d3c2gJdnib.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/ray/Npwhb1ZWOoAxwPxrCzgcXlOcnvc.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/ray/WXQkbtT3WoxiyOxMh9FcYENnnJe.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/ray/HRY8bsoNdo686txUKytcvOuTngf.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/ray/Kc3cbm5VpoaZ8HxWeMwcFHkOn5c.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Ray-Cluster"><a href="#Ray-Cluster" class="headerlink" title="Ray Cluster"></a>Ray Cluster</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p><img src="/../assets/ray/HkAOb5DcAowy0uxM2lkcWFl8nfe.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>Ray Cluster: 包含了一个 head 节点以及多个 worker 节点</li>
+<li>head 节点：与 worker 节点不同，它还运行着一个全局控制存储以及自动扩缩容以及驱动进程</li>
+<li>worker 节点：只负责管理 tasks 以及 actors</li>
+<li>Ray autoscaler：运行在 head 节点上的一个进程。当资源需求超过了当前的负载，autoscaler 就会创建新的 worker</li>
+<li>Ray Jobs：一套集合了 task、actor 以及 object 的工作流</li>
+</ul>
+<h3 id="部署到-k8s-集群"><a href="#部署到-k8s-集群" class="headerlink" title="部署到 k8s 集群"></a>部署到 k8s 集群</h3><h4 id="KubeRay"><a href="#KubeRay" class="headerlink" title="KubeRay"></a>KubeRay</h4><p>KubeRay 提供了一个简单的 k8s 操作集合，简化了部署在 k8s 上部署 Ray 的流程，有 3 种自定义资源(CRDs)</p>
+<ul>
+<li><p>RayCluster：KubeRay 全程管理集群的生命周期</p>
+</li>
+<li><p>RayJob：将一个 Job 提交到集群</p>
+</li>
+<li><p>RayServce：由两个部分创建起来</p>
+<ul>
+<li>RayCluster</li>
+<li>Ray Serve</li>
+</ul>
+</li>
+</ul>
+<h5 id="Ray-Cluster-1"><a href="#Ray-Cluster-1" class="headerlink" title="Ray Cluster"></a>Ray Cluster</h5><blockquote>
+<p>其实它部署的是 k8s 的一个 service</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/raycluster-quick-start.html">RayCluster Quickstart — Ray 2.10.0</a></p>
+<ul>
+<li>前提：安装 kubectl, helm</li>
+<li></li>
+</ul>
+<h1 id="Ray-系统架构"><a href="#Ray-系统架构" class="headerlink" title="Ray 系统架构"></a>Ray 系统架构</h1><h2 id="全局控制存储（GCS）"><a href="#全局控制存储（GCS）" class="headerlink" title="全局控制存储（GCS）"></a>全局控制存储（GCS）</h2><h3 id="GCS-客户端"><a href="#GCS-客户端" class="headerlink" title="GCS 客户端"></a>GCS 客户端</h3><h4 id="Accessor"><a href="#Accessor" class="headerlink" title="Accessor"></a>Accessor</h4><ul>
+<li>ActorInfoAccessor：访问 Actor 的信息</li>
+<li>JobInfoAccessor：访问 Job 的信息</li>
+<li>NodeInfoAccessor：访问工作节点的信息</li>
+<li>NodeResourceInfoAccessor：访问工作节点资源的信息</li>
+<li>ErrorInfoAccessor：访问错误信息</li>
+<li>TaskInfoAccessor：访问任务信息</li>
+<li>WorkerInfoAccessor：访问 Worker 的信息</li>
+<li>PlacementGroupInfoAccessor：访问工作组的信息</li>
+<li>InternalKVAccessor：内部 KV 访问</li>
+</ul>
+<h4 id="GlobalStateAccessor"><a href="#GlobalStateAccessor" class="headerlink" title="GlobalStateAccessor"></a>GlobalStateAccessor</h4><h3 id="GCS-服务端"><a href="#GCS-服务端" class="headerlink" title="GCS 服务端"></a>GCS 服务端</h3><h3 id="发布订阅模型"><a href="#发布订阅模型" class="headerlink" title="发布订阅模型"></a>发布订阅模型</h3><h2 id="分级部署调度器"><a href="#分级部署调度器" class="headerlink" title="分级部署调度器"></a>分级部署调度器</h2><h2 id="分布式对象存储"><a href="#分布式对象存储" class="headerlink" title="分布式对象存储"></a>分布式对象存储</h2><h2 id="计算图模型"><a href="#计算图模型" class="headerlink" title="计算图模型"></a>计算图模型</h2><p>Ray 可以通过构建一张任务图进行计算，相当于定义了一个 Job（workflow），实现任务的并行以及体现任务的依赖关系</p>
+<blockquote>
+<p>注意：Ray 里头所有的参数、数据，都是对象存储，也就是说，他们都是引用！！</p>
+</blockquote>
+<ul>
+<li><p>图</p>
+<ul>
+<li>节点<ul>
+<li>数据节点：对象引用，可以给其他任务节点共享</li>
+<li>任务节点：actor or task</li>
+</ul>
+</li>
+<li>边<ul>
+<li>数据边：从任务节点连到数据节点</li>
+<li>控制边：从任务节点连到任务节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>例子</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ray<br><br><span class="hljs-meta">@ray.remote</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Actor</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, init_value</span>):<br>        self.i = init_value<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inc</span>(<span class="hljs-params">self, x</span>):<br>        self.i += x<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.i<br><br><span class="hljs-meta">@ray.remote</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">combine</span>(<span class="hljs-params">x,y</span>):<br>    <span class="hljs-keyword">return</span> x+y<br><br>a1 = Actor.bind(<span class="hljs-number">10</span>)<br>res = a1.get.bind()<br><span class="hljs-comment"># print(res)</span><br><span class="hljs-comment"># assert ray.get(res.execute()) == 10</span><br><br>a2 = Actor.bind(<span class="hljs-number">10</span>)<br>a1.inc.bind(<span class="hljs-number">2</span>)<br>a1.inc.bind(<span class="hljs-number">4</span>)<br>a2.inc.bind(<span class="hljs-number">6</span>)<br>dag = combine.bind(a1.get.bind(), a2.get.bind())<br><br><span class="hljs-built_in">print</span>(dag)<br><span class="hljs-comment"># assert ray.get(dag.execute()) == 32</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../assets/ray/P0zWbSg5woe47Dx4wugcQTGJnwh.png" srcset="/img/loading.gif" lazyload></p>
+<details>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs text">(FunctionNode, 22f7de9ad6e545bf9421165c9b0daa2e)(<br>    body=&lt;function combine at 0x7ff1c6bdad40&gt;<br>    args=[<br>        (ClassMethodNode, 28d860ab781e4f4f94e362a923be0e9f)(<br>            body=get()<br>            args=[]<br>            kwargs=&#123;&#125;<br>            options=&#123;&#125;<br>            other_args_to_resolve=&#123;<br>                parent_class_node:    <br>                    (ClassNode, 3f006ec011b54f06af2118f01eaad8d1)(<br>                        body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                        args=[<br>                            10, <br>                        ]<br>                        kwargs=&#123;&#125;<br>                        options=&#123;&#125;<br>                        other_args_to_resolve=&#123;&#125;<br>                    )<br>                prev_class_method_call:    <br>                    (ClassMethodNode, c0bfa13f0dd240ab954fa9506e64c1d1)(<br>                        body=inc()<br>                        args=[<br>                            4, <br>                        ]<br>                        kwargs=&#123;&#125;<br>                        options=&#123;&#125;<br>                        other_args_to_resolve=&#123;<br>                            parent_class_node:    <br>                                (ClassNode, 3f006ec011b54f06af2118f01eaad8d1)(<br>                                    body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                                    args=[<br>                                        10, <br>                                    ]<br>                                    kwargs=&#123;&#125;<br>                                    options=&#123;&#125;<br>                                    other_args_to_resolve=&#123;&#125;<br>                                )<br>                            prev_class_method_call:    <br>                                (ClassMethodNode, 2b0b97a018db4b4b86c537f12a7b29a7)(<br>                                    body=inc()<br>                                    args=[<br>                                        2, <br>                                    ]<br>                                    kwargs=&#123;&#125;<br>                                    options=&#123;&#125;<br>                                    other_args_to_resolve=&#123;<br>                                        parent_class_node:    <br>                                            (ClassNode, 3f006ec011b54f06af2118f01eaad8d1)(<br>                                                body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                                                args=[<br>                                                    10, <br>                                                ]<br>                                                kwargs=&#123;&#125;<br>                                                options=&#123;&#125;<br>                                                other_args_to_resolve=&#123;&#125;<br>                                            )<br>                                        prev_class_method_call:    <br>                                            (ClassMethodNode, 5d4bd2c5d7da46e4981e305a66111bcd)(<br>                                                body=get()<br>                                                args=[]<br>                                                kwargs=&#123;&#125;<br>                                                options=&#123;&#125;<br>                                                other_args_to_resolve=&#123;<br>                                                    parent_class_node:    <br>                                                        (ClassNode, 3f006ec011b54f06af2118f01eaad8d1)(<br>                                                            body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                                                            args=[<br>                                                                10, <br>                                                            ]<br>                                                            kwargs=&#123;&#125;<br>                                                            options=&#123;&#125;<br>                                                            other_args_to_resolve=&#123;&#125;<br>                                                        )<br>                                                    prev_class_method_call: None<br>                                                &#125;<br>                                            )<br>                                    &#125;<br>                                )<br>                        &#125;<br>                    )<br>            &#125;<br>        )<br>        (ClassMethodNode, 40f69b66ce6847c5a80753b6a0287bf1)(<br>            body=get()<br>            args=[]<br>            kwargs=&#123;&#125;<br>            options=&#123;&#125;<br>            other_args_to_resolve=&#123;<br>                parent_class_node:    <br>                    (ClassNode, c46160cae7a84e9ba3534c846df006f0)(<br>                        body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                        args=[<br>                            10, <br>                        ]<br>                        kwargs=&#123;&#125;<br>                        options=&#123;&#125;<br>                        other_args_to_resolve=&#123;&#125;<br>                    )<br>                prev_class_method_call:    <br>                    (ClassMethodNode, d4b285407bd9409584aef8cad7289c09)(<br>                        body=inc()<br>                        args=[<br>                            6, <br>                        ]<br>                        kwargs=&#123;&#125;<br>                        options=&#123;&#125;<br>                        other_args_to_resolve=&#123;<br>                            parent_class_node:    <br>                                (ClassNode, c46160cae7a84e9ba3534c846df006f0)(<br>                                    body=&lt;class &#x27;__main__._modify_class.&lt;locals&gt;.Class&#x27;&gt;<br>                                    args=[<br>                                        10, <br>                                    ]<br>                                    kwargs=&#123;&#125;<br>                                    options=&#123;&#125;<br>                                    other_args_to_resolve=&#123;&#125;<br>                                )<br>                            prev_class_method_call: None<br>                        &#125;<br>                    )<br>            &#125;<br>        )<br>    ]<br>    kwargs=&#123;&#125;<br>    options=&#123;&#125;<br>    other_args_to_resolve=&#123;&#125;<br>)<br></code></pre></td></tr></table></figure>
+</details>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Serverless/" class="print-no-link">#Serverless</a>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ray 学习笔记</div>
+      <div>http://example.com/2025/07/20/ray/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/20/knative/" title="knative 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">knative 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/20/serverless_ai/" title="Serverless 智能化应用">
+                        <span class="hidden-mobile">Serverless 智能化应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dydy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本笔记记录OpenWhisk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenWhisk 学习笔记">
+<meta property="og:url" content="http://example.com/2023/10/29/openwhisk/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本笔记记录OpenWhisk">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o1.PNG">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o2.PNG">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o3.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o4.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o5.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o6.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o7.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o8.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o9.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o10.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o11.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o12.png">
+<meta property="og:image" content="http://example.com/assets/openwhisk/o13.png">
+<meta property="article:published_time" content="2023-10-29T00:27:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:21:24.237Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenWhisk">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/openwhisk/o1.PNG">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>OpenWhisk 学习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dydy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OpenWhisk 学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dydy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-29 08:27" pubdate>
+          2023年10月29日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OpenWhisk 学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="OpenWhisk概述"><a href="#OpenWhisk概述" class="headerlink" title="OpenWhisk概述"></a>OpenWhisk概述</h1><p>Openwhisk是属于Apache基金会的开源Faas计算平台，由IBM在2016年公布并贡献给开源社区。IBM Cloud本身也提供完全托管的OpenWhisk Faas服务IBM Cloud Function。从业务逻辑来看，OpenWhisk同AWS Lambda一样，为用户提供基于事件驱动的无状态的计算模型，并直接支持多种编程语言。</p>
+<p>OpenWhisk特点：</p>
+<ul>
+<li>高性能，高扩展性的分布式FaaS计算平台</li>
+<li>函数的代码及运行时全部在Docker容器中运行，利用Docker engine实现FaaS函数运行的管理、负载均衡、扩展.</li>
+<li>OpenWhisk所有其他组件(如：API网关，控制器，触发器等)也全部运行在 Docker容器中。这使得OpenWhisk全栈可以很容易的部署在任意IaaS&#x2F;PaaS平台上。</li>
+<li>相比其他FaaS实现(比如OpenFaaS)，OpenWhisk更像是一套完整的Serverless 解决方案，除了容器的调用和函数的管理，OpenWhisk 还包括了用户身份验证&#x2F;鉴权、函数异步触发等功能。</li>
+</ul>
+<p>目前支持的语言: <code>Nodejs</code>, <code>Python</code>, <code>Java</code>, <code>php</code>, <code>Ruby</code>, <code>Go</code>, <code>Rust</code>, <code>dotnet</code>, <code>Ballerina</code>, <code>blackBoxes</code>。</p>
+<h1 id="OpenWhisk环境搭建"><a href="#OpenWhisk环境搭建" class="headerlink" title="OpenWhisk环境搭建"></a>OpenWhisk环境搭建</h1><h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><p>deepin上安装Java的方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install default-jre<br>sudo apt-get install default-jdk<br>安装nodejs<br><span class="hljs-comment">#下载Node.js安装包</span><br>wget https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz<br><span class="hljs-comment">#解压文件</span><br>tar xvf node-v10.15.3-linux-x64.tar.xz<br><span class="hljs-comment">#移动到相应目录下</span><br><span class="hljs-built_in">mv</span> ./node-v10.15.3-linux-x64 ./node<br><span class="hljs-built_in">mv</span> ./node /opt/node<br><span class="hljs-comment">#添加环境变量</span><br><span class="hljs-built_in">cd</span> <br>vim .bash_profile<br><span class="hljs-comment">#node</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/opt/node/bin<br></code></pre></td></tr></table></figure>
+
+<h2 id="编译openwhisk"><a href="#编译openwhisk" class="headerlink" title="编译openwhisk"></a>编译openwhisk</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># git clone下来</span><br>git <span class="hljs-built_in">clone</span> https://github.com/apache/incubator-openwhisk.git openwhisk<br><span class="hljs-comment"># 切换到openwhisk目录，运行下面命令</span><br>$ ./gradlew :core:standalone:build<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="/../assets/openwhisk/o1.PNG" srcset="/img/loading.gif" lazyload><br><img src="/../assets/openwhisk/o2.PNG" srcset="/img/loading.gif" lazyload></p>
+<h2 id="配置OpenWhisk-Cli工具"><a href="#配置OpenWhisk-Cli工具" class="headerlink" title="配置OpenWhisk Cli工具"></a>配置OpenWhisk Cli工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">- github下载网址：https://link.zhihu.com/?target=https%3A//github.com/apache/openwhisk-cli 下载二进制文件<br><span class="hljs-comment"># 上传到服务器解压, 解压</span><br><span class="hljs-comment"># 设置API HOST</span><br>wsk property <span class="hljs-built_in">set</span> --apihost http://172.17.0.1:3233<br><span class="hljs-comment"># 设置auth</span><br>wsk property <span class="hljs-built_in">set</span> --auth 789c46b1-71f6-4ed5-8c54-816aa4f8c502<br><span class="hljs-comment"># 可以通过以下命令获取当前的auth</span><br>wsk property get --auth<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="/../assets/openwhisk/o3.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="配置Docker"><a href="#配置Docker" class="headerlink" title="配置Docker"></a>配置Docker</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1753250">https://cloud.tencent.com/developer/article/1753250</a></p>
+<ol>
+<li>卸载旧版本残留</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get remove docker.io docker-engine<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>下载并安装密钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/debian/gpg | sudo apt-key add -<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>检查是否安装成功</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-key fingerprint 0EBFCD88<br></code></pre></td></tr></table></figure>
+<p><img src="/../assets/openwhisk/o4.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>在source.list中添加docker-ce的软件源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo deepin-editor /etc/apt/sources.list.d/docker.list <span class="hljs-comment"># 使用 deepin 默认的编辑器新建并打开 docker.list 文件</span><br><span class="hljs-comment"># 写入一条内容如下：</span><br>deb [<span class="hljs-built_in">arch</span>=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/debian buster stable <span class="hljs-comment"># 这里 buster 是 debain 版本的代号，deepin20 是debain10 代号为 buster，编辑完成后保存</span><br>注意： 使用 <span class="hljs-built_in">cat</span> /etc/debian_version 查看自己的 debain 版本。<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>更新仓库</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br></code></pre></td></tr></table></figure>
+
+
+<ol start="6">
+<li>安装docker</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install docker-ce docker-ce-cli containerd.io<br></code></pre></td></tr></table></figure>
+<ol start="7">
+<li>验证</li>
+</ol>
+<p><img src="/../assets/openwhisk/o5.png" srcset="/img/loading.gif" lazyload><br><img src="/../assets/openwhisk/o6.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>管理启动项</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install chkconfig <br><span class="hljs-comment"># 列出所有启动项</span><br>sudo chkconfig<br><span class="hljs-comment"># chkconfig --help 查看帮助命令</span><br><br>sudo chkconfig --del docker<br></code></pre></td></tr></table></figure>
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>在openwhisk的bin目录下会有相应的可执行文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -jar openwhisk-standalone.jar<br></code></pre></td></tr></table></figure>
+
+
+<p>如果docker需要管理员权限就加个sudo</p>
+<p><img src="/../assets/openwhisk/o7.png" srcset="/img/loading.gif" lazyload></p>
+<p>服务起来后设置提示的命令:设置apihost和auth</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsk property <span class="hljs-built_in">set</span> --apihost <span class="hljs-string">&#x27;http://172.17.0.1:3233&#x27;</span> --auth <span class="hljs-string">&#x27;23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="/../assets/openwhisk/o8.png" srcset="/img/loading.gif" lazyload><br><img src="/../assets/openwhisk/o9.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="OpenWhisk包下载"><a href="#OpenWhisk包下载" class="headerlink" title="OpenWhisk包下载"></a>OpenWhisk包下载</h1><h2 id="Catalog包"><a href="#Catalog包" class="headerlink" title="Catalog包"></a>Catalog包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/apache/openwhisk-catalog<br><span class="hljs-built_in">cd</span> openwhisk-catalog<br><span class="hljs-comment">#将一些变量添加进来</span><br>vim ~/.bashrc<br><br><span class="hljs-comment">#openwhisk</span><br>OPENWHISK_HOME=~/Serverless/openwhisk<br>WSK=<span class="hljs-variable">$OPENWHISK_HOME</span>/bin<br>CLI_PATH=<span class="hljs-variable">$OPENWHISK_HOME</span>/bin/wsk<br>API_HOST=http://172.17.0.1:3233<br>AUTH=789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP<br><span class="hljs-built_in">export</span> OPENWHISK_HOME CLI_PATH API_HOST API_KEY<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$WSK</span><br><br><br><span class="hljs-comment">#在本地standalone运行时下载包</span><br>./packages/installCatalogUsingWskdeploy.sh <span class="hljs-variable">$AUTH</span> <span class="hljs-variable">$API_HOST</span> <span class="hljs-variable">$CLI_PATH</span><br><span class="hljs-comment">#然后验证</span><br>wsk package list /whisk.system<br></code></pre></td></tr></table></figure>
+<p><img src="/../assets/openwhisk/o10.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="OpenWhisk-couchDB数据库配置"><a href="#OpenWhisk-couchDB数据库配置" class="headerlink" title="OpenWhisk couchDB数据库配置"></a>OpenWhisk couchDB数据库配置</h1><ol>
+<li>依次执行以下3条命令</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg<br>curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo <span class="hljs-built_in">tee</span> /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1source /etc/os-release<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ <span class="hljs-variable">$&#123;VERSION_CODENAME&#125;</span> main&quot;</span> \| sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/couchdb.list &gt;/dev/null<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行后你可以在<code>/etc/apt/source.list.d</code>里头看到<code>couchdb.list</code>文件，用<code>vim</code>打开，将里头的<code>apricot</code>改为<code>buster</code>，因为原来那个在网站上的资源没有了T_T</li>
+<li>之后更新源后下载couchdb</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt install couchdb<br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li>新建一个文件夹后在里头导出一些环境变量</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> logconf &amp;&amp; <span class="hljs-built_in">cd</span> logconf<br>vim wsk_env.sh<br><span class="hljs-built_in">export</span> OW_DB=CouchDB<br><span class="hljs-built_in">export</span> OW_DB_USERNAME=openwhisk<br><span class="hljs-built_in">export</span> OW_DB_PASSWORD=openwhisk<br><span class="hljs-built_in">export</span> OW_DB_PROTOCOL=http<br><span class="hljs-built_in">export</span> OW_DB_HOST=127.0.0.1<br><span class="hljs-built_in">export</span> OW_DB_PORT=4444<br><span class="hljs-built_in">export</span> OPENWHISK_TMP_DIR=~/Serverles/logconf<br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li>之后进行ansible安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> openwsk_env.sh<br><span class="hljs-built_in">cd</span> ansible<br>ansible-playbook -i environments/local setup.yml<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../assets/openwhisk/o11.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../assets/openwhisk/o12.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="OpenWhisk内部流程"><a href="#OpenWhisk内部流程" class="headerlink" title="OpenWhisk内部流程"></a>OpenWhisk内部流程</h1><p><img src="/../assets/openwhisk/o13.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>面向用户的REST API(Nginx)：OpenWhisk通过Nginx 接收函数触发和函数的CRUD请求。</li>
+<li>控制器(Controller): 真正处理请求的地方。</li>
+<li>CouchDB(身份验证和鉴权):控制器首先需要验证用户的身份和权限。用户的身份信息保存在CouchDB的用户身份数据库中。验证无误后，控制器进行下一步处理。</li>
+<li>CouchDB: 确认用户的身份后，控制器需要从 CouchDB中读取将要被触发的action。action对应的数据存储在CouchDB的whisk 数据库，主要包含要被执行的代码、默认参数、被执行代码的权限等。</li>
+<li>Consul和负载均衡:控制器已经有了触发函数所需要的全部信息，在将数据发送给触发器(Invoker)之前，控制器需要和Consul确认，从Consul 获取处于空闲状态的触发器的地址。Consul 是一个开源的服务注册&#x2F;发现系统，在 OpenWhisk中Consul负责记录跟踪所有触发器的状态信息。当控制器向Consul发出请求，Consul从后台随机选取一个空闲的触发器信息，并返回。</li>
+<li>触发请求送进Kafka: Kafka 充当了Controller和Invoker之间的缓存，当后端 Invoker 负载过大，没有及时处理Kafka数据流中的请求时，Controller 依然可以将请求送入Kafka，无需阻塞当前线程。同时所有送进Kafka 的请求消息都会被以log的形式的形式保存在文件系统中，即使系统瘫痪，已经由 Controller发出的请求也不会丢失。</li>
+<li>触发器运行用户代码: 触发器从对应的 Kafka topic 中接收控制器传来的请求，并执行响应代码。OpenWhisk 的触发器是构建在 Docker 之上的，每一个函数触发都运行在一个独立的 Docker 容器之内.</li>
+<li>CouchDB 保存运行结果: 触发器执行结果最终会被保存在 CouchDB 中的 whisk 数据库里</li>
+</ol>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51971301/article/details/121436849">openwhisk配置流程</a><br><a target="_blank" rel="noopener" href="https://mlog.club/article/5772204">bbs-go-site</a><br><a target="_blank" rel="noopener" href="https://docs.couchdb.org/en/latest/install/unix.html#installation-using-the-apache-couchdb-convenience-binary-packages">1.1. Installation on Unix-like systems ‒ Apache CouchDB® 3.2 Documentation</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OpenWhisk/" class="print-no-link">#OpenWhisk</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OpenWhisk 学习笔记</div>
+      <div>http://example.com/2023/10/29/openwhisk/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dydy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/29/kubernetes/" title="Kubernetes 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Kubernetes 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/28/docker/" title="Docker 笔记">
+                        <span class="hidden-mobile">Docker 笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
