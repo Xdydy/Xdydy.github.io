@@ -318,6 +318,69 @@ spec:
 
 这个阶段会修改默认的驱逐过程，只允许同个`quota`的`pods`可以互相驱逐对方
 
+## Load-aware Scheduler
+
+### 主要过程
+
+#### 过滤不健康的节点
+
+- 将`koordlet`不能够及时更新的节点过滤掉
+- 再根据当前的`pods`的使用量将高负载的节点过滤掉
+
+#### 打分过程
+
+这个过程的核心是评估最小利用率的节点。
+但考虑到资源使用情况上报的延迟以及Pod启动时间的延迟，时间窗口内已经调度的`pod`和当前正在调度的`pod`的资源请求也会被预估，并将预估值参与计算。
+
+- 方法是将正在调度的`pods`的资源总量与当前的`pods`的资源总量相加，得到这个节点的资源总用量
+
+```go
+func (p *Plugin) GetEstimatedUsed(nodeName string, nodeMetric *slov1alpha1.NodeMetric, pod *corev1.Pod, nodeUsage *slov1alpha1.ResourceMap, prodPod bool) (map[corev1.ResourceName]int64, error) {
+	if nodeMetric == nil {
+		return nil, nil
+	}
+	podMetrics := buildPodMetricMap(p.podLister, nodeMetric, prodPod)
+
+	estimatedUsed, err := p.estimator.EstimatePod(pod)
+	if err != nil {
+		return nil, err
+	}
+	assignedPodEstimatedUsed, estimatedPods := p.estimatedAssignedPodUsed(nodeName, nodeMetric, podMetrics, prodPod)
+	for resourceName, value := range assignedPodEstimatedUsed {
+		estimatedUsed[resourceName] += value
+	}
+	podActualUsages, estimatedPodActualUsages := sumPodUsages(podMetrics, estimatedPods)
+	if prodPod {
+		for resourceName, quantity := range podActualUsages {
+			estimatedUsed[resourceName] += getResourceValue(resourceName, quantity)
+		}
+	} else {
+		if nodeMetric.Status.NodeMetric != nil {
+			if nodeUsage != nil {
+				for resourceName, quantity := range nodeUsage.ResourceList {
+					if q := estimatedPodActualUsages[resourceName]; !q.IsZero() {
+						quantity = quantity.DeepCopy()
+						if quantity.Cmp(q) >= 0 {
+							quantity.Sub(q)
+						}
+					}
+					estimatedUsed[resourceName] += getResourceValue(resourceName, quantity)
+				}
+			}
+		}
+	}
+	return estimatedUsed, nil
+}
+```
+
+### 代码逻辑
+
+#### Estimator 评估
+
+模拟器分为两个维度，针对`pods`的评估以及针对`nodes`的评估
+
+
+
 ## Load-aware Descheduler
 
 ### 代码逻辑
