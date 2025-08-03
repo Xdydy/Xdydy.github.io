@@ -28,8 +28,9 @@
 <meta property="og:image" content="http://example.com/assets/elasticquota/delete-pods.png">
 <meta property="og:image" content="http://example.com/assets/elasticquota/low-deployment.png">
 <meta property="og:image" content="http://example.com/assets/elasticquota/high-deployment.png">
+<meta property="og:image" content="http://example.com/assets/elasticquota/manager.png">
 <meta property="article:published_time" content="2025-07-20T06:23:58.000Z">
-<meta property="article:modified_time" content="2025-07-20T13:31:57.649Z">
+<meta property="article:modified_time" content="2025-08-03T04:50:40.138Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="elasticquota">
@@ -238,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          7k 字
         
       </span>
     
@@ -249,7 +250,7 @@
         
         
         
-          23 分钟
+          36 分钟
         
       </span>
     
@@ -422,6 +423,43 @@
 <p>可以看到高优先级的<code>pods</code>可以抢占低优先级的<code>pods</code></p>
 <p><img src="/../assets/elasticquota/high-deployment.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
 <h3 id="Namespaces级别的隔离"><a href="#Namespaces级别的隔离" class="headerlink" title="Namespaces级别的隔离"></a>Namespaces级别的隔离</h3><p>其中的<code>namespace</code>隔离与<code>label</code>隔离接口接近，这里不再赘述</p>
+<h3 id="代码逻辑"><a href="#代码逻辑" class="headerlink" title="代码逻辑"></a>代码逻辑</h3><p><img src="/../assets/elasticquota/manager.png" srcset="/img/loading.gif" lazyload alt="代码总体架构"></p>
+<h4 id="PreFilter-阶段"><a href="#PreFilter-阶段" class="headerlink" title="PreFilter 阶段"></a>PreFilter 阶段</h4><p>这个阶段主要是处理了<code>pods</code>加入到一个<code>quota</code>中，其中包含了几个重要的过程</p>
+<ul>
+<li>检查<code>EnableRuntimeQuota</code>: 这个</li>
+<li>检查<code>pods</code>是否是不被驱逐的<code>pods</code>: 将该<code>pods</code>加入到不被驱逐的集合当中，如果当前<code>quota</code>的资源不足，就拒绝这个<code>pods</code></li>
+<li>检查<code>EnableCheckParentQuota</code>: 会递归的检查当前的资源请求会不会导致父<code>quota</code>超额，拒绝超额的<code>pods</code></li>
+</ul>
+<h4 id="PostFilter-阶段"><a href="#PostFilter-阶段" class="headerlink" title="PostFilter 阶段"></a>PostFilter 阶段</h4><p>这个阶段会修改默认的驱逐过程，只允许同个<code>quota</code>的<code>pods</code>可以互相驱逐对方</p>
+<h2 id="Load-aware-Descheduler"><a href="#Load-aware-Descheduler" class="headerlink" title="Load-aware Descheduler"></a>Load-aware Descheduler</h2><h3 id="代码逻辑-1"><a href="#代码逻辑-1" class="headerlink" title="代码逻辑"></a>代码逻辑</h3><h4 id="Balance-方法"><a href="#Balance-方法" class="headerlink" title="Balance 方法"></a>Balance 方法</h4><p>该方法通过遍历节点池来实现重新的负载均衡，对每个节点调用<code>processOneNodePool</code></p>
+<ul>
+<li>获取节点的使用情况<code>getNodeUsage</code></li>
+<li>获取节点的上下限<code>getNodeThresholds</code></li>
+<li>将节点进行分类<code>classifyNodes</code>: 分为低负载节点、高负载节点以及正常节点，分别为<code>lowNodes, highNodes, prodLowNodes, prodHighNodes, bothLowNodes</code></li>
+<li>过滤出实际高使用量的节点<code>filterRealAbnormalNodes</code></li>
+<li>重置低使用量的节点<code>resetNodesAsNormal</code></li>
+<li>将<code>pods</code>从<code>SourceNodes</code>中驱逐<code>evictPodsFromSourceNodes</code></li>
+<li>尝试把高负载节点标记为正常节点</li>
+</ul>
+<p><code>evictPodsFromSourceNodes</code>中有一个重要的函数调用<code>balancePods</code></p>
+<ul>
+<li><code>balancePods</code>首先将<code>pods</code>进行分类，分为可以删除的<code>pods</code>以及不可删除的</li>
+<li>然后将<code>pods</code>排个序</li>
+<li>然后驱逐<code>pods</code> <code>evictPods</code></li>
+<li>如果<code>continueEvictionCond</code>条件不满足，就不会继续再驱逐<code>pods</code></li>
+</ul>
+<p><code>continueEvictionCond</code>判定如果当前的节点压力已经没那么大了，说明就不用继续驱逐了</p>
+<h4 id="nodeFit"><a href="#nodeFit" class="headerlink" title="nodeFit"></a>nodeFit</h4><p>看的时候一直有一个问题，如果一个<code>pods</code>从高负载节点重调度到一个节点之后，导致了这个节点变为高负载该咋办？这样重调度是不是一直死循环了</p>
+<p><code>nodeFit</code>参数设置的时候在重调度过程中就会检查每个<code>pods</code>是否有合适的节点，如果没有设置，那么<code>pods</code>就会直接调度到一个节点上</p>
+<p><code>podFitsAnyNodeWithThreshold</code> 方法会检查一个<code>pods</code>是否有合适的节点可以接纳它</p>
+<ul>
+<li><code>NodeFit</code>方法会检查某个<code>pods</code>是否能够调度到这个节点上, 但只是一些亲和性的检查还有一些资源使用量的检查</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// NodeFit returns true if the provided pod can be scheduled onto the provided node.</span><br><span class="hljs-comment">// This function is used when the NodeFit pod filtering feature of the Descheduler is enabled.</span><br><span class="hljs-comment">// This function currently considers a subset of the Kubernetes Scheduler&#x27;s predicates when</span><br><span class="hljs-comment">// deciding if a pod would fit on a node, but more predicates may be added in the future.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NodeFit</span><span class="hljs-params">(nodeIndexer podutil.GetPodsAssignedToNodeFunc, pod *corev1.Pod, node *corev1.Node)</span></span> []<span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// Check node selector and required affinity</span><br>	<span class="hljs-keyword">var</span> errors []<span class="hljs-type">error</span><br>	<span class="hljs-keyword">if</span> ok, err := utils.PodMatchNodeSelector(pod, node); err != <span class="hljs-literal">nil</span> &#123;<br>		errors = <span class="hljs-built_in">append</span>(errors, err)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !ok &#123;<br>		errors = <span class="hljs-built_in">append</span>(errors, fmt.Errorf(<span class="hljs-string">&quot;pod node selector does not match the node label&quot;</span>))<br>	&#125;<br>	<span class="hljs-comment">// Check taints (we only care about NoSchedule and NoExecute taints)</span><br>	ok := utils.TolerationsTolerateTaintsWithFilter(pod.Spec.Tolerations, node.Spec.Taints, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(taint *corev1.Taint)</span></span> <span class="hljs-type">bool</span> &#123;<br>		<span class="hljs-keyword">return</span> taint.Effect == corev1.TaintEffectNoSchedule || taint.Effect == corev1.TaintEffectNoExecute<br>	&#125;)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		errors = <span class="hljs-built_in">append</span>(errors, fmt.Errorf(<span class="hljs-string">&quot;pod does not tolerate taints on the node&quot;</span>))<br>	&#125;<br>	<span class="hljs-comment">// Check if the pod can fit on a node based off it&#x27;s requests</span><br>	ok, reqErrors := fitsRequest(nodeIndexer, pod, node)<br>	<span class="hljs-keyword">if</span> !ok &#123;<br>		errors = <span class="hljs-built_in">append</span>(errors, reqErrors...)<br>	&#125;<br>	<span class="hljs-comment">// Check if node is schedulable</span><br>	<span class="hljs-keyword">if</span> IsNodeUnschedulable(node) &#123;<br>		errors = <span class="hljs-built_in">append</span>(errors, fmt.Errorf(<span class="hljs-string">&quot;node is not schedulable&quot;</span>))<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> errors<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>获取之后会评估这个<code>pod</code>的<code>request</code>会不会导致<code>node</code>过载，如果过载就不会再调度到这个节点上</li>
+</ul>
 
                 
               </div>
