@@ -301,3 +301,91 @@ spec:
 
 其中的`namespace`隔离与`label`隔离接口接近，这里不再赘述
 
+### 代码逻辑
+
+![代码总体架构](../assets/elasticquota/manager.png)
+
+#### PreFilter 阶段
+
+这个阶段主要是处理了`pods`加入到一个`quota`中，其中包含了几个重要的过程
+
+- 检查`EnableRuntimeQuota`: 这个
+- 检查`pods`是否是不被驱逐的`pods`: 将该`pods`加入到不被驱逐的集合当中，如果当前`quota`的资源不足，就拒绝这个`pods`
+- 检查`EnableCheckParentQuota`: 会递归的检查当前的资源请求会不会导致父`quota`超额，拒绝超额的`pods`
+
+
+#### PostFilter 阶段
+
+这个阶段会修改默认的驱逐过程，只允许同个`quota`的`pods`可以互相驱逐对方
+
+## Load-aware Descheduler
+
+### 代码逻辑
+
+#### Balance 方法
+
+该方法通过遍历节点池来实现重新的负载均衡，对每个节点调用`processOneNodePool`
+
+- 获取节点的使用情况`getNodeUsage`
+- 获取节点的上下限`getNodeThresholds`
+- 将节点进行分类`classifyNodes`: 分为低负载节点、高负载节点以及正常节点，分别为`lowNodes, highNodes, prodLowNodes, prodHighNodes, bothLowNodes`
+- 过滤出实际高使用量的节点`filterRealAbnormalNodes`
+- 重置低使用量的节点`resetNodesAsNormal`
+- 将`pods`从`SourceNodes`中驱逐`evictPodsFromSourceNodes`
+- 尝试把高负载节点标记为正常节点
+
+`evictPodsFromSourceNodes`中有一个重要的函数调用`balancePods`
+
+- `balancePods`首先将`pods`进行分类，分为可以删除的`pods`以及不可删除的
+- 然后将`pods`排个序
+- 然后驱逐`pods` `evictPods`
+- 如果`continueEvictionCond`条件不满足，就不会继续再驱逐`pods`
+
+`continueEvictionCond`判定如果当前的节点压力已经没那么大了，说明就不用继续驱逐了
+
+
+#### nodeFit
+
+看的时候一直有一个问题，如果一个`pods`从高负载节点重调度到一个节点之后，导致了这个节点变为高负载该咋办？这样重调度是不是一直死循环了
+
+`nodeFit`参数设置的时候在重调度过程中就会检查每个`pods`是否有合适的节点，如果没有设置，那么`pods`就会直接调度到一个节点上
+
+`podFitsAnyNodeWithThreshold` 方法会检查一个`pods`是否有合适的节点可以接纳它
+
+- `NodeFit`方法会检查某个`pods`是否能够调度到这个节点上, 但只是一些亲和性的检查还有一些资源使用量的检查
+
+```go
+// NodeFit returns true if the provided pod can be scheduled onto the provided node.
+// This function is used when the NodeFit pod filtering feature of the Descheduler is enabled.
+// This function currently considers a subset of the Kubernetes Scheduler's predicates when
+// deciding if a pod would fit on a node, but more predicates may be added in the future.
+func NodeFit(nodeIndexer podutil.GetPodsAssignedToNodeFunc, pod *corev1.Pod, node *corev1.Node) []error {
+	// Check node selector and required affinity
+	var errors []error
+	if ok, err := utils.PodMatchNodeSelector(pod, node); err != nil {
+		errors = append(errors, err)
+	} else if !ok {
+		errors = append(errors, fmt.Errorf("pod node selector does not match the node label"))
+	}
+	// Check taints (we only care about NoSchedule and NoExecute taints)
+	ok := utils.TolerationsTolerateTaintsWithFilter(pod.Spec.Tolerations, node.Spec.Taints, func(taint *corev1.Taint) bool {
+		return taint.Effect == corev1.TaintEffectNoSchedule || taint.Effect == corev1.TaintEffectNoExecute
+	})
+	if !ok {
+		errors = append(errors, fmt.Errorf("pod does not tolerate taints on the node"))
+	}
+	// Check if the pod can fit on a node based off it's requests
+	ok, reqErrors := fitsRequest(nodeIndexer, pod, node)
+	if !ok {
+		errors = append(errors, reqErrors...)
+	}
+	// Check if node is schedulable
+	if IsNodeUnschedulable(node) {
+		errors = append(errors, fmt.Errorf("node is not schedulable"))
+	}
+
+	return errors
+}
+```
+
+- 获取之后会评估这个`pod`的`request`会不会导致`node`过载，如果过载就不会再调度到这个节点上
