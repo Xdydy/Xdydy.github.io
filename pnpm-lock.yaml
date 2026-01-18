@@ -8,6 +8,9 @@ dependencies:
   hexo:
     specifier: ^6.3.0
     version: 6.3.0
+  hexo-blog-encrypt:
+    specifier: ^3.1.9
+    version: 3.1.9
   hexo-deployer-git:
     specifier: ^4.0.0
     version: 4.0.0
@@ -23,6 +26,9 @@ dependencies:
   hexo-generator-tag:
     specifier: ^2.0.0
     version: 2.0.0
+  hexo-hide-posts:
+    specifier: ^0.4.0
+    version: 0.4.0
   hexo-renderer-ejs:
     specifier: ^2.0.0
     version: 2.0.0
@@ -38,6 +44,9 @@ dependencies:
   hexo-server:
     specifier: ^3.0.0
     version: 3.0.0
+  hexo-theme-fluid:
+    specifier: ^1.9.7
+    version: 1.9.7(nunjucks@3.2.4)
   hexo-theme-landscape:
     specifier: ^1.0.0
     version: 1.0.0
@@ -342,6 +351,7 @@ packages:
 
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    requiresBuild: true
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -627,6 +637,10 @@ packages:
       function-bind: 1.1.2
     dev: false
 
+  /hexo-blog-encrypt@3.1.9:
+    resolution: {integrity: sha512-dzuZiW5mD8t1FOhJXqc+IgV1Tc45YtatJb/w8k4PyT9McQxsROQXsBw+zbDembzuqMnbnkCeT2SapZ/r9AgAcw==}
+    dev: false
+
   /hexo-cli@4.3.1:
     resolution: {integrity: sha512-nYe7yJhXT7MwlDEpIAjneMfz0wnWTdIhRv+cVW2OPTw8JtG2X+8Y/sYhPDvQz/ZqjFRZ4qgiKFXN5orFJ/u1vg==}
     engines: {node: '>=14'}
@@ -713,6 +727,12 @@ packages:
       hexo-pagination: 3.0.0
     dev: false
 
+  /hexo-hide-posts@0.4.0:
+    resolution: {integrity: sha512-qSdCoNG2FRxX/7TKJHPINOK/KbfaqqMgT1LHNAYPN1P0MgL187b0A6sCduevoIMlN0i/xK0yNlS/UDRQwVdZGw==}
+    dependencies:
+      chalk: 4.1.2
+    dev: false
+
   /hexo-i18n@1.0.0:
     resolution: {integrity: sha512-yw90JHr7ybUHN/QOkpHmlWJj1luVk5/v8CUU5NRA0n4TFp6av8NT7ujZ10GDawgnQEdMHnN5PUfAbNIVGR6axg==}
     engines: {node: '>=8.6.0'}
@@ -795,6 +815,15 @@ packages:
       serve-static: 1.15.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /hexo-theme-fluid@1.9.7(nunjucks@3.2.4):
+    resolution: {integrity: sha512-rLpUNcs8XhAQZ9Iq8nZ27XbMDtbJs/y35kkpPmebUqV9hV+j3/Yy3tf3zKJW3nzZhTO/8bXYrtNDvmoj1TRmBQ==}
+    engines: {node: '>=8.10.0'}
+    peerDependencies:
+      nunjucks: ^3.0.0
+    dependencies:
+      nunjucks: 3.2.4
     dev: false
 
   /hexo-theme-landscape@1.0.0:
@@ -1371,6 +1400,7 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -1386,6 +1416,7 @@ packages:
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -1450,6 +1481,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    requiresBuild: true
     dev: false
 
   /sax@1.2.4:
@@ -1466,6 +1498,7 @@ packages:
   /semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
+    requiresBuild: true
     dev: false
     optional: true
 
